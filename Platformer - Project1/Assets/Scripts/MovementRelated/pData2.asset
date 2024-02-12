@@ -13,19 +13,28 @@ MonoBehaviour:
   m_Name: pData2
   m_EditorClassIdentifier: 
   maxMoveSpeed: 6
-  acceleration: 22
+  acceleration: 8
   decceleration: 50
   accelInAir: 0.5
   deccelInAir: 0.077
   doConserveMomentum: 1
+  slideHorizontalForce: 6
+  slideSameDirectionForceMultiplier: 0.8
+  slideForceApplyThreshold: 4
+  timeBetweenSlides: 0.6
+  slideDuration: 0.25
+  slideBufferTime: 0.2
   jumpForce: 15
   jumpBufferTime: 0.1
   jumpCoyoteTime: 0.13
-  jumpCutMultiplier: 0.7
+  jumpCutMultiplier: 1
   jumpHangAccelerationMultiplier: 1.5
   jumpHangMaxSpeedMultiplier: 1.3
+  jumpHangTimeThreshold: 0.3
+  jumpHangGravityMultiplier: 0.7
+  wallJumpForce: {x: 6, y: 3}
+  wallJumpSameDirectionForceMultiplier: 0.2
+  wallJumpForceApplyThreshold: 0.5
   gravityScale: 3
   fallGravityMultiplier: 1.5
   maxFallSpeed: 18
-  jumpHangTimeThreshold: 0.3
-  jumpHangGravityMultiplier: 0.7

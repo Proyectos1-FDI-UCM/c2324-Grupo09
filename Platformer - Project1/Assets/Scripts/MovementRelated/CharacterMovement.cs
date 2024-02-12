@@ -12,16 +12,27 @@ public class CharacterMovement : MonoBehaviour
 
     #region hiddenVariables
     bool _isJumping = false;
+    bool _isSliding = false;
     bool _isJumpFalling = false;
+    [SerializeField]
+    bool _isWallJumping = false;
 
     #region Timers
     float _lastGroundedTime = 0f;
     float _lastJumpTime = 0f;
+    float _lastSlideTime = -10f;
+    float _lastTimeSlideInput = 0f;
     #endregion
 
     #endregion
 
     #region Parameters
+    [SerializeField]
+    private int _maxNumberOfWallJumps = 3;
+    private int _currentWallJumpNumber;
+    private float _lastDirection = 1;
+
+    //private bool _movementIsBlocked = false;
 
     #region checkData
     [SerializeField]
@@ -46,13 +57,41 @@ public class CharacterMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        _currentWallJumpNumber = _maxNumberOfWallJumps;
+    }
+
     void Update()
     {
-        #region jump
-        if (_lastGroundedTime > 0  && _lastJumpTime > 0 && !_isJumping)
+        #region slide
+        if(Time.time -_lastSlideTime > _md.slideDuration)
         {
-            Jump();
+            _isSliding = false;
         }
+
+        if (_lastTimeSlideInput > 0)
+        {
+            Slide();
+        }
+        #endregion
+
+        #region jump
+
+        if (_lastJumpTime > 0 )
+        {
+            //Do Grounded Jump-----------------------------------------------------------------------
+            if (_lastGroundedTime > 0 && !_isJumping)
+            {
+                Jump();
+            }
+            //DO WallJump----------------------------------------------------------------------------
+            else if (_currentWallJumpNumber > 0 && !_isWallJumping)
+            {
+                WallJump();
+            }
+        }
+
 
         #region jumpChecks
         if(_rb.velocity.y < 0 && _lastGroundedTime <=0)
@@ -77,8 +116,13 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
+            _isWallJumping = false;
             _lastGroundedTime = _md.jumpCoyoteTime;
         }
+        #endregion
+
+        #region buffers
+        _lastTimeSlideInput -= Time.deltaTime;
         _lastJumpTime -= Time.deltaTime;
         #endregion
 
@@ -89,6 +133,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void Run(float direction)
     {
+        if (_isWallJumping || _isSliding) return;
+
         //calculate the direction we want to move in and our desired velocity
         float targetSpeed = direction * _md.maxMoveSpeed;
         float accelRate;
@@ -101,7 +147,7 @@ public class CharacterMovement : MonoBehaviour
 
         #region Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (_md.doConserveMomentum && Mathf.Abs(_rb.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f /*&& LastOnGroundTime < 0*/)
+        if (_md.doConserveMomentum && Mathf.Abs(_rb.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
@@ -124,16 +170,46 @@ public class CharacterMovement : MonoBehaviour
 
         //applies force to rigidody, multiplying by Vector2.right so that it only affects X axis
         _rb.AddForce(movement * Vector2.right);
+        if(direction != 0) _lastDirection = direction;
     }
 
     private void Jump()
     {
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.jumpForce, ForceMode2D.Impulse);
-
+        _isSliding = false;
         _isJumping = true;
         _lastJumpTime = 0;
         _lastGroundedTime = 0;
+    }
+
+    private void WallJump()
+    {
+        float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
+        if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
+        {
+            sameDirectionFactor = 1;
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
+        //_rb.velocity = new Vector2(_rb.velocity.x, 0);
+        _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
+        _isWallJumping = true;
+        //_isJumping = true;
+    }
+
+    private void Slide()
+    {
+        if (!(Time.time - _lastSlideTime > _md.timeBetweenSlides) || _lastGroundedTime <= 0) return;
+        _lastSlideTime = Time.time;
+        _isSliding = true;
+
+        float sameDirectionFactor = _md.slideSameDirectionForceMultiplier;
+        if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.slideForceApplyThreshold)
+        {
+            _rb.velocity = new Vector2(0,_rb.velocity.y);
+            sameDirectionFactor = 1;
+        }
+        _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
     }
 
     #region gravityRelated
@@ -177,6 +253,12 @@ public class CharacterMovement : MonoBehaviour
         }
 
         _lastJumpTime = 0;
+    }
+
+    public void SlidePressed()
+    {
+        _lastTimeSlideInput = _md.slideBufferTime;
+        Slide();
     }
     #endregion
 

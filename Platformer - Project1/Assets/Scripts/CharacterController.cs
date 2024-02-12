@@ -23,6 +23,11 @@ public class CharacterController : MonoBehaviour
         {
             _chMovement.JumpReleased();
         }
+
+        if (Input.GetButtonDown("Slide"))
+        {
+            _chMovement.SlidePressed();
+        }
     }
 
 

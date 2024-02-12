@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Movement Data", order = 10)]
 public class MovementData : ScriptableObject
 {
+    [Header("HorizontalMovement")]
     //max Horizontal Speed
     public float maxMoveSpeed = 1f;
     //[Range(0.0F, 1.0F)]
@@ -18,6 +19,17 @@ public class MovementData : ScriptableObject
     //permite ir a mayor velocidad de la normal en la dirección de movimiento actual
     public bool doConserveMomentum;
 
+    [Header("Slide")]
+    public float slideHorizontalForce = 3;
+    [Range(0.0F, 1.0F)]
+    public float slideSameDirectionForceMultiplier = 1;
+    public float slideForceApplyThreshold = 1f;
+    public float timeBetweenSlides = 1f;
+    public float slideDuration = 0.5f;
+    [Range(0.0F,1.0F)]
+    public float slideBufferTime = 0.2f;
+
+    [Header("Jump")]
     public float jumpForce = 1f;
     //1/10 - 1/20 of a second
     public float jumpBufferTime = 0.1f;
@@ -30,15 +42,22 @@ public class MovementData : ScriptableObject
     public float jumpHangAccelerationMultiplier = 1;
     [Range(1.0F, 10.0F)]
     public float jumpHangMaxSpeedMultiplier = 1;
-
-
-
-    public float gravityScale = 1;
-    //mayor igual de 1
-    public float fallGravityMultiplier = 1;
-    public float maxFallSpeed = 10f;
     [Range(0F, 1F)]
     public float jumpHangTimeThreshold = 0;
     [Range(0F, 1F)]
     public float jumpHangGravityMultiplier = 1;
+
+    [Header("WallJump")]
+    public Vector2 wallJumpForce = new Vector2(1, 1);
+    [Range(0.0F, 1.0F)]
+    public float wallJumpSameDirectionForceMultiplier = 1;
+    public float wallJumpForceApplyThreshold = 1f;
+
+
+    [Header("gravity")]
+    public float gravityScale = 1;
+    //mayor igual de 1
+    public float fallGravityMultiplier = 1;
+    public float maxFallSpeed = 10f;
+
 }
