@@ -23,14 +23,14 @@ MonoBehaviour:
   pogoFallForce: 15
   pogoInitialUpVel: 8
   pogoEmpoweredJumpDuration: 0.2
-  empoweredJumpForceMultiplier: 1.3
+  empoweredJumpForceMultiplier: 1.4
   slideHorizontalForce: 14
   slideSameDirectionForceMultiplier: 0.4
   slideForceApplyThreshold: 4
   timeBetweenSlides: 0.6
   slideDuration: 0.25
   slideBufferTime: 0.2
-  jumpForce: 15
+  jumpForce: 12
   jumpBufferTime: 0.1
   jumpCoyoteTime: 0.13
   jumpCutMultiplier: 1
