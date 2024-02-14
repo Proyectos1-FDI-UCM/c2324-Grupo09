@@ -48,6 +48,7 @@ public class CharacterMovement : MonoBehaviour
     #region accessors
     public bool Grounded { get { return (!(_isJumping || _isJumpFalling)); } }
     public float RByVel { get { return _rb.velocity.y; } }
+    public bool Sliding { get { return _isSliding; } }
     #endregion
 
     #region methods

@@ -27,7 +27,6 @@ public class CharacterController : MonoBehaviour
         if (Input.GetButtonDown("Slide"))
         {
             _chMovement.SlidePressed();
-            _animComp.SetSlide(true);
         }
     }
 
@@ -43,10 +42,6 @@ public class CharacterController : MonoBehaviour
         _animComp.UpdateXInput(input);
         _animComp.SetVelocityY(_chMovement.RByVel);
         _animComp.SetGrounded(_chMovement.Grounded);
-    }
-
-    void SetFinishSlide()
-    {
-        _animComp.SetSlide(false);
+        _animComp.SetSlide(_chMovement.Sliding);
     }
 }
