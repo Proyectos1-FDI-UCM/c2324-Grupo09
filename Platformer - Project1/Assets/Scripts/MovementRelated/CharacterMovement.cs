@@ -27,8 +27,6 @@ public class CharacterMovement : MonoBehaviour
     #endregion
 
     #region Parameters
-    [SerializeField]
-    private int _maxNumberOfWallJumps = 3;
     private int _currentWallJumpNumber;
     private float _lastDirection = 1;
 
@@ -60,7 +58,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        _currentWallJumpNumber = _maxNumberOfWallJumps;
+        _currentWallJumpNumber = _md.maxNumberOfWallJumps;
     }
 
     void Update()
@@ -200,7 +198,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Slide()
     {
-        if (!(Time.time - _lastSlideTime > _md.timeBetweenSlides) || _lastGroundedTime <= 0) return;
+        if (!(Time.time - _lastSlideTime > _md.timeBetweenSlides) || !CheckGrounded()) return;
         _lastSlideTime = Time.time;
         _isSliding = true;
 

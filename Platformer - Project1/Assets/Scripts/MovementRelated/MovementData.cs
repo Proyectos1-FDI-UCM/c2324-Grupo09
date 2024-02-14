@@ -48,6 +48,7 @@ public class MovementData : ScriptableObject
     public float jumpHangGravityMultiplier = 1;
 
     [Header("WallJump")]
+    public int maxNumberOfWallJumps = 3;
     public Vector2 wallJumpForce = new Vector2(1, 1);
     [Range(0.0F, 1.0F)]
     public float wallJumpSameDirectionForceMultiplier = 1;
