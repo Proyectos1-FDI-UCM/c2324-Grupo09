@@ -18,8 +18,8 @@ MonoBehaviour:
   accelInAir: 0.5
   deccelInAir: 0.077
   doConserveMomentum: 1
-  slideHorizontalForce: 6
-  slideSameDirectionForceMultiplier: 0.8
+  slideHorizontalForce: 12
+  slideSameDirectionForceMultiplier: 0.4
   slideForceApplyThreshold: 4
   timeBetweenSlides: 0.6
   slideDuration: 0.25
