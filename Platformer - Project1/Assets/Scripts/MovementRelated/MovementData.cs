@@ -19,6 +19,14 @@ public class MovementData : ScriptableObject
     //permite ir a mayor velocidad de la normal en la dirección de movimiento actual
     public bool doConserveMomentum;
 
+    [Header("Pogo")]
+    public float pogoXDuration = 0.1f;
+    public float pogoYDuration = 0.4f;
+    public float pogoFallForce = 20f;
+    public float pogoInitialUpVel = 2f;
+    public float pogoEmpoweredJumpDuration = 0.5f;
+    public float empoweredJumpForceMultiplier = 1f;
+
     [Header("Slide")]
     public float slideHorizontalForce = 3;
     [Range(0.0F, 1.0F)]

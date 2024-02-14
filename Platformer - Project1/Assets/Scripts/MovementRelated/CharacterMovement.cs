@@ -14,14 +14,19 @@ public class CharacterMovement : MonoBehaviour
     bool _isJumping = false;
     bool _isSliding = false;
     bool _isJumpFalling = false;
-    [SerializeField]
     bool _isWallJumping = false;
+    bool _isUsingPogo = false;
+    bool _pogoAnimationCompleted = false;
+    Vector3 _pogoStartVelocity = Vector3.zero;
+
 
     #region Timers
     float _lastGroundedTime = 0f;
     float _lastJumpTime = 0f;
     float _lastSlideTime = -10f;
     float _lastTimeSlideInput = 0f;
+    float _pogoStartTime = 0f;
+    float _pogoTouchedGround = 0f;
     #endregion
 
     #endregion
@@ -68,10 +73,14 @@ public class CharacterMovement : MonoBehaviour
         {
             _isSliding = false;
         }
-
-        if (_lastTimeSlideInput > 0)
-        {
-            Slide();
+        if (_lastTimeSlideInput > 0) {
+            if (Time.time - _lastSlideTime > _md.timeBetweenSlides && CheckGrounded())
+            {
+                Slide();
+            } else if (!_isUsingPogo)
+            {
+                PogoStart();
+            }
         }
         #endregion
 
@@ -85,7 +94,7 @@ public class CharacterMovement : MonoBehaviour
                 Jump();
             }
             //DO WallJump----------------------------------------------------------------------------
-            else if (_currentWallJumpNumber > 0 && !_isWallJumping)
+            else if (_currentWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
                 WallJump();
             }
@@ -115,6 +124,11 @@ public class CharacterMovement : MonoBehaviour
         }
         else
         {
+            if (_isUsingPogo)
+            {
+                _isUsingPogo = false;
+                _pogoTouchedGround = Time.time;
+            }
             _isWallJumping = false;
             _lastGroundedTime = _md.jumpCoyoteTime;
         }
@@ -128,11 +142,31 @@ public class CharacterMovement : MonoBehaviour
         #region changeGravity
         UpdateGravity();
         #endregion
+
+        #region Pogo
+        if (_isUsingPogo)
+        {
+            if (Time.time - _pogoStartTime < _md.pogoXDuration)
+            {
+                _rb.velocity = new Vector2 (Mathf.Lerp(_pogoStartVelocity.x, 0 , (Time.time - _pogoStartTime) / _md.pogoXDuration), _rb.velocity.y);
+            }
+            if(Time.time - _pogoStartTime < _md.pogoYDuration)
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Lerp(_pogoStartVelocity.y, _md.pogoInitialUpVel, (Time.time - _pogoStartTime) / _md.pogoYDuration));
+            }
+            else 
+            {
+                _rb.AddForce(Vector2.down * _md.pogoFallForce, ForceMode2D.Impulse);
+                if (!_pogoAnimationCompleted)
+                    _pogoAnimationCompleted = true;
+            }
+        }
+        #endregion
     }
 
     public void Run(float direction)
     {
-        if (_isWallJumping || _isSliding) return;
+        if (_isWallJumping || _isSliding || _isUsingPogo) return;
 
         //calculate the direction we want to move in and our desired velocity
         float targetSpeed = direction * _md.maxMoveSpeed;
@@ -172,10 +206,22 @@ public class CharacterMovement : MonoBehaviour
         if(direction != 0) _lastDirection = direction;
     }
 
+    private void PogoStart()
+    {
+        _isUsingPogo = true;
+        _pogoStartTime = Time.time;
+        _pogoStartVelocity = _rb.velocity;
+        _pogoAnimationCompleted = false;
+    }
+
     private void Jump()
     {
+        float jumpForceMultiplier = 1f;
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
-        _rb.AddForce(Vector2.up * _md.jumpForce, ForceMode2D.Impulse);
+        if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration)
+            jumpForceMultiplier = _md.empoweredJumpForceMultiplier;
+        _rb.AddForce(Vector2.up * _md.jumpForce * jumpForceMultiplier, ForceMode2D.Impulse);
+        _pogoTouchedGround = -1;
         _isSliding = false;
         _isJumping = true;
         _lastJumpTime = 0;
@@ -198,9 +244,10 @@ public class CharacterMovement : MonoBehaviour
 
     private void Slide()
     {
-        if (!(Time.time - _lastSlideTime > _md.timeBetweenSlides) || !CheckGrounded()) return;
         _lastSlideTime = Time.time;
         _isSliding = true;
+        _isUsingPogo = false;
+        _lastTimeSlideInput = -1;
 
         float sameDirectionFactor = _md.slideSameDirectionForceMultiplier;
         if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.slideForceApplyThreshold)
@@ -256,8 +303,8 @@ public class CharacterMovement : MonoBehaviour
 
     public void SlidePressed()
     {
+        //if()
         _lastTimeSlideInput = _md.slideBufferTime;
-        Slide();
     }
     #endregion
 

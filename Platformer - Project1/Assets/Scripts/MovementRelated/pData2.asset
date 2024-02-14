@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMoveSpeed: 6
   acceleration: 8
-  decceleration: 50
+  decceleration: 30
   accelInAir: 0.5
   deccelInAir: 0.077
   doConserveMomentum: 1
-  slideHorizontalForce: 12
+  pogoXDuration: 0.1
+  pogoYDuration: 0.33
+  pogoFallForce: 15
+  pogoInitialUpVel: 8
+  pogoEmpoweredJumpDuration: 0.2
+  empoweredJumpForceMultiplier: 1.3
+  slideHorizontalForce: 14
   slideSameDirectionForceMultiplier: 0.4
   slideForceApplyThreshold: 4
   timeBetweenSlides: 0.6
@@ -32,6 +38,7 @@ MonoBehaviour:
   jumpHangMaxSpeedMultiplier: 1.3
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
+  maxNumberOfWallJumps: 3
   wallJumpForce: {x: 6, y: 3}
   wallJumpSameDirectionForceMultiplier: 0.2
   wallJumpForceApplyThreshold: 0.5
