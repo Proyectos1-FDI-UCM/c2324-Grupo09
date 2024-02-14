@@ -23,4 +23,9 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator.SetBool("Grounded", val);
     }
+
+    public void SetSlide(bool val)
+    {
+        _animator.SetBool("Slide", val);
+    }
 }
