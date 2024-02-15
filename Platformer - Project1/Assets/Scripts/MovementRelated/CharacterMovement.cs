@@ -18,23 +18,31 @@ public class CharacterMovement : MonoBehaviour
     bool _isWallJumping = false;
     bool _isUsingPogo = false;
     bool _pogoAnimationCompleted = false;
+    //stores the rigidbody velocity when the pogo button is pressed
     Vector3 _pogoStartVelocity = Vector3.zero;
 
 
     #region Timers
     float _lastGroundedTime = 0f;
+    //jump buffer
     float _lastJumpTimeInput = 0f;
-    [SerializeField]
+    //timer for slide cooldown
     float _lastSlideTime = -10f;
+    //slide buffer
     float _lastTimeSlideInput = 0f;
+    //stores time mark when the pogo button is pressed
     float _pogoStartTime = 0f;
+    //stores time mark when you touch ground and _isUsingPogo == true
     float _pogoTouchedGround = 0f;
     #endregion
 
     #endregion
 
     #region Parameters
+    //wall jumps left
     private int _currentWallJumpNumber;
+
+    //stores with 1 or -1 the last direction pressed by player
     private float _lastDirection = 1;
     #endregion
 
@@ -162,6 +170,11 @@ public class CharacterMovement : MonoBehaviour
         #endregion
     }
 
+
+    /// <summary>
+    /// Applies a force in direction to the player input.
+    /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum
+    /// </summary>
     public void Run(float direction)
     {
         if (_isWallJumping || _isSliding || _isUsingPogo) return;
@@ -204,6 +217,9 @@ public class CharacterMovement : MonoBehaviour
         if(direction != 0) _lastDirection = direction;
     }
 
+    /// <summary>
+    /// Function that starts Pogo and stores the variables needed to use it
+    /// </summary>
     private void PogoStart()
     {
         _isUsingPogo = true;
@@ -212,6 +228,9 @@ public class CharacterMovement : MonoBehaviour
         _pogoAnimationCompleted = false;
     }
 
+    /// <summary>
+    /// Jumps, checks if character has just done a Pogo in order to give him an increase on the jump Force
+    /// </summary>
     private void Jump()
     {
         float jumpForceMultiplier = 1f;
@@ -229,6 +248,9 @@ public class CharacterMovement : MonoBehaviour
         _lastGroundedTime = 0;
     }
 
+    /// <summary>
+    /// Generates the initial horizontal Force and blocks movement while it lasts
+    /// </summary>
     private void WallJump()
     {
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
@@ -243,6 +265,11 @@ public class CharacterMovement : MonoBehaviour
         //_isJumping = true;
     }
 
+    /// <summary>
+    /// Initiates Slide, blocking movement
+    /// Gives player a good boost on horizontal speed
+    /// If current horizontal Speed is greater than a const the impulse recieved is multiplied by a reduction coeficient
+    /// </summary>
     private void Slide()
     {
         _lastSlideTime = Time.time;
@@ -260,6 +287,9 @@ public class CharacterMovement : MonoBehaviour
         _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
     }
 
+    /// <summary>
+    /// Changes gravity according to the situation
+    /// </summary>
     #region gravityRelated
     public void UpdateGravity()
     {
@@ -281,6 +311,9 @@ public class CharacterMovement : MonoBehaviour
     #endregion
 
     #region SorroundingChecks
+    /// <summary>
+    /// </summary>
+    /// <returns>if player ground hitbox is touching ground</returns>
     private bool CheckGrounded()
     { 
         return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer);
@@ -293,6 +326,7 @@ public class CharacterMovement : MonoBehaviour
         _lastJumpTimeInput = _md.jumpBufferTime;
     }
 
+    //if jump is Released jump cuts
     public void JumpReleased()
     {
         if(_isJumping)
@@ -313,8 +347,11 @@ public class CharacterMovement : MonoBehaviour
     }
     #endregion
 
-
+    
     #region EDITOR METHODS
+    /// <summary>
+    /// draws Gizmos showing character ground hitbox
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
