@@ -36,6 +36,7 @@ public class MovementData : ScriptableObject
     public float slideDuration = 0.5f;
     [Range(0.0F,1.0F)]
     public float slideBufferTime = 0.2f;
+    //public float slideYVelMarginError = 1f;
 
     [Header("Jump")]
     public float jumpForce = 1f;
@@ -63,10 +64,15 @@ public class MovementData : ScriptableObject
     public float wallJumpForceApplyThreshold = 1f;
 
 
-    [Header("gravity")]
+    [Header("Gravity")]
     public float gravityScale = 1;
     //mayor igual de 1
     public float fallGravityMultiplier = 1;
     public float maxFallSpeed = 10f;
+
+    [Header("CollisionChecks")]
+    public float yGroundCheckOffSet = -0.51f;
+    public Vector2 groundCheckSize = new Vector2(0.45f, 0.05f);
+    public LayerMask groundLayer;
 
 }

@@ -11,6 +11,7 @@ public class CharacterMovement : MonoBehaviour
     #endregion
 
     #region hiddenVariables
+    bool _isGrounded = false;
     bool _isJumping = false;
     bool _isSliding = false;
     bool _isJumpFalling = false;
@@ -22,7 +23,8 @@ public class CharacterMovement : MonoBehaviour
 
     #region Timers
     float _lastGroundedTime = 0f;
-    float _lastJumpTime = 0f;
+    float _lastJumpTimeInput = 0f;
+    [SerializeField]
     float _lastSlideTime = -10f;
     float _lastTimeSlideInput = 0f;
     float _pogoStartTime = 0f;
@@ -34,22 +36,10 @@ public class CharacterMovement : MonoBehaviour
     #region Parameters
     private int _currentWallJumpNumber;
     private float _lastDirection = 1;
-
-    //private bool _movementIsBlocked = false;
-
-    #region checkData
-    [SerializeField]
-    float _yGroundCheckOffSet = 0f;
-    [SerializeField]
-    Vector2 _groundCheckSize;
-    [SerializeField]
-    LayerMask _groundLayer;
-    #endregion
-
     #endregion
 
     #region accessors
-    public bool Grounded { get { return (!(_isJumping || _isJumpFalling)); } }
+    public bool Grounded { get { return _isGrounded; } }
     public float RByVel { get { return _rb.velocity.y; } }
     public bool Sliding { get { return _isSliding; } }
     #endregion
@@ -68,16 +58,19 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
+        _isGrounded = CheckGrounded();
+
         #region slide
         if(Time.time -_lastSlideTime > _md.slideDuration)
         {
             _isSliding = false;
         }
         if (_lastTimeSlideInput > 0) {
-            if (Time.time - _lastSlideTime > _md.timeBetweenSlides && CheckGrounded())
+            if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded) //&& Mathf.Abs(_rb.velocity.y) < _md.slideYVelMarginError)
             {
                 Slide();
-            } else if (!_isUsingPogo)
+            } 
+            else if (!_isUsingPogo)
             {
                 PogoStart();
             }
@@ -86,7 +79,7 @@ public class CharacterMovement : MonoBehaviour
 
         #region jump
 
-        if (_lastJumpTime > 0 )
+        if (_lastJumpTimeInput > 0)
         {
             //Do Grounded Jump-----------------------------------------------------------------------
             if (_lastGroundedTime > 0 && !_isJumping)
@@ -118,9 +111,11 @@ public class CharacterMovement : MonoBehaviour
         #endregion
 
         #region SorroundingChecksUpdate
-        if (!CheckGrounded())
+        if (!_isGrounded)
         {
             _lastGroundedTime -= Time.deltaTime;
+            //if (_isUsingPogo && _rb.velocity.y < 0)
+            //    _lastTimeSlideInput = -1;
         }
         else
         {
@@ -135,8 +130,11 @@ public class CharacterMovement : MonoBehaviour
         #endregion
 
         #region buffers
-        _lastTimeSlideInput -= Time.deltaTime;
-        _lastJumpTime -= Time.deltaTime;
+        if (!_isUsingPogo)
+        {
+            _lastTimeSlideInput -= Time.deltaTime;
+            _lastJumpTimeInput -= Time.deltaTime;
+        }
         #endregion
 
         #region changeGravity
@@ -218,13 +216,16 @@ public class CharacterMovement : MonoBehaviour
     {
         float jumpForceMultiplier = 1f;
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
-        if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration)
+        if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted)
+        {
             jumpForceMultiplier = _md.empoweredJumpForceMultiplier;
+            _lastTimeSlideInput = -1;
+        }
         _rb.AddForce(Vector2.up * _md.jumpForce * jumpForceMultiplier, ForceMode2D.Impulse);
         _pogoTouchedGround = -1;
         _isSliding = false;
         _isJumping = true;
-        _lastJumpTime = 0;
+        _lastJumpTimeInput = 0;
         _lastGroundedTime = 0;
     }
 
@@ -248,6 +249,7 @@ public class CharacterMovement : MonoBehaviour
         _isSliding = true;
         _isUsingPogo = false;
         _lastTimeSlideInput = -1;
+        _pogoTouchedGround = -1;
 
         float sameDirectionFactor = _md.slideSameDirectionForceMultiplier;
         if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.slideForceApplyThreshold)
@@ -281,14 +283,14 @@ public class CharacterMovement : MonoBehaviour
     #region SorroundingChecks
     private bool CheckGrounded()
     { 
-        return Physics2D.OverlapBox((Vector2)transform.position + _yGroundCheckOffSet * Vector2.up, _groundCheckSize, 0, _groundLayer);
+        return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer);
     }
     #endregion
 
     #region InputCallbacks
     public void JumpPressed()
     {
-        _lastJumpTime = _md.jumpBufferTime;
+        _lastJumpTimeInput = _md.jumpBufferTime;
     }
 
     public void JumpReleased()
@@ -298,13 +300,16 @@ public class CharacterMovement : MonoBehaviour
             _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - _md.jumpCutMultiplier), ForceMode2D.Impulse);
         }
 
-        _lastJumpTime = 0;
+        _lastJumpTimeInput = 0;
     }
 
     public void SlidePressed()
     {
-        //if()
         _lastTimeSlideInput = _md.slideBufferTime;
+    }
+    public void SlideReleased()
+    {
+        _lastTimeSlideInput = 0;
     }
     #endregion
 
@@ -313,7 +318,7 @@ public class CharacterMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube((Vector2)transform.position + _yGroundCheckOffSet * Vector2.up, _groundCheckSize);
+        Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize);
     }
     #endregion
 

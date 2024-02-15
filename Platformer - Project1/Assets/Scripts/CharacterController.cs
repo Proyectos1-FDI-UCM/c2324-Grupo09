@@ -28,6 +28,10 @@ public class CharacterController : MonoBehaviour
         {
             _chMovement.SlidePressed();
         }
+        if (Input.GetButtonUp("Slide"))
+        {
+            _chMovement.SlideReleased();
+        }
     }
 
 
