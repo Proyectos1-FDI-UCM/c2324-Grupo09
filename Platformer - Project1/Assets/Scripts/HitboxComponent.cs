@@ -43,7 +43,7 @@ public class HitboxComponent : MonoBehaviour
     /// <summary>
     /// Activates the hitbox with the values given in the inspector.
     /// </summary>
-    public void CreateHitbox()
+    public void CreateHitbox(int relativePosition)
     {
         _currentHitboxAlreadyHit = false;
         _hitboxPosition = new Vector2(_hitboxPosition.x * relativePosition, _hitboxPosition.y);
@@ -82,7 +82,7 @@ public class HitboxComponent : MonoBehaviour
     /// </summary>
     bool CheckHit()
     {
-        return Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck)
+        return Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck);
     }
 
     /*

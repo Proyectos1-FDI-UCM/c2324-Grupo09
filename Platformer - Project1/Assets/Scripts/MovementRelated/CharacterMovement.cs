@@ -74,8 +74,13 @@ public class CharacterMovement : MonoBehaviour
             _isSliding = false;
         }
         if (_lastTimeSlideInput > 0) {
-            if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded) //&& Mathf.Abs(_rb.velocity.y) < _md.slideYVelMarginError)
+            if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded)
             {
+                _lastSlideTime = Time.time;
+                _isSliding = true;
+                _isUsingPogo = false;
+                _lastTimeSlideInput = -1;
+                _pogoTouchedGround = -1;
                 Slide();
             } 
             else if (!_isUsingPogo)
@@ -92,12 +97,19 @@ public class CharacterMovement : MonoBehaviour
             //Do Grounded Jump-----------------------------------------------------------------------
             if (_lastGroundedTime > 0 && !_isJumping)
             {
+
                 Jump();
+                _pogoTouchedGround = -1;
+                _isSliding = false;
+                _isJumping = true;
+                _lastJumpTimeInput = 0;
+                _lastGroundedTime = 0;
             }
             //DO WallJump----------------------------------------------------------------------------
             else if (_currentWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
                 WallJump();
+                _isWallJumping = true;
             }
         }
 
@@ -122,8 +134,6 @@ public class CharacterMovement : MonoBehaviour
         if (!_isGrounded)
         {
             _lastGroundedTime -= Time.deltaTime;
-            //if (_isUsingPogo && _rb.velocity.y < 0)
-            //    _lastTimeSlideInput = -1;
         }
         else
         {
@@ -146,7 +156,20 @@ public class CharacterMovement : MonoBehaviour
         #endregion
 
         #region changeGravity
-        UpdateGravity();
+        if ((_isJumping || _isJumpFalling) && Mathf.Abs(_rb.velocity.y) < _md.jumpHangTimeThreshold)
+        {
+            _rb.gravityScale = _md.gravityScale * _md.jumpHangGravityMultiplier;
+        }
+        else if (_rb.velocity.y < 0)
+        {
+            _rb.gravityScale = _md.gravityScale * _md.fallGravityMultiplier;
+            //limitar la velocidad máxima de caida
+            _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Max(_rb.velocity.y, -_md.maxFallSpeed));
+        }
+        else
+        {
+            _rb.gravityScale = _md.gravityScale;
+        }
         #endregion
 
         #region Pogo
@@ -241,11 +264,6 @@ public class CharacterMovement : MonoBehaviour
             _lastTimeSlideInput = -1;
         }
         _rb.AddForce(Vector2.up * _md.jumpForce * jumpForceMultiplier, ForceMode2D.Impulse);
-        _pogoTouchedGround = -1;
-        _isSliding = false;
-        _isJumping = true;
-        _lastJumpTimeInput = 0;
-        _lastGroundedTime = 0;
     }
 
     /// <summary>
@@ -261,7 +279,7 @@ public class CharacterMovement : MonoBehaviour
         }
         //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
-        _isWallJumping = true;
+
         //_isJumping = true;
     }
 
@@ -272,12 +290,6 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     private void Slide()
     {
-        _lastSlideTime = Time.time;
-        _isSliding = true;
-        _isUsingPogo = false;
-        _lastTimeSlideInput = -1;
-        _pogoTouchedGround = -1;
-
         float sameDirectionFactor = _md.slideSameDirectionForceMultiplier;
         if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.slideForceApplyThreshold)
         {
@@ -286,29 +298,6 @@ public class CharacterMovement : MonoBehaviour
         }
         _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
     }
-
-    /// <summary>
-    /// Changes gravity according to the situation
-    /// </summary>
-    #region gravityRelated
-    public void UpdateGravity()
-    {
-        if((_isJumping || _isJumpFalling) && Mathf.Abs(_rb.velocity.y) < _md.jumpHangTimeThreshold)
-        {
-            _rb.gravityScale = _md.gravityScale * _md.jumpHangGravityMultiplier;
-        }
-        else if (_rb.velocity.y < 0)
-        {
-            _rb.gravityScale = _md.gravityScale * _md.fallGravityMultiplier;
-            //limitar la velocidad máxima de caida
-            _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Max(_rb.velocity.y, -_md.maxFallSpeed));
-        }
-        else
-        {
-            _rb.gravityScale = _md.gravityScale;
-        }
-    }
-    #endregion
 
     #region SorroundingChecks
     /// <summary>
