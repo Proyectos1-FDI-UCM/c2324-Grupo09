@@ -1,19 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Compression;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
     private CharacterMovement _chMovement;
     private AnimationComponent _animComp;
-
+    //Valor que te dará el input para saber en qué dirección correr
+    int xInput;
     void Start()
     {
         _chMovement = GetComponent<CharacterMovement>();
         _animComp = GetComponentInChildren<AnimationComponent>();
     }
-    
-    void Update()
+    public void JumpDown() 
+    {
+        _chMovement.JumpPressed();
+    }
+    public void SlideDown()
+    {
+        _chMovement.SlidePressed();
+    }
+    public  void RunDown(float move)
+    {
+        xInput = (int) move;
+
+    }
+    public void JumpUp()
+    {
+        _chMovement.JumpReleased();
+    }
+    public void SlideUp()
+    {
+        _chMovement.SlideReleased();
+    }
+    public void RunUp(float move)
+    {
+        xInput = (int)move;
+
+    }
+
+    /*void Update()
     {
         if (Input.GetButtonDown("Jump"))
         {
@@ -33,17 +61,18 @@ public class CharacterController : MonoBehaviour
             _chMovement.SlideReleased();
         }
     }
+    */
 
 
     void FixedUpdate()
     {
-        int input = (int)Input.GetAxisRaw("Horizontal");
-        if(input != 0)
+      //  int input = (int)Input.GetAxisRaw("Horizontal");
+        if(xInput != 0)
         {
-            transform.localScale = new Vector3(input * 1, 1, 1); 
+            transform.localScale = new Vector3(xInput * 1, 1, 1); 
         }
-        _chMovement.Run(input);
-        _animComp.UpdateXInput(input);
+        _chMovement.Run(xInput);
+        _animComp.UpdateXInput(xInput);
         _animComp.SetVelocityY(_chMovement.RByVel);
         _animComp.SetGrounded(_chMovement.Grounded);
         _animComp.SetSlide(_chMovement.Sliding);
