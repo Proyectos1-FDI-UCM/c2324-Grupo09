@@ -11,29 +11,33 @@ public class CharacterMovement : MonoBehaviour
     #endregion
 
     #region hiddenVariables
+    [SerializeField]
     bool _isGrounded = false;
+    [SerializeField]
     bool _isJumping = false;
+    [SerializeField]
     bool _isSliding = false;
-    bool _isJumpFalling = false;
-    bool _isWallJumping = false;
-    bool _isUsingPogo = false;
-    bool _pogoAnimationCompleted = false;
+    [SerializeField] bool _isJumpFalling = false;
+    [SerializeField] bool _isWallJumping = false;
+    [SerializeField] bool _isUsingPogo = false;
+    [SerializeField] bool _pogoAnimationCompleted = false;
+    [SerializeField] float _xVelocityPreviousToWallJump = 0;
     //stores the rigidbody velocity when the pogo button is pressed
     Vector3 _pogoStartVelocity = Vector3.zero;
 
 
     #region Timers
-    float _lastGroundedTime = 0f;
+    [SerializeField] float _lastGroundedTime = 0f;
     //jump buffer
-    float _lastJumpTimeInput = 0f;
+    [SerializeField] float _lastJumpTimeInput = 0f;
     //timer for slide cooldown
-    float _lastSlideTime = -10f;
+    [SerializeField] float _lastSlideTime = -10f;
     //slide buffer
-    float _lastTimeSlideInput = 0f;
+    [SerializeField] float _lastTimeSlideInput = 0f;
     //stores time mark when the pogo button is pressed
-    float _pogoStartTime = 0f;
+    [SerializeField] float _pogoStartTime = 0f;
     //stores time mark when you touch ground and _isUsingPogo == true
-    float _pogoTouchedGround = 0f;
+    [SerializeField] float _pogoTouchedGround = 0f;
     #endregion
 
     #endregion
@@ -43,6 +47,7 @@ public class CharacterMovement : MonoBehaviour
     private int _currentWallJumpNumber;
 
     //stores with 1 or -1 the last direction pressed by player
+    private float _wallJumpStartDirection = 0;
     private float _lastDirection = 1;
     #endregion
 
@@ -108,9 +113,17 @@ public class CharacterMovement : MonoBehaviour
             //DO WallJump----------------------------------------------------------------------------
             else if (_currentWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
-                WallJump();
+                WallJump(); 
+                _lastJumpTimeInput = -1;
                 _isWallJumping = true;
+            }//--------PROVISIONAL------------------------------------------------------------------------------
+            else if (_isWallJumping)
+            {
+                _isWallJumping = false;
+                _lastJumpTimeInput = -1;
+                WallJumpPart2();
             }
+            //__--------------------------------------------------------------------------------------
         }
 
 
@@ -200,6 +213,8 @@ public class CharacterMovement : MonoBehaviour
     /// </summary>
     public void Run(float direction)
     {
+        if (direction != 0) _lastDirection = direction;
+
         if (_isWallJumping || _isSliding || _isUsingPogo) return;
 
         //calculate the direction we want to move in and our desired velocity
@@ -216,7 +231,7 @@ public class CharacterMovement : MonoBehaviour
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
         if (_md.doConserveMomentum && Mathf.Abs(_rb.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_rb.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0)
         {
-            //Prevent any deceleration from happening, or in other words conserve are current momentum
+            //Prevent any deceleration from happening, or in other words conserve the current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
             accelRate = 0;
         }
@@ -237,7 +252,6 @@ public class CharacterMovement : MonoBehaviour
 
         //applies force to rigidody, multiplying by Vector2.right so that it only affects X axis
         _rb.AddForce(movement * Vector2.right);
-        if(direction != 0) _lastDirection = direction;
     }
 
     /// <summary>
@@ -266,22 +280,38 @@ public class CharacterMovement : MonoBehaviour
         _rb.AddForce(Vector2.up * _md.jumpForce * jumpForceMultiplier, ForceMode2D.Impulse);
     }
 
+
+    #region walljump
     /// <summary>
     /// Generates the initial horizontal Force and blocks movement while it lasts
     /// </summary>
     private void WallJump()
     {
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
-        if (Mathf.Sign(_lastDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
+        _wallJumpStartDirection = _lastDirection;
+        if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
         {
             sameDirectionFactor = 1;
             _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
+        _lastJumpTimeInput = -1;
         //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
 
         //_isJumping = true;
     }
+
+    public void WallJumpPart2()
+    {
+        _lastJumpTimeInput = -1;
+        _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) /* * -1 */ * (_wallJumpStartDirection);
+        //inserte pausa de antes
+        _rb.velocity = -1 * Vector2.right * _xVelocityPreviousToWallJump;
+        Debug.Log(_rb.velocity);
+        _rb.AddForce(_md.wallJump2ndJumpForce * Vector2.up, ForceMode2D.Impulse);
+    }
+
+    #endregion
 
     /// <summary>
     /// Initiates Slide, blocking movement

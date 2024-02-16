@@ -7,7 +7,7 @@ using static Unity.Collections.Unicode;
 
 public class InputManager : MonoBehaviour
 {
-    CharacterController _characterController;
+    RefactoredCharacterController _characterController;
     [SerializeField]
     InputActionReference _jumpAction;
     [SerializeField]
@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _characterController = FindObjectOfType<CharacterController>();
+        _characterController = FindObjectOfType<RefactoredCharacterController>();
     }
     void Awake()
     {
@@ -75,9 +75,9 @@ public class InputManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
+    /* Update is called once per frame
     void Update()
     {
-        
     }
+    */
 }

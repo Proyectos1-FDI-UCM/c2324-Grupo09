@@ -5,10 +5,14 @@ using UnityEngine;
 public class AnimationComponent : MonoBehaviour
 {
     Animator _animator;
+    Transform _myTransform;
+    Vector3 _originalSize;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _myTransform = transform;
+        _originalSize = _myTransform.localScale;
     }
 
     public void UpdateXInput(int x)
@@ -27,5 +31,10 @@ public class AnimationComponent : MonoBehaviour
     public void SetSlide(bool val)
     {
         _animator.SetBool("Slide", val);
+    }
+
+    public void LookTo1D(int direction)
+    {
+        transform.localScale = new Vector3(Mathf.Sign(direction) * _originalSize.x, _originalSize.y, _originalSize.z);
     }
 }
