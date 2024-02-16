@@ -12,7 +12,7 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _myTransform = transform;
-        _originalSize = _myTransform.localScale;
+        _originalSize = new Vector3(Mathf.Abs(_myTransform.localScale.x), _myTransform.localScale.y, _myTransform.localScale.z);
     }
 
     public void UpdateXInput(int x)

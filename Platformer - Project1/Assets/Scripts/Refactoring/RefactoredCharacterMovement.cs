@@ -11,8 +11,6 @@ public class RefactoredCharacterMovement : MonoBehaviour
     #endregion
 
     #region parameters
-    //posiblemente esto no debería estar en este script
-    [SerializeField]
     private int _lastDirection;
     private int _wallJumpStartDirection;
     private float _xVelocityPreviousToWallJump;

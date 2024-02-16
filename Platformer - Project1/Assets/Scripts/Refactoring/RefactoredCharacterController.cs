@@ -19,19 +19,12 @@ public class RefactoredCharacterController : MonoBehaviour
     #endregion
 
     #region hiddenVariables
-    [SerializeField]
     bool _isGrounded = false;
-    [SerializeField]
     bool _isJumping = false;
-    [SerializeField]
     bool _isSliding = false;
-    [SerializeField]
     bool _isJumpFalling = false;
-    [SerializeField]
     bool _isWallJumping = false;
-    [SerializeField]
     bool _isUsingPogo = false;
-    [SerializeField]
     bool _pogoAnimationCompleted = false;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
@@ -40,22 +33,16 @@ public class RefactoredCharacterController : MonoBehaviour
 
 
     #region Timers
-    [SerializeField]
     float _lastGroundedTime = 0f;
     //jump buffer
-    [SerializeField]
     float _lastJumpTimeInput = 0f;
     //timer for slide cooldown
-    [SerializeField]
     float _lastSlideTime = -10f;
     //slide buffer
-    [SerializeField]
     float _lastTimeSlideInput = 0f;
     //stores time mark when the pogo button is pressed
-    [SerializeField]
     float _pogoStartTime = 0f;
     //stores time mark when you touch ground and _isUsingPogo == true
-    [SerializeField]
     float _pogoTouchedGround = 0f;
     #endregion
 
