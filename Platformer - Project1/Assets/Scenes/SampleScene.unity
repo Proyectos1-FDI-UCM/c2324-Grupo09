@@ -433,8 +433,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933583852}
-  - component: {fileID: 1933583856}
-  - component: {fileID: 1933583855}
   - component: {fileID: 1933583854}
   - component: {fileID: 1933583857}
   - component: {fileID: 1933583858}
@@ -490,45 +488,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1933583855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933583850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb2ea6ab86aeb448bfee4a7e15d862b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _md: {fileID: 11400000, guid: 33ace157fa96000408dfe821e5dc58fa, type: 2}
-  _isGrounded: 0
-  _isJumping: 0
-  _isSliding: 0
-  _isJumpFalling: 0
-  _isWallJumping: 0
-  _isUsingPogo: 0
-  _pogoAnimationCompleted: 0
-  _xVelocityPreviousToWallJump: 0
-  _lastGroundedTime: 0
-  _lastJumpTimeInput: 0
-  _lastSlideTime: -10
-  _lastTimeSlideInput: 0
-  _pogoStartTime: 0
-  _pogoTouchedGround: 0
---- !u!114 &1933583856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933583850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1280350a4dee5a949b8d0ccf5ebaa117, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &1933583857
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -592,6 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _md: {fileID: 11400000, guid: 33ace157fa96000408dfe821e5dc58fa, type: 2}
+  _lastDirection: 0
 --- !u!114 &1933583860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +570,7 @@ MonoBehaviour:
   _isJumpFalling: 0
   _isWallJumping: 0
   _isUsingPogo: 0
+  _pogoAnimationCompleted: 0
   _lastGroundedTime: 0
   _lastJumpTimeInput: 0
   _lastSlideTime: -10
