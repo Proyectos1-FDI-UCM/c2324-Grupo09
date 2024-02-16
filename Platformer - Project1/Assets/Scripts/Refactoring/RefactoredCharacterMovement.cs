@@ -19,6 +19,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     #region accesors
     public MovementData md { get { return _md; }}
     public Vector2 RBVel { get { return _rb.velocity; } }
+    public int LastDirection { get { return _lastDirection; } }
     #endregion
 
 
@@ -30,7 +31,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -142,17 +143,17 @@ public class RefactoredCharacterMovement : MonoBehaviour
         
         //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
-
         //_isJumping = true;
     }
 
     public void WallJumpPart2()
     {
-        
+        Debug.Log("JumpPt2");
         _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) /* * -1 */ * (_wallJumpStartDirection);
         //inserte pausa de antes
         _rb.velocity = -1 * Vector2.right * _xVelocityPreviousToWallJump;
-        _rb.AddForce(_md.wallJump2ndJumpForce * Vector2.up, ForceMode2D.Impulse);
+        _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up - 
+            Vector2.right * _lastDirection * _md.wallJump2ndJumpForceX, ForceMode2D.Impulse);
     }
 
     #endregion

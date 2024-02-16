@@ -7,6 +7,7 @@ public class RefactoredCharacterController : MonoBehaviour
 {
     #region references
 
+    private HitboxComponent _hitbox;
     private RefactoredCharacterMovement _chMovement;
     private MovementData _md;
     //reference to animation component
@@ -104,6 +105,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _chMovement = GetComponent<RefactoredCharacterMovement>();
         _md = _chMovement.md;
         _animComp = GetComponentInChildren<AnimationComponent>();
+        _hitbox = GetComponent<HitboxComponent>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
     }
 
@@ -164,21 +166,21 @@ public class RefactoredCharacterController : MonoBehaviour
             else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
                 _chMovement.WallJump();
+                _hitbox.CreateHitbox(_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
                 _lastJumpTimeInput = -1;
                 _isWallJumping = true;
             }//--------PROVISIONAL------------------------------------------------------------------------------
             
             
-            else if (_isWallJumping)  //------------------
-            {                           //------------------
-                _isWallJumping = false;     //-----------------
-                _lastJumpTimeInput = -1;    //------------------
-                                            //-------------------
-                _chMovement.WallJumpPart2();    //----------------------------------------
-            }
-            //__--------------------------------------------------------------------------------------
             
         }
+        if (_hitbox.HitboxHit && _isWallJumping)  //------------------
+        {                           //------------------
+            _isWallJumping = false;     //-----------------
+            _lastJumpTimeInput = -1;    //------------------
+            _chMovement.WallJumpPart2();    //----------------------------------------
+        }
+        //__--------------------------------------------------------------------------------------
         #endregion
 
         #region jumpChecks

@@ -308,7 +308,7 @@ public class CharacterMovement : MonoBehaviour
         //inserte pausa de antes
         _rb.velocity = -1 * Vector2.right * _xVelocityPreviousToWallJump;
         Debug.Log(_rb.velocity);
-        _rb.AddForce(_md.wallJump2ndJumpForce * Vector2.up, ForceMode2D.Impulse);
+        _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up, ForceMode2D.Impulse);
     }
 
     #endregion
