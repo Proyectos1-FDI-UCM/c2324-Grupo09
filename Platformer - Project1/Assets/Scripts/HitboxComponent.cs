@@ -44,7 +44,7 @@ public class HitboxComponent : MonoBehaviour
     {
         _currentHitboxAlreadyHit = false;
         _hitboxPosition = new Vector2(position.x* Mathf.Sign(relativePosition), position.y);
-    _hitboxSize = new Vector2(size.x* Mathf.Sign(relativePosition), size.y);
+    _hitboxSize = new Vector2(size.x, size.y);
     _checkTime = time;
     }
 
@@ -55,7 +55,7 @@ public class HitboxComponent : MonoBehaviour
     {
         _currentHitboxAlreadyHit = false;
         _hitboxPosition = new Vector2(position.x * Mathf.Sign(relativePosition), position.y);
-        _hitboxSize = new Vector2(size.x * Mathf.Sign(relativePosition), size.y);
+        _hitboxSize = new Vector2(size.x, size.y);
         _checkTime = _defaultCheckTime;
     }
 
@@ -66,7 +66,7 @@ public class HitboxComponent : MonoBehaviour
     {
         _currentHitboxAlreadyHit = false;
         _hitboxPosition = new Vector2(_defaultPosition.x* relativePosition, _defaultPosition.y);
-    _hitboxSize = new Vector2(_defaultSize.x* relativePosition, _defaultSize.y);
+    _hitboxSize = new Vector2(_defaultSize.x, _defaultSize.y);
     _checkTime = time;
     }
 
@@ -77,7 +77,7 @@ public class HitboxComponent : MonoBehaviour
     {
         _currentHitboxAlreadyHit = false;
         _hitboxPosition = new Vector2(_defaultPosition.x * relativePosition, _defaultPosition.y);
-        _hitboxSize = new Vector2(_defaultSize.x * relativePosition, _defaultSize.y);
+        _hitboxSize = new Vector2(_defaultSize.x, _defaultSize.y);
         _checkTime = _defaultCheckTime;
 
     }
