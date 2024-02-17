@@ -169,6 +169,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 _hitbox.CreateHitbox(_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
                 _lastJumpTimeInput = -1;
                 _isWallJumping = true;
+                _remainingWallJumpNumber--;
             }//--------PROVISIONAL------------------------------------------------------------------------------
             
             
@@ -211,6 +212,7 @@ public class RefactoredCharacterController : MonoBehaviour
             }
             _isWallJumping = false;
             _lastGroundedTime = _md.jumpCoyoteTime;
+            _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
         }
         #endregion
 
