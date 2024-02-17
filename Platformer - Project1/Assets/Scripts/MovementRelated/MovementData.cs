@@ -60,6 +60,7 @@ public class MovementData : ScriptableObject
     //public float wallJump2nd
     public float wallJump2ndJumpForceY = 5f;
     public float wallJump2ndJumpForceX = 10f;
+    public float redirectionMargin = 0.1f;
     public int maxNumberOfWallJumps = 3;
     public Vector2 wallJumpForce = new Vector2(1, 1);
     [Range(0.0F, 1.0F)]

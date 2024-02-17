@@ -20,6 +20,7 @@ public class RefactoredCharacterController : MonoBehaviour
     #endregion
 
     #region hiddenVariables
+    bool _flipComplete = true;
     bool _isGrounded = false;
     bool _isJumping = false;
     bool _isSliding = false;
@@ -45,6 +46,7 @@ public class RefactoredCharacterController : MonoBehaviour
     float _pogoStartTime = 0f;
     //stores time mark when you touch ground and _isUsingPogo == true
     float _pogoTouchedGround = 0f;
+    float _redirTiming = 0f;
     #endregion
 
     #endregion
@@ -166,7 +168,7 @@ public class RefactoredCharacterController : MonoBehaviour
             else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
                 _chMovement.WallJump();
-                _hitbox.CreateHitbox(_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
+                _hitbox.CreateHitbox(_chMovement.Direction); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
                 _lastJumpTimeInput = -1;
                 _isWallJumping = true;
                 _remainingWallJumpNumber--;
@@ -223,7 +225,26 @@ public class RefactoredCharacterController : MonoBehaviour
             _lastTimeSlideInput -= Time.deltaTime;
             _lastJumpTimeInput -= Time.deltaTime;
         }
+
+        if (_chMovement.Direction != _chMovement.LastDirection && _flipComplete)
+        {
+            Debug.Log("Flip");
+            _redirTiming = _md.redirectionMargin;
+            _flipComplete = false;
+        }
+        if (_redirTiming > 0)
+        {
+            _redirTiming -= Time.deltaTime;
+        }
+        else
+        {
+            _chMovement.DelayedDirection();
+            _flipComplete = true;
+        }
+
         #endregion
+
+
 
 
         #region changeGravity

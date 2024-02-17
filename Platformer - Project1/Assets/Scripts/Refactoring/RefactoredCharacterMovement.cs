@@ -12,6 +12,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
 
     #region parameters
     private int _lastDirection;
+    private int _direction;
     private int _wallJumpStartDirection;
     private float _xVelocityPreviousToWallJump;
     #endregion
@@ -20,6 +21,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public MovementData md { get { return _md; }}
     public Vector2 RBVel { get { return _rb.velocity; } }
     public int LastDirection { get { return _lastDirection; } }
+    public int Direction { get { return _direction; } }
     #endregion
 
 
@@ -40,6 +42,10 @@ public class RefactoredCharacterMovement : MonoBehaviour
         
     }
 
+    public void DelayedDirection()
+    {
+        _direction = _lastDirection;
+    }
     /// <summary>
     /// Applies a force in direction to the player input.
     /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum
@@ -134,7 +140,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void WallJump()
     {
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
-        _wallJumpStartDirection = _lastDirection;
+        _wallJumpStartDirection = _direction;
         if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
         {
             sameDirectionFactor = 1;
@@ -142,7 +148,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
         }
         
         //_rb.velocity = new Vector2(_rb.velocity.x, 0);
-        _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _direction * Vector2.right, ForceMode2D.Impulse);
         //_isJumping = true;
     }
 
@@ -153,7 +159,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
         //inserte pausa de antes
         _rb.velocity = -1 * Vector2.right * _xVelocityPreviousToWallJump;
         _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up - 
-            Vector2.right * _lastDirection * _md.wallJump2ndJumpForceX, ForceMode2D.Impulse);
+            Vector2.right * _direction * _md.wallJump2ndJumpForceX, ForceMode2D.Impulse);
     }
 
     #endregion
