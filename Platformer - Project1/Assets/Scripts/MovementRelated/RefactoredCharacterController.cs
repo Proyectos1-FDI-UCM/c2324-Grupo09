@@ -16,7 +16,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
     #region inputVariables
     //x value of the movement joystick
-    int xInput = 1;
+    int xInput = 0;
     #endregion
 
     #region hiddenVariables
@@ -136,7 +136,7 @@ public class RefactoredCharacterController : MonoBehaviour
             }
             else if (!_isUsingPogo)
             {
-                if ( _chMovement.RBVel.y < 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
+                if ( _chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                 {
                     _hitbox.DisableHitbox();
                     _isUsingPogo = true;
@@ -320,10 +320,11 @@ public class RefactoredCharacterController : MonoBehaviour
         */
         //activates the run action of character movement
         //Updating animation parameters
-        if(xInput != 0)
+        if(xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
             _animComp.LookTo1D(xInput);
 
         _animComp.UpdateXInput(xInput);
+        _animComp.SetWJ(_isWallJumping);
         _animComp.SetVelocityY(_chMovement.RBVel.y);
         _animComp.SetGrounded(_isGrounded);
         _animComp.SetSlide(_isSliding);

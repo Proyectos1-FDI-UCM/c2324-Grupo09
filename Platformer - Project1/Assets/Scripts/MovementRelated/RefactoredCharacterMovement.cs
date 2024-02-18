@@ -140,6 +140,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     /// </summary>
     public void WallJump()
     {
+
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
         _wallJumpStartDirection = _lastDirection;
         if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
@@ -156,13 +157,17 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void WallJumpPart2()
     {
         float reductionCoef = 1f;
-        if(Mathf.Abs(_rb.velocity.x) > _md.maxMoveSpeed)
+
+        //Debug.Log(_rb.velocity.x);
+        if(Mathf.Abs(_rb.velocity.x) > _md.wallJumpForce.x)
         {
+            Debug.Log("1");
             _xVelocityPreviousToWallJump = (Mathf.Abs(_md.maxMoveSpeed + ((_rb.velocity.x - _md.maxMoveSpeed)/_md.wallJumpMomentumConserveCoeficient))) * (_wallJumpStartDirection);
             reductionCoef = _md.wallJump2ForceReductionCoef;
         }
         else
         {
+            Debug.Log("2");
             _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection);
         }
         //inserte pausa de antes
