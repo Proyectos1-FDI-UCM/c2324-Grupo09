@@ -18,6 +18,7 @@ MonoBehaviour:
   accelInAir: 0.5
   deccelInAir: 0.077
   doConserveMomentum: 1
+  minPogoHeight: 1.5
   pogoXDuration: 0.1
   pogoYDuration: 0.33
   pogoFallForce: 15
@@ -33,15 +34,20 @@ MonoBehaviour:
   jumpForce: 12
   jumpBufferTime: 0.1
   jumpCoyoteTime: 0.13
-  jumpCutMultiplier: 1
+  jumpCutMultiplier: 0.7
   jumpHangAccelerationMultiplier: 1.5
-  jumpHangMaxSpeedMultiplier: 1.3
+  jumpHangMaxSpeedMultiplier: 1.53
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
+  wallJump2ndJumpForceY: 4
+  wallJump2ndJumpForceX: 1
+  blockMovement2ndJumpTime: 0.5
   maxNumberOfWallJumps: 3
   wallJumpForce: {x: 6, y: 3}
   wallJumpSameDirectionForceMultiplier: 0.2
-  wallJumpForceApplyThreshold: 0.5
+  wallJumpForceApplyThreshold: 2
+  wallJumpMomentumConserveCoeficient: 0.8
+  wallJump2ForceReductionCoef: 0.765
   gravityScale: 3
   fallGravityMultiplier: 1.5
   maxFallSpeed: 18

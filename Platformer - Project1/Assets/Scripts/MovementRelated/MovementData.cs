@@ -20,6 +20,7 @@ public class MovementData : ScriptableObject
     public bool doConserveMomentum;
 
     [Header("Pogo")]
+    public float minPogoHeight = 1f;
     public float pogoXDuration = 0.1f;
     public float pogoYDuration = 0.4f;
     public float pogoFallForce = 20f;
@@ -60,12 +61,17 @@ public class MovementData : ScriptableObject
     //public float wallJump2nd
     public float wallJump2ndJumpForceY = 5f;
     public float wallJump2ndJumpForceX = 10f;
-    public float redirectionMargin = 0.1f;
+    public float blockMovement2ndJumpTime = 0.5f;
+    //public float redirectionMargin = 0.1f;
     public int maxNumberOfWallJumps = 3;
     public Vector2 wallJumpForce = new Vector2(1, 1);
     [Range(0.0F, 1.0F)]
     public float wallJumpSameDirectionForceMultiplier = 1;
     public float wallJumpForceApplyThreshold = 1f;
+    [Range(0.0F, 1.0F)]
+    public float wallJumpMomentumConserveCoeficient = 0.8f;
+    [Range(0.0F,1.0F)]
+    public float wallJump2ForceReductionCoef = 0.6f;
 
 
     [Header("Gravity")]

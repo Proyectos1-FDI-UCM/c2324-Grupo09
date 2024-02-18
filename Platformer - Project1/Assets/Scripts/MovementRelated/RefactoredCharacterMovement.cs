@@ -11,17 +11,17 @@ public class RefactoredCharacterMovement : MonoBehaviour
     #endregion
 
     #region parameters
-    private int _lastDirection;
-    private int _direction;
-    private int _wallJumpStartDirection;
-    private float _xVelocityPreviousToWallJump;
+    private int _lastDirection = 1;
+    //private int _direction;
+    private int _wallJumpStartDirection = 1;
+    private float _xVelocityPreviousToWallJump = 0;
     #endregion
 
     #region accesors
     public MovementData md { get { return _md; }}
     public Vector2 RBVel { get { return _rb.velocity; } }
     public int LastDirection { get { return _lastDirection; } }
-    public int Direction { get { return _direction; } }
+    //public int Direction { get { return _direction; } }
     #endregion
 
 
@@ -41,11 +41,12 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         
     }
-
+    /*
     public void DelayedDirection()
     {
         _direction = _lastDirection;
     }
+    */
     /// <summary>
     /// Applies a force in direction to the player input.
     /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum
@@ -140,7 +141,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void WallJump()
     {
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
-        _wallJumpStartDirection = _direction;
+        _wallJumpStartDirection = _lastDirection;
         if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
         {
             sameDirectionFactor = 1;
@@ -148,18 +149,27 @@ public class RefactoredCharacterMovement : MonoBehaviour
         }
         
         //_rb.velocity = new Vector2(_rb.velocity.x, 0);
-        _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _direction * Vector2.right, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
         //_isJumping = true;
     }
 
     public void WallJumpPart2()
     {
-        Debug.Log("JumpPt2");
-        _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) /* * -1 */ * (_wallJumpStartDirection);
+        float reductionCoef = 1f;
+        if(Mathf.Abs(_rb.velocity.x) > _md.maxMoveSpeed)
+        {
+            _xVelocityPreviousToWallJump = (Mathf.Abs(_md.maxMoveSpeed + ((_rb.velocity.x - _md.maxMoveSpeed)/_md.wallJumpMomentumConserveCoeficient))) * (_wallJumpStartDirection);
+            reductionCoef = _md.wallJump2ForceReductionCoef;
+        }
+        else
+        {
+            _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection);
+        }
         //inserte pausa de antes
-        _rb.velocity = -1 * Vector2.right * _xVelocityPreviousToWallJump;
-        _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up - 
-            Vector2.right * _direction * _md.wallJump2ndJumpForceX, ForceMode2D.Impulse);
+        _rb.velocity = new Vector2 (-1 * (_xVelocityPreviousToWallJump), 0);
+        _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up + 
+            Vector2.left * reductionCoef * _lastDirection * _md.wallJump2ndJumpForceX, 
+            ForceMode2D.Impulse);
     }
 
     #endregion

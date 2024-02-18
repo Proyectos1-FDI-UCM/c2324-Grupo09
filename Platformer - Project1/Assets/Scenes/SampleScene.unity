@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 1933583857}
   - component: {fileID: 1933583858}
   - component: {fileID: 1933583860}
+  - component: {fileID: 1933583861}
   - component: {fileID: 1933583859}
   m_Layer: 0
   m_Name: Player
@@ -551,7 +552,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _md: {fileID: 11400000, guid: 33ace157fa96000408dfe821e5dc58fa, type: 2}
-  _lastDirection: 0
 --- !u!114 &1933583860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,19 +564,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267881ce4bd7b654595e3a5d093a58de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isGrounded: 0
-  _isJumping: 0
-  _isSliding: 0
-  _isJumpFalling: 0
-  _isWallJumping: 0
-  _isUsingPogo: 0
-  _pogoAnimationCompleted: 0
-  _lastGroundedTime: 0
-  _lastJumpTimeInput: 0
-  _lastSlideTime: -10
-  _lastTimeSlideInput: 0
-  _pogoStartTime: 0
-  _pogoTouchedGround: 0
+--- !u!114 &1933583861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933583850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9438898b4871c4aaca0f217871c45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultCheckTime: 0.5
+  _defaultPosition: {x: 0.6, y: 0}
+  _defaultSize: {x: 1, y: 0.5}
+  _layerToCheck:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1970083996
 GameObject:
   m_ObjectHideFlags: 0
@@ -4147,11 +4152,15 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: cfeb3da65dad76d46af5092243840543, type: 2}
   - m_RefCount: 56
     m_Data: {fileID: 11400000, guid: 09a25afdf80a82c4180a9fb3644ea03a, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 291
     m_Data: {fileID: -2033488821, guid: 38a33a0c42403d84d990e0b7261b6116, type: 3}
   - m_RefCount: 56
     m_Data: {fileID: 18172065, guid: 38a33a0c42403d84d990e0b7261b6116, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 347
     m_Data:

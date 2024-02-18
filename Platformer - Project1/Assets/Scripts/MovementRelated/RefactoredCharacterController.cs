@@ -16,11 +16,11 @@ public class RefactoredCharacterController : MonoBehaviour
 
     #region inputVariables
     //x value of the movement joystick
-    int xInput;
+    int xInput = 1;
     #endregion
 
     #region hiddenVariables
-    bool _flipComplete = true;
+    //bool _flipComplete = true;
     bool _isGrounded = false;
     bool _isJumping = false;
     bool _isSliding = false;
@@ -46,7 +46,8 @@ public class RefactoredCharacterController : MonoBehaviour
     float _pogoStartTime = 0f;
     //stores time mark when you touch ground and _isUsingPogo == true
     float _pogoTouchedGround = 0f;
-    float _redirTiming = 0f;
+    float _lastWallJumpImpulse = -2f;
+    //float _redirTiming = 0f;
     #endregion
 
     #endregion
@@ -135,15 +136,28 @@ public class RefactoredCharacterController : MonoBehaviour
             }
             else if (!_isUsingPogo)
             {
-                _isUsingPogo = true;
-                _pogoStartTime = Time.time;
-                _pogoStartVelocity = _chMovement.RBVel;
-                _pogoAnimationCompleted = false;
+                if ( _chMovement.RBVel.y < 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
+                {
+                    _hitbox.DisableHitbox();
+                    _isUsingPogo = true;
+                    _pogoStartTime = Time.time;
+                    _pogoStartVelocity = _chMovement.RBVel;
+                    _pogoAnimationCompleted = false;
+                }
             }
         }
         #endregion
 
         #region jump
+
+        if (_hitbox.HitboxHit && _isWallJumping)
+        {
+            _isWallJumping = false;
+            _lastWallJumpImpulse = Time.time;
+            _lastJumpTimeInput = -1;
+            _chMovement.WallJumpPart2();
+        }
+
         if (_lastJumpTimeInput > 0)
         {
             //Do Grounded Jump-----------------------------------------------------------------------
@@ -164,26 +178,18 @@ public class RefactoredCharacterController : MonoBehaviour
                 _lastJumpTimeInput = 0;
                 _lastGroundedTime = 0;
             }
-            //DO WallJump----------------------------------------------------------------------------
             else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
-                _chMovement.WallJump();
-                _hitbox.CreateHitbox(_chMovement.Direction); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
-                _lastJumpTimeInput = -1;
-                _isWallJumping = true;
-                _remainingWallJumpNumber--;
-            }//--------PROVISIONAL------------------------------------------------------------------------------
-            
-            
-            
+                if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
+                {
+                    _chMovement.WallJump();
+                    _hitbox.CreateHitbox(_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
+                    _lastJumpTimeInput = -1;
+                    _isWallJumping = true;
+                    _remainingWallJumpNumber--;
+                }
+            }
         }
-        if (_hitbox.HitboxHit && _isWallJumping)  //------------------
-        {                           //------------------
-            _isWallJumping = false;     //-----------------
-            _lastJumpTimeInput = -1;    //------------------
-            _chMovement.WallJumpPart2();    //----------------------------------------
-        }
-        //__--------------------------------------------------------------------------------------
         #endregion
 
         #region jumpChecks
@@ -207,6 +213,7 @@ public class RefactoredCharacterController : MonoBehaviour
         }
         else
         {
+            _hitbox.DisableHitbox();
             if (_isUsingPogo)
             {
                _isUsingPogo = false;
@@ -226,12 +233,16 @@ public class RefactoredCharacterController : MonoBehaviour
             _lastJumpTimeInput -= Time.deltaTime;
         }
 
+
+
+        /*
         if (_chMovement.Direction != _chMovement.LastDirection && _flipComplete)
         {
             Debug.Log("Flip");
             _redirTiming = _md.redirectionMargin;
             _flipComplete = false;
         }
+
         if (_redirTiming > 0)
         {
             _redirTiming -= Time.deltaTime;
@@ -240,7 +251,9 @@ public class RefactoredCharacterController : MonoBehaviour
         {
             _chMovement.DelayedDirection();
             _flipComplete = true;
-        }
+        } 
+
+        */
 
         #endregion
 
@@ -289,11 +302,12 @@ public class RefactoredCharacterController : MonoBehaviour
         _chMovement.Run
         (
             targetSpeed,
-            _isWallJumping || _isSliding || _isUsingPogo,
+            _isWallJumping || _isSliding || _isUsingPogo || Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime,
             (_isJumping || _isJumpFalling), 
             _md.doConserveMomentum && Mathf.Abs(_chMovement.RBVel.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_chMovement.RBVel.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0,
             ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
         );
+
 
 
         #region Animator
@@ -335,6 +349,9 @@ public class RefactoredCharacterController : MonoBehaviour
         if (!Application.isPlaying) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight));
     }
     #endregion
 
