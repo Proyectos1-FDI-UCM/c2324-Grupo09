@@ -328,6 +328,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetVelocityY(_chMovement.RBVel.y);
         _animComp.SetGrounded(_isGrounded);
         _animComp.SetSlide(_isSliding);
+        _animComp.SetPogo(_isUsingPogo);
         #endregion
     }
 

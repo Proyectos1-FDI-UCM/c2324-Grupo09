@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: pData2
   m_EditorClassIdentifier: 
   maxMoveSpeed: 60
-  acceleration: 3
+  acceleration: 5
   decceleration: 30
   accelInAir: 0.5
   deccelInAir: 0.1
@@ -27,7 +27,7 @@ MonoBehaviour:
   empoweredJumpForceMultiplier: 1.4
   slideHorizontalForce: 160
   slideSameDirectionForceMultiplier: 0.4
-  slideForceApplyThreshold: 41
+  slideForceApplyThreshold: 61
   timeBetweenSlides: 0.4
   slideDuration: 0.25
   slideBufferTime: 0.3
@@ -39,15 +39,15 @@ MonoBehaviour:
   jumpHangMaxSpeedMultiplier: 1.53
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
-  wallJump2ndJumpForceY: 9
-  wallJump2ndJumpForceX: 1
+  wallJump2ndJumpForceY: 70
+  wallJump2ndJumpForceX: 0
   blockMovement2ndJumpTime: 0.3
   maxNumberOfWallJumps: 3
-  wallJumpForce: {x: 6, y: 3}
+  wallJumpForce: {x: 100, y: 30}
   wallJumpSameDirectionForceMultiplier: 0.1
-  wallJumpForceApplyThreshold: 2
-  wallJumpMomentumConserveCoeficient: 0.8
-  wallJump2ForceReductionCoef: 0.765
+  wallJumpForceApplyThreshold: 60
+  wallJumpMomentumConserveCoeficient: 1
+  wallJump2ForceReductionCoef: 0.138
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200
@@ -55,4 +55,4 @@ MonoBehaviour:
   groundCheckSize: {x: 3.5, y: 0.1}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 64
