@@ -40,14 +40,14 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
   wallJump2ndJumpForceY: 70
-  wallJump2ndJumpForceX: 0
+  wallJump2ndJumpForceX: 60
   blockMovement2ndJumpTime: 0.3
   maxNumberOfWallJumps: 3
   wallJumpForce: {x: 100, y: 30}
   wallJumpSameDirectionForceMultiplier: 0.1
-  wallJumpForceApplyThreshold: 60
+  wallJumpForceApplyThreshold: 61
   wallJumpMomentumConserveCoeficient: 1
-  wallJump2ForceReductionCoef: 0.138
+  wallJump2ForceReductionCoef: 0.4
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200

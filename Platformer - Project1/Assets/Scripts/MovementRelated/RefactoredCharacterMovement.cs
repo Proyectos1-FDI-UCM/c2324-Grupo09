@@ -15,6 +15,12 @@ public class RefactoredCharacterMovement : MonoBehaviour
     //private int _direction;
     private int _wallJumpStartDirection = 1;
     private float _xVelocityPreviousToWallJump = 0;
+    /*
+    [SerializeField]
+    private float [] wallJumpConserveMomentumBuffer = new float[80];
+    private int jumpBufferMax = -1;
+    private int BufferCurrentCapacity = 0;
+    */
     #endregion
 
     #region accesors
@@ -29,18 +35,26 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-
-    // Start is called before the first frame update
-    void Start()
+    /*
+    public void AddToWallJumpMomentumBuffer(float param)
     {
+        wallJumpConserveMomentumBuffer[BufferCurrentCapacity] = Mathf.Abs(param);
 
+        if(Mathf.Abs(param) > wallJumpConserveMomentumBuffer[jumpBufferMax] )
+        {
+            jumpBufferMax = BufferCurrentCapacity;
+        }
+
+        BufferCurrentCapacity++;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EmptyWallJumpMomentumBuffer()
     {
-        
+        wallJumpConserveMomentumBuffer = new float[80];
+        BufferCurrentCapacity = 0;
+        jumpBufferMax = 0;
     }
+    */
     /*
     public void DelayedDirection()
     {
@@ -157,17 +171,14 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void WallJumpPart2()
     {
         float reductionCoef = 1f;
-
         //Debug.Log(_rb.velocity.x);
-        if(Mathf.Abs(_rb.velocity.x) > _md.wallJumpForce.x)
+        if (Mathf.Abs(_rb.velocity.x) > _md.wallJumpForce.x)
         {
-            Debug.Log("1");
-            _xVelocityPreviousToWallJump = (Mathf.Abs(_md.maxMoveSpeed + ((_rb.velocity.x - _md.maxMoveSpeed)/_md.wallJumpMomentumConserveCoeficient))) * (_wallJumpStartDirection);
+            _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x / _md.wallJumpMomentumConserveCoeficient) * (_wallJumpStartDirection);
             reductionCoef = _md.wallJump2ForceReductionCoef;
         }
         else
         {
-            Debug.Log("2");
             _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection);
         }
         //inserte pausa de antes
