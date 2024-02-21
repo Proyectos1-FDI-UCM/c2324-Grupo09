@@ -6,7 +6,7 @@ using UnityEngine;
 public class RefactoredCharacterController : MonoBehaviour
 {
     #region references
-
+    ChangeCollider _changeCollider;
     private HitboxComponent _hitbox;
     private RefactoredCharacterMovement _chMovement;
     private MovementData _md;
@@ -65,6 +65,7 @@ public class RefactoredCharacterController : MonoBehaviour
     public void SlideDown()
     {
         _lastTimeSlideInput = _md.slideBufferTime;
+        _changeCollider.StartSlide();
     }
 
     //Triggers on changing the value of the x movement joystick
@@ -89,6 +90,7 @@ public class RefactoredCharacterController : MonoBehaviour
     public void SlideUp()
     {
         _lastTimeSlideInput = 0;
+        _changeCollider.EndSlide();
     }
 
     //triggers when the value of the x movement is equal to 0
@@ -109,6 +111,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _md = _chMovement.md;
         _animComp = GetComponentInChildren<AnimationComponent>();
         _hitbox = GetComponent<HitboxComponent>();
+        _changeCollider = GetComponent<ChangeCollider>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
     }
 
