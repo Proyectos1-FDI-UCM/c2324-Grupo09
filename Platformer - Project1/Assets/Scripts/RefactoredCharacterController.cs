@@ -139,6 +139,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 if ( _chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                 {
                     _hitbox.DisableHitbox();
+                    _animComp.SetPogoTr();
                     _isUsingPogo = true;
                     _pogoStartTime = Time.time;
                     _pogoStartVelocity = _chMovement.RBVel;

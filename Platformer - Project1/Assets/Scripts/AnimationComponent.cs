@@ -27,6 +27,10 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator.SetBool("Grounded", val);
     }
+    public void SetPogoTr()
+    {
+        _animator.SetTrigger("PogoTr");
+    }
     public void SetPogo(bool val)
     {
         _animator.SetBool("Pogo", val);
