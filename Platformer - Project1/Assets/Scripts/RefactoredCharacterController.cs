@@ -28,6 +28,7 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _isWallJumping = false;
     bool _isUsingPogo = false;
     bool _pogoAnimationCompleted = false;
+    bool _canPogoJump = false;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
@@ -119,6 +120,7 @@ public class RefactoredCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         _isGrounded = CheckGrounded();
+        
 
         #region slide
         if (Time.time - _lastSlideTime > _md.slideDuration)
@@ -169,7 +171,7 @@ public class RefactoredCharacterController : MonoBehaviour
             //Do Grounded Jump-----------------------------------------------------------------------
             if (_lastGroundedTime > 0 && !_isJumping)
             {
-                if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted)
+                if (_canPogoJump)
                 {
                     _chMovement.PogoJump();
                 }
@@ -231,7 +233,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
         }
         #endregion
-
+        _canPogoJump = Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted; 
 
         #region buffers
         if (!_isUsingPogo)
@@ -306,7 +308,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
         float targetSpeed = xInput * _md.maxMoveSpeed;
 
-        _chMovement.Run
+        if (!_canPogoJump) _chMovement.Run
         (
             targetSpeed,
             _isWallJumping || _isSliding || _isUsingPogo || Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime,
@@ -336,6 +338,8 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetGrounded(_isGrounded);
         _animComp.SetSlide(_isSliding);
         _animComp.SetPogo(_isUsingPogo);
+        Debug.Log(_canPogoJump);
+        _animComp.SetPogoCharge(_canPogoJump);
         #endregion
     }
 

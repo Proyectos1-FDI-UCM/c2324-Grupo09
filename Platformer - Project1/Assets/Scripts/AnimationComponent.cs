@@ -35,7 +35,10 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator.SetBool("Pogo", val);
     }
-
+    public void SetPogoCharge(bool val)
+    {
+        _animator.SetBool("PogoCharge", val);
+    }
     public void SetSlide(bool val)
     {
         _animator.SetBool("Slide", val);
@@ -49,5 +52,9 @@ public class AnimationComponent : MonoBehaviour
     public void LookTo1D(int direction)
     {
         transform.localScale = new Vector3(Mathf.Sign(direction) * _originalSize.x, _originalSize.y, _originalSize.z);
+    }
+    public void DebugLog(int x)
+    {
+        Debug.Log(x);
     }
 }
