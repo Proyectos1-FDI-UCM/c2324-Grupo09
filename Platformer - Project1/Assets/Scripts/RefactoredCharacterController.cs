@@ -65,7 +65,7 @@ public class RefactoredCharacterController : MonoBehaviour
     public void SlideDown()
     {
         _lastTimeSlideInput = _md.slideBufferTime;
-        _changeCollider.StartSlide();
+        
     }
 
     //Triggers on changing the value of the x movement joystick
@@ -90,7 +90,7 @@ public class RefactoredCharacterController : MonoBehaviour
     public void SlideUp()
     {
         _lastTimeSlideInput = 0;
-        _changeCollider.EndSlide();
+        
     }
 
     //triggers when the value of the x movement is equal to 0
@@ -124,12 +124,14 @@ public class RefactoredCharacterController : MonoBehaviour
         if (Time.time - _lastSlideTime > _md.slideDuration)
         {
             _isSliding = false;
+            _changeCollider.EndSlide();
         }
         if (_lastTimeSlideInput > 0)
         {
             if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded)
             {
                 _chMovement.Slide();
+                _changeCollider.StartSlide();
 
                 _lastSlideTime = Time.time;
                 _isSliding = true;
@@ -174,6 +176,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 else
                 {
                     _chMovement.Jump();
+                    _changeCollider.EndSlide();
                 }
 
                 _pogoTouchedGround = -1;

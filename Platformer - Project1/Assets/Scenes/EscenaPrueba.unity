@@ -6326,7 +6326,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4000001, y: -2.56}
+  m_Offset: {x: 0.4000001, y: 5.1}
   m_Size: {x: 7, y: 12}
   m_Direction: 0
 --- !u!50 &461205687
@@ -6384,6 +6384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7573528156909ae46b676eda28501912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _newOffset: {x: 0.4, y: 2.69}
+  _newSize: {x: 7, y: 7}
 --- !u!1 &718578241
 GameObject:
   m_ObjectHideFlags: 0

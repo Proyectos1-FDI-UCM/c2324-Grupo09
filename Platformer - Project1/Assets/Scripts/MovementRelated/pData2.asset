@@ -51,7 +51,7 @@ MonoBehaviour:
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200
-  yGroundCheckOffSet: -8.7
+  yGroundCheckOffSet: -1
   groundCheckSize: {x: 3.5, y: 0.1}
   groundLayer:
     serializedVersion: 2
