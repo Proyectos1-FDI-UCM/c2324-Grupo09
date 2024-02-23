@@ -61,13 +61,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _md: {fileID: 11400000, guid: 33ace157fa96000408dfe821e5dc58fa, type: 2}
-  _isWallJumping: 0
-  _maxNumberOfWallJumps: 3
-  _yGroundCheckOffSet: -0.51
-  _groundCheckSize: {x: 0.45, y: 0.05}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!50 &6876452254700121948
 Rigidbody2D:
   serializedVersion: 4
