@@ -29,6 +29,9 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _isUsingPogo = false;
     bool _pogoAnimationCompleted = false;
     bool _canPogoJump = false;
+    bool _canWallRun = false;
+    bool _isWallRunning = false;
+    bool _wallRunHeld = false;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
@@ -70,7 +73,7 @@ public class RefactoredCharacterController : MonoBehaviour
     }
   public void  WallRunDown() 
     {
-    
+        _wallRunHeld = true;
     }
 
     //Triggers on changing the value of the x movement joystick
@@ -99,7 +102,11 @@ public class RefactoredCharacterController : MonoBehaviour
     }
     public void WallRunUp()
     {
-
+        _wallRunHeld = false;
+    }
+    public void WallRunToggle(bool toggle)
+    {
+        _canWallRun = toggle;
     }
 
     //triggers when the value of the x movement is equal to 0
@@ -108,6 +115,7 @@ public class RefactoredCharacterController : MonoBehaviour
         xInput = (int)move;
 
     }
+    
 
     #endregion
 
@@ -128,7 +136,19 @@ public class RefactoredCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         _isGrounded = CheckGrounded();
-        
+
+        #region WallRun
+        if (_wallRunHeld && _canWallRun && !_isWallRunning)
+        {
+            _chMovement.WallRunStart();
+            _isWallRunning = true;
+        }
+        else if ((!_wallRunHeld || !_canWallRun) && _isWallRunning)
+        {
+            _chMovement.WallRunEnd();
+            _isWallRunning = false;
+        }
+        #endregion
 
         #region slide
         if (Time.time - _lastSlideTime > _md.slideDuration)
@@ -136,7 +156,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _isSliding = false;
             _changeCollider.EndSlide();
         }
-        if (_lastTimeSlideInput > 0)
+        if (_lastTimeSlideInput > 0 && !_isWallRunning)
         {
             if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded)
             {
@@ -278,21 +298,24 @@ public class RefactoredCharacterController : MonoBehaviour
 
 
         #region changeGravity
-        if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+        if (!_isWallRunning)
         {
-            _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
+            if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+            {
+                _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
+            }
+            else if (_chMovement.RBVel.y < 0)
+            {
+                _chMovement.ChangeGravityScale(_md.gravityScale * _md.fallGravityMultiplier);
+                //limitar la velocidad máxima de caida
+                _chMovement.LimitMaxFallSpeed();
+            }
+            else
+            {
+                _chMovement.ChangeGravityScale(_md.gravityScale);
+            }
+            #endregion
         }
-        else if (_chMovement.RBVel.y < 0)
-        {
-            _chMovement.ChangeGravityScale(_md.gravityScale * _md.fallGravityMultiplier);
-            //limitar la velocidad máxima de caida
-            _chMovement.LimitMaxFallSpeed();
-        }
-        else
-        {
-            _chMovement.ChangeGravityScale(_md.gravityScale);
-        }
-        #endregion
 
         #region Pogo
         if (_isUsingPogo)
@@ -316,7 +339,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
         float targetSpeed = xInput * _md.maxMoveSpeed;
 
-        if (!_canPogoJump) _chMovement.Run
+        if (!_canPogoJump && !_isWallRunning) _chMovement.Run
         (
             targetSpeed,
             _isWallJumping || _isSliding || _isUsingPogo || Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime,
@@ -324,6 +347,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _md.doConserveMomentum && Mathf.Abs(_chMovement.RBVel.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_chMovement.RBVel.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0,
             ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
         );
+
 
 
 
@@ -337,7 +361,7 @@ public class RefactoredCharacterController : MonoBehaviour
         */
         //activates the run action of character movement
         //Updating animation parameters
-        if(xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
+        if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
             _animComp.LookTo1D(xInput);
 
         _animComp.UpdateXInput(xInput);
@@ -346,7 +370,6 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetGrounded(_isGrounded);
         _animComp.SetSlide(_isSliding);
         _animComp.SetPogo(_isUsingPogo);
-        Debug.Log(_canPogoJump);
         _animComp.SetPogoCharge(_canPogoJump);
         #endregion
     }

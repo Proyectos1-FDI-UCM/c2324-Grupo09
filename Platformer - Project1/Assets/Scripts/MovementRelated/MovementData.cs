@@ -73,6 +73,8 @@ public class MovementData : ScriptableObject
     [Range(0.0F,1.0F)]
     public float wallJump2ForceReductionCoef = 0.6f;
 
+    [Header("WallRun")]
+    public float minWallRunSpeed = 50f;
 
     [Header("Gravity")]
     public float gravityScale = 1;

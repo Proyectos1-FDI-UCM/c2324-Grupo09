@@ -48,6 +48,7 @@ MonoBehaviour:
   wallJumpForceApplyThreshold: 61
   wallJumpMomentumConserveCoeficient: 1
   wallJump2ForceReductionCoef: 0.4
+  minWallRunSpeed: 50
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200

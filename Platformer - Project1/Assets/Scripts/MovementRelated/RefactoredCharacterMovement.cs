@@ -228,4 +228,20 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         _rb.AddForce(newVel, ForceMode2D.Impulse);
     }
+    public void WallRunStart()
+    {
+        if (Mathf.Abs(_rb.velocity.x) < _md.minWallRunSpeed)
+        {
+            _rb.velocity = new Vector2(_lastDirection * _md.minWallRunSpeed, 0);
+        }
+        else
+        {
+            _rb.velocity = new Vector2(_rb.velocity.x, 0);
+        }
+        _rb.gravityScale = 0f;
+    }
+    public void WallRunEnd()
+    {
+        _rb.gravityScale = _md.gravityScale;
+    }
 }
