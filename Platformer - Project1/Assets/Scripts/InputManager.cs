@@ -88,7 +88,7 @@ public class InputManager : MonoBehaviour
     }
     private void WallrunUp(InputAction.CallbackContext obj)
     {
-       _characterController.WallRunDown();
+       _characterController.WallRunUp();
     }
 
     /* Update is called once per frame
