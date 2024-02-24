@@ -53,6 +53,15 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wallride"",
+                    ""type"": ""Button"",
+                    ""id"": ""22dfbf98-909b-408b-b570-6c2fdd918dc0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b44b02b0-d093-4660-af5d-294687254f2f"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wallride"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca1f1351-50d8-42a4-8529-5128666a4d68"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wallride"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +207,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         m_Move_PogoSlide = m_Move.FindAction("Pogo/Slide", throwIfNotFound: true);
         m_Move_Run = m_Move.FindAction("Run", throwIfNotFound: true);
         m_Move_Jump = m_Move.FindAction("Jump", throwIfNotFound: true);
+        m_Move_Wallride = m_Move.FindAction("Wallride", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,6 +272,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Move_PogoSlide;
     private readonly InputAction m_Move_Run;
     private readonly InputAction m_Move_Jump;
+    private readonly InputAction m_Move_Wallride;
     public struct MoveActions
     {
         private @NewControls m_Wrapper;
@@ -247,6 +280,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         public InputAction @PogoSlide => m_Wrapper.m_Move_PogoSlide;
         public InputAction @Run => m_Wrapper.m_Move_Run;
         public InputAction @Jump => m_Wrapper.m_Move_Jump;
+        public InputAction @Wallride => m_Wrapper.m_Move_Wallride;
         public InputActionMap Get() { return m_Wrapper.m_Move; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -265,6 +299,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Wallride.started += instance.OnWallride;
+            @Wallride.performed += instance.OnWallride;
+            @Wallride.canceled += instance.OnWallride;
         }
 
         private void UnregisterCallbacks(IMoveActions instance)
@@ -278,6 +315,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Wallride.started -= instance.OnWallride;
+            @Wallride.performed -= instance.OnWallride;
+            @Wallride.canceled -= instance.OnWallride;
         }
 
         public void RemoveCallbacks(IMoveActions instance)
@@ -300,5 +340,6 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         void OnPogoSlide(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnWallride(InputAction.CallbackContext context);
     }
 }

@@ -6198,6 +6198,7 @@ MonoBehaviour:
   _jumpAction: {fileID: 0}
   _slideAction: {fileID: 0}
   _runAction: {fileID: 0}
+  _wallRunAction: {fileID: 0}
 --- !u!4 &416542928
 Transform:
   m_ObjectHideFlags: 0
@@ -6294,6 +6295,7 @@ MonoBehaviour:
   _jumpAction: {fileID: 678129831204185392, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
   _slideAction: {fileID: -7034743114203751917, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
   _runAction: {fileID: -4853099567716833652, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
+  _wallRunAction: {fileID: -327892669646613323, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
 --- !u!70 &461205686
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

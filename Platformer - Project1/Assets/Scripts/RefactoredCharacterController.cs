@@ -68,6 +68,10 @@ public class RefactoredCharacterController : MonoBehaviour
         _lastTimeSlideInput = _md.slideBufferTime;
         
     }
+  public void  WallRunDown() 
+    {
+    
+    }
 
     //Triggers on changing the value of the x movement joystick
     public void RunDown(float move)
@@ -92,6 +96,10 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         _lastTimeSlideInput = 0;
         
+    }
+    public void WallRunUp()
+    {
+
     }
 
     //triggers when the value of the x movement is equal to 0
