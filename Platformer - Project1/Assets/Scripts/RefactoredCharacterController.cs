@@ -138,7 +138,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _isGrounded = CheckGrounded();
 
         #region WallRun
-        if (_wallRunHeld && _canWallRun && !_isWallRunning)
+        if (_wallRunHeld && _canWallRun && !_isWallRunning && !_isUsingPogo)
         {
             _chMovement.WallRunStart();
             _isWallRunning = true;
@@ -164,6 +164,7 @@ public class RefactoredCharacterController : MonoBehaviour
         {
             if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded)
             {
+                _animComp.LookTo1D(_chMovement.LastDirection);
                 _chMovement.Slide();
                 _changeCollider.StartSlide();
 
@@ -259,6 +260,7 @@ public class RefactoredCharacterController : MonoBehaviour
             {
                _isUsingPogo = false;
                _pogoTouchedGround = Time.time;
+               _animComp.LookTo1D(_chMovement.LastDirection);
             }
             _isWallJumping = false;
             _lastGroundedTime = _md.jumpCoyoteTime;
@@ -365,7 +367,7 @@ public class RefactoredCharacterController : MonoBehaviour
         */
         //activates the run action of character movement
         //Updating animation parameters
-        if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
+        if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
             _animComp.LookTo1D(xInput);
 
         _animComp.UpdateXInput(xInput);
