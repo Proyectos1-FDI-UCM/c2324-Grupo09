@@ -75,6 +75,7 @@ public class MovementData : ScriptableObject
 
     [Header("WallRun")]
     public float minWallRunSpeed = 50f;
+    public float gravityGain = 0.5f;
 
     [Header("Gravity")]
     public float gravityScale = 1;

@@ -213,6 +213,11 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         _rb.gravityScale = newValue;
     }
+    public void AddGravityScale(float newValue)
+    {
+        _rb.gravityScale += newValue;
+        if (_rb.gravityScale > _md.gravityScale) _rb.gravityScale = _md.gravityScale;
+    }
 
     public void LimitMaxFallSpeed()
     {

@@ -148,6 +148,10 @@ public class RefactoredCharacterController : MonoBehaviour
             _chMovement.WallRunEnd();
             _isWallRunning = false;
         }
+        else if (_isWallRunning)
+        {
+            _chMovement.AddGravityScale(_md.gravityGain);
+        }
         #endregion
 
         #region slide
