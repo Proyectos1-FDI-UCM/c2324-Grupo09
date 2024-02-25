@@ -49,6 +49,11 @@ public class AnimationComponent : MonoBehaviour
         _animator.SetBool("WJ", val);
     }
 
+    public void SetWallRun(bool val)
+    {
+        _animator.SetBool("WallRun", val);
+    }
+
     public void LookTo1D(int direction)
     {
         transform.localScale = new Vector3(Mathf.Sign(direction) * _originalSize.x, _originalSize.y, _originalSize.z);
