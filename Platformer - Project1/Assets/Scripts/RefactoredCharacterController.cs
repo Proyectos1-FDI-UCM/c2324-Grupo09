@@ -336,21 +336,32 @@ public class RefactoredCharacterController : MonoBehaviour
         #region Pogo
         if (_isUsingPogo)
         {
-            if (Time.time - _pogoStartTime < _md.pogoXDuration)
+            if (_hitbox.TargetHit == 2)
             {
-                _chMovement.ChangePlayerVelocity( new Vector2(Mathf.Lerp(_pogoStartVelocity.x, 0, (Time.time - _pogoStartTime) / _md.pogoXDuration), _chMovement.RBVel.y));
-            }
-            if (Time.time - _pogoStartTime < _md.pogoYDuration)
-            {
-                _chMovement.ChangePlayerVelocity( new Vector2(_chMovement.RBVel.x, Mathf.Lerp(_pogoStartVelocity.y, _md.pogoInitialUpVel, (Time.time - _pogoStartTime) / _md.pogoYDuration)));
+                _hitbox.DisableHitbox();
+                _animComp.LookTo1D(_chMovement.LastDirection);
+                _chMovement.PogoJump();
+                _isUsingPogo = false;
+                _pogoAnimationCompleted = true;
             }
             else
             {
-                _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
-                if (!_pogoAnimationCompleted)
+                if (Time.time - _pogoStartTime < _md.pogoXDuration)
                 {
-                    _pogoAnimationCompleted = true;
-                    _hitbox.CreateHitbox(_md.pogoPosition, _md.pogoSize, _chMovement.LastDirection);
+                    _chMovement.ChangePlayerVelocity(new Vector2(Mathf.Lerp(_pogoStartVelocity.x, 0, (Time.time - _pogoStartTime) / _md.pogoXDuration), _chMovement.RBVel.y));
+                }
+                if (Time.time - _pogoStartTime < _md.pogoYDuration)
+                {
+                    _chMovement.ChangePlayerVelocity(new Vector2(_chMovement.RBVel.x, Mathf.Lerp(_pogoStartVelocity.y, _md.pogoInitialUpVel, (Time.time - _pogoStartTime) / _md.pogoYDuration)));
+                }
+                else
+                {
+                    _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
+                    if (!_pogoAnimationCompleted)
+                    {
+                        _pogoAnimationCompleted = true;
+                        _hitbox.CreateHitbox(_md.pogoPosition, _md.pogoSize, _chMovement.LastDirection);
+                    }
                 }
             }
         }
