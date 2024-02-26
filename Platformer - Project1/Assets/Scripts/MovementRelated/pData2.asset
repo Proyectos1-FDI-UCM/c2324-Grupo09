@@ -25,6 +25,8 @@ MonoBehaviour:
   pogoInitialUpVel: 100
   pogoEmpoweredJumpDuration: 0.2
   empoweredJumpForceMultiplier: 1.4
+  pogoSize: {x: 5, y: 15}
+  pogoPosition: {x: 0, y: 0}
   slideHorizontalForce: 160
   slideSameDirectionForceMultiplier: 0.4
   slideForceApplyThreshold: 61
@@ -39,6 +41,8 @@ MonoBehaviour:
   jumpHangMaxSpeedMultiplier: 1.53
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
+  wallJumpSize: {x: 14, y: 5}
+  wallJumpPosition: {x: 5, y: 5}
   wallJump2ndJumpForceY: 70
   wallJump2ndJumpForceX: 60
   blockMovement2ndJumpTime: 0.3
@@ -53,6 +57,7 @@ MonoBehaviour:
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200
+  defaultHitboxTimer: 0.5
   yGroundCheckOffSet: -1
   groundCheckSize: {x: 3.5, y: 0.1}
   groundLayer:

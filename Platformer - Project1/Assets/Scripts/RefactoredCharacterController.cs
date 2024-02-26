@@ -52,6 +52,7 @@ public class RefactoredCharacterController : MonoBehaviour
     float _pogoTouchedGround = 0f;
     float _lastWallJumpImpulse = -2f;
     //float _redirTiming = 0f;
+    float _hitboxTimer = 0f;
     #endregion
 
     #endregion
@@ -191,12 +192,19 @@ public class RefactoredCharacterController : MonoBehaviour
 
         #region jump
 
-        if (_hitbox.HitboxHit && _isWallJumping)
+        if (_isWallJumping)
         {
-            _isWallJumping = false;
-            _lastWallJumpImpulse = Time.time;
-            _lastJumpTimeInput = -1;
-            _chMovement.WallJumpPart2();
+            if (_hitboxTimer > 0) _hitboxTimer -= Time.deltaTime;
+            else _hitbox.DisableHitbox();
+
+            if (_hitbox.TargetHit>0)
+            {
+                _hitbox.DisableHitbox();
+                _isWallJumping = false;
+                _lastWallJumpImpulse = Time.time;
+                _lastJumpTimeInput = -1;
+                _chMovement.WallJumpPart2();
+            }
         }
 
         if (_lastJumpTimeInput > 0)
@@ -225,8 +233,9 @@ public class RefactoredCharacterController : MonoBehaviour
             {
                 if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                 {
+                    _hitboxTimer = _md.defaultHitboxTimer;
                     _chMovement.WallJump();
-                    _hitbox.CreateHitbox(_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
+                    _hitbox.CreateHitbox(_md.wallJumpPosition,_md.wallJumpSize,_chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
                     _lastJumpTimeInput = -1;
                     _isWallJumping = true;
                     _remainingWallJumpNumber--;
@@ -339,7 +348,10 @@ public class RefactoredCharacterController : MonoBehaviour
             {
                 _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
                 if (!_pogoAnimationCompleted)
+                {
                     _pogoAnimationCompleted = true;
+                    _hitbox.CreateHitbox(_md.pogoPosition, _md.pogoSize, _chMovement.LastDirection);
+                }
             }
         }
         #endregion
