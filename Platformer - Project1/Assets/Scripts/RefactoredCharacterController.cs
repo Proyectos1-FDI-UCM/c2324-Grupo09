@@ -182,6 +182,7 @@ public class RefactoredCharacterController : MonoBehaviour
                     _hitbox.DisableHitbox();
                     _animComp.SetPogoTr();
                     _isUsingPogo = true;
+                    _isWallJumping = false;
                     _pogoStartTime = Time.time;
                     _pogoStartVelocity = _chMovement.RBVel;
                     _pogoAnimationCompleted = false;
@@ -342,7 +343,6 @@ public class RefactoredCharacterController : MonoBehaviour
                 _animComp.LookTo1D(_chMovement.LastDirection);
                 _chMovement.PogoJump();
                 _isUsingPogo = false;
-                _pogoAnimationCompleted = true;
             }
             else
             {
