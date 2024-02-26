@@ -210,6 +210,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else
                 {
+                    _animComp.LookTo1D(_chMovement.LastDirection);
                     _chMovement.Jump();
                     _changeCollider.EndSlide();
                 }
