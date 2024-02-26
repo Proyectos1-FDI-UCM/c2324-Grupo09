@@ -154,7 +154,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     /// </summary>
     public void WallJump()
     {
-
+        
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
         _wallJumpStartDirection = _lastDirection;
         if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
@@ -186,6 +186,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
         _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up + 
             Vector2.left * reductionCoef * _lastDirection * _md.wallJump2ndJumpForceX, 
             ForceMode2D.Impulse);
+       
     }
 
     #endregion

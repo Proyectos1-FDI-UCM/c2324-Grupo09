@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ImpIA : MonoBehaviour
+public class ImpIA : EnemyIA
 {
+
     CharacterController _character;
     EnemyMovement _enemyMove;
     [SerializeField]
@@ -11,43 +13,49 @@ public class ImpIA : MonoBehaviour
     float _timeHit,speed;
     [SerializeField]
     float _timeForCicle;
-    EnemyState enemyState=EnemyState.alive;
+    [SerializeField]
+    float _gravity;
+    EnemyState enemyState=EnemyState.baseState;
+    public override void OnHit()
+    {
+        
+        if (enemyState == EnemyState.state1)
+        {
+            
+            enemyState = EnemyState.dead;
+        }
+        else if (enemyState == EnemyState.baseState)
+        {
+            _timeHit = Time.time;
+            enemyState = EnemyState.state1;
+            _enemyMove.Direction(Vector3.up);
+
+        }
+    }
+    public override void Death()
+    {
+        Destroy(this.gameObject);
+    }
     private void Start()
     {
         _enemyMove = GetComponent<EnemyMovement>();
     }
     private void Update()
     {
-        if (enemyState == EnemyState.hitted1) 
+       if (enemyState == EnemyState.state1) 
         {
-          speed=  Mathf.Lerp(_maxSpeed, -_maxSpeed, (Mathf.Sin(((Time.time-_timeHit)/_timeForCicle)*Mathf.PI*2-Mathf.PI/2)+1)/2);
-            _enemyMove.Speed(speed);
+            if (!((Time.time - _timeHit)  >= _timeForCicle))
+            {
+                speed = Mathf.Lerp(_maxSpeed,-_gravity, (Mathf.Sin(((Time.time - _timeHit) / _timeForCicle) * Mathf.PI     - Mathf.PI / 2) + 1) / 2);
+                _enemyMove.Speed(speed);
+            
+            }
         }
         else if (enemyState == EnemyState.dead) 
         {
-        Destroy(gameObject);
+            Death();
         }
     }
-    private void ChangeState()
-    {
-        if (enemyState == EnemyState.hitted1)
-        {
-            _timeHit = Time.time;
-            enemyState = EnemyState.dead;
-        }
-        else if (enemyState == EnemyState.alive)
-        {
-            enemyState=EnemyState.hitted1;
-            _enemyMove.Direction(Vector3.up);
-           
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D colision)
-    {
-        _character = colision.GetComponent<CharacterController>();
-        if (_character != null) 
-        {
-            ChangeState();
-        }
-    }
+    
+   
 }
