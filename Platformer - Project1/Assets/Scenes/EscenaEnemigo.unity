@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 284229857}
   - component: {fileID: 284229856}
   - component: {fileID: 284229855}
+  - component: {fileID: 284229859}
+  - component: {fileID: 284229858}
   m_Layer: 0
   m_Name: Bene
   m_TagString: Untagged
@@ -184,7 +186,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 4}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &284229856
 SpriteRenderer:
@@ -247,12 +249,41 @@ Transform:
   m_GameObject: {fileID: 284229854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -260, y: -20, z: 0}
+  m_LocalPosition: {x: -260, y: 10, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &284229858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284229854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf1dffb20fb0c048ae123183a0fbb27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _beneVison: 20
+  _rightOffset: 15
+  _leftOffset: 15
+--- !u!114 &284229859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284229854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23bca83f08720f4c90e2d924abd805d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementSpeed: 4
+  _movementDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &350355461
 GameObject:
   m_ObjectHideFlags: 0
@@ -6392,9 +6423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9438898b4871c4aaca0f217871c45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultCheckTime: 0.5
-  _defaultPosition: {x: 5, y: 0}
-  _defaultSize: {x: 14, y: 5}
   _layerToCheck:
     serializedVersion: 2
     m_Bits: 192
@@ -6497,7 +6525,7 @@ Transform:
   m_GameObject: {fileID: 461205681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -359, y: -61.6, z: 0}
+  m_LocalPosition: {x: -227, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
