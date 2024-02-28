@@ -7,6 +7,8 @@ using UnityEngine;
 public class RefactoredCharacterController : MonoBehaviour
 {
     #region references
+    [SerializeField]
+    private LayerMask _enemyLayer;
     ChangeCollider _changeCollider;
     private HitboxComponent _hitbox;
     private RefactoredCharacterMovement _chMovement;
@@ -43,7 +45,8 @@ public class RefactoredCharacterController : MonoBehaviour
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
     Vector3 _pogoStartVelocity = Vector3.zero;
-    bool[] abilities;
+    //[SerializeField]
+    bool[] abilities = new bool[4];
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
 
@@ -135,8 +138,14 @@ public class RefactoredCharacterController : MonoBehaviour
 
     #endregion
 
-
-
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        //-------------------------------------        Debug.Log(other.gameObject.layer);------------------------------------------------------------------------------------------------------------------------------
+        if (other.gameObject.layer == _enemyLayer)
+        {
+            Debug.Log("Death");
+        }
+    }
 
     void Start()
     {
@@ -146,7 +155,6 @@ public class RefactoredCharacterController : MonoBehaviour
         _hitbox = GetComponent<HitboxComponent>();
         _changeCollider = GetComponent<ChangeCollider>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-        abilities = new bool[] { false, false, false, false };
     }
 
     //Runs 50 times per second
@@ -197,7 +205,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else if (!_isUsingPogo)
                 {
-                    if (abilities[2]&&(_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
+                    if (abilities[2] && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
                     {
                         _hitbox.DisableHitbox();
                         _animComp.SetPogoTr();
@@ -253,7 +261,8 @@ public class RefactoredCharacterController : MonoBehaviour
             }
             else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
             {
-                if (abilities[1] == true)
+
+                if (abilities[1] == true && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
                 {
                     if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                     {
@@ -435,10 +444,12 @@ public class RefactoredCharacterController : MonoBehaviour
     public void Unlock(int i)
     {
         abilities[i] = true;
+        /*
         if (i == 0) { Debug.Log("slide"); }
         else if (i==1) { Debug.Log("walljump"); }
         else if (i==2) { Debug.Log("pogo"); }
         else  { Debug.Log("wallride"); }
+        */
             
        
     }
@@ -463,7 +474,7 @@ public class RefactoredCharacterController : MonoBehaviour
         Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight));
+        Gizmos.DrawWireCube((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight));
     }
 
     #endregion

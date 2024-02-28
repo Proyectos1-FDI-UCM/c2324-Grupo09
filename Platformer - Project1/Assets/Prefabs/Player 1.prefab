@@ -115,6 +115,7 @@ MonoBehaviour:
   _jumpAction: {fileID: 678129831204185392, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
   _slideAction: {fileID: -7034743114203751917, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
   _runAction: {fileID: -4853099567716833652, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
+  _wallRunAction: {fileID: -327892669646613323, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
 --- !u!114 &3627175663455966552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267881ce4bd7b654595e3a5d093a58de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  abilities: 
 --- !u!114 &8701416303009647037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,9 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9438898b4871c4aaca0f217871c45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultCheckTime: 0.5
-  _defaultPosition: {x: 5, y: 0}
-  _defaultSize: {x: 14, y: 5}
   _layerToCheck:
     serializedVersion: 2
     m_Bits: 64

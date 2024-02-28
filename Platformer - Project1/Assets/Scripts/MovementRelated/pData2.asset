@@ -18,7 +18,7 @@ MonoBehaviour:
   accelInAir: 0.5
   deccelInAir: 0.1
   doConserveMomentum: 1
-  minPogoHeight: 40
+  minPogoHeight: 20
   pogoXDuration: 0.1
   pogoYDuration: 0.33
   pogoFallForce: 100

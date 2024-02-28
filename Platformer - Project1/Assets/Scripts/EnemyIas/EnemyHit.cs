@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
-    [SerializeField]
-    int _stateChanger;
     ChangeState _changeState;
     ImpIA _impIA;
     BeneIA _beneIA;

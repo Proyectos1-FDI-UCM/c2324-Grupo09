@@ -13,9 +13,11 @@ public class HitboxComponent : MonoBehaviour
     //when it is set to 1 it means it hit something before the hitbox dissapeared
     private int _targetHit = 0;
     //Vector 2 containing
+    [SerializeField]
     Vector2 _hitboxPosition;
 
     //Vector 2 containing the x and y size of the box created with the hitbox
+    [SerializeField]
     Vector2 _hitboxSize;
 
 
@@ -73,7 +75,7 @@ public class HitboxComponent : MonoBehaviour
     {
         //Debug.Log (Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck).GetType());
         Collider2D overlap = Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck);
-        if (overlap != null)
+        if (overlap != null && _hitboxSize != Vector2.zero)
         {
             if (overlap.GetComponent<EnemyMovement>() != null) 
             {
@@ -81,7 +83,6 @@ public class HitboxComponent : MonoBehaviour
                 return 2; 
                 
             }
-            
             else return 1;
         }
         else return 0;
