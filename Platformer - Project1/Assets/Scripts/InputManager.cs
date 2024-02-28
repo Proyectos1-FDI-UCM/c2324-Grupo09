@@ -17,10 +17,15 @@ public class InputManager : MonoBehaviour
     InputActionReference _runAction;
     [SerializeField]
     InputActionReference _wallRunAction;
+    bool[] abilities;
+    //Usamos esto para el desbloqueo de habilidades. El primero es slide
+    //El segundo es pogo, tercero walljump y cuarto wallrun
+    
     // Start is called before the first frame update
     private void Start()
     {
         _characterController = FindObjectOfType<RefactoredCharacterController>();
+        abilities = new bool[] { true, true, true, false };
     }
     void Awake()
     {
@@ -64,7 +69,9 @@ public class InputManager : MonoBehaviour
     }
     private void SlideDown(InputAction.CallbackContext obj)
     {
-        _characterController.SlideDown();
+       
+            _characterController.SlideDown();
+       
     }
     private void RunDown(InputAction.CallbackContext obj)
     {
@@ -72,7 +79,9 @@ public class InputManager : MonoBehaviour
     }
     private void WallRunDown(InputAction.CallbackContext obj)
     {
-        _characterController.WallRunDown();
+       
+            _characterController.WallRunDown();
+        
     }
     private void RunUp(InputAction.CallbackContext obj)
     {
@@ -90,6 +99,11 @@ public class InputManager : MonoBehaviour
     {
        _characterController.WallRunUp();
     }
+   /* public void Unlock(int i)
+    {
+        abilities[3] = true;
+        Debug.Log("true");
+    }*/
 
     /* Update is called once per frame
     void Update()
