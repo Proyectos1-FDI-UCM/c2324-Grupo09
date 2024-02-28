@@ -12,7 +12,12 @@ public class RefactoredCharacterController : MonoBehaviour
     private MovementData _md;
     //reference to animation component
     private AnimationComponent _animComp;
+    public Vector2 CharacterVelocity
+    {
+        get { return _chMovement.RBVel; }
+    }
     #endregion
+
 
     #region inputVariables
     //x value of the movement joystick
