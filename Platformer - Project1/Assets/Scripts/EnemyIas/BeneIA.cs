@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeneIA : MonoBehaviour
+public class BeneIA : EnemyIA
 {
     #region references
     private Transform _myTransform;
@@ -29,6 +29,16 @@ public class BeneIA : MonoBehaviour
         {
             _enemyMovement.Direction(Vector3.down);
         }
+    }
+
+    public override void OnHit()
+    {
+        Death();
+    }
+
+    public override void Death()
+    {
+        Destroy(this.gameObject);
     }
 
 

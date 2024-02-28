@@ -13047,7 +13047,7 @@ Transform:
   m_GameObject: {fileID: 1297447244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -239.12901, y: 27.640625, z: -10}
+  m_LocalPosition: {x: -239.129, y: 27.640625, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13132,6 +13132,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1645481310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3630597511180946869, guid: 5564180d69cf7b04c8d954246eddaf85, type: 3}
+  m_PrefabInstance: {fileID: 1742725241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1645481316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645481310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818b4cb16c0841440bea2a954431dd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateChanger: 0
 --- !u!1001 &1742725241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13203,7 +13221,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3630597511180946869, guid: 5564180d69cf7b04c8d954246eddaf85, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1645481316}
   m_SourcePrefab: {fileID: 100100000, guid: 5564180d69cf7b04c8d954246eddaf85, type: 3}
 --- !u!1 &1829183930
 GameObject:
@@ -13490,6 +13511,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3317547733125189508, guid: c08db4eb854d40c4a98161fa3497cb3d, type: 3}
+      propertyPath: _movementDirection.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3746887597241431935, guid: c08db4eb854d40c4a98161fa3497cb3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 438.7

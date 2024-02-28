@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class EnemyIA :MonoBehaviour
 {
   public abstract void OnHit();
-    public abstract void Death();
+  public abstract void Death();
 
 
     

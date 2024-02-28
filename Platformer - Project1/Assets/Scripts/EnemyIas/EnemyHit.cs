@@ -8,14 +8,17 @@ public class EnemyHit : MonoBehaviour
     int _stateChanger;
     ChangeState _changeState;
     ImpIA _impIA;
+    BeneIA _beneIA;
     private void Start()
     {
         _impIA = GetComponent<ImpIA>();
-        _changeState=GetComponent<ChangeState>();
+        _beneIA = GetComponent<BeneIA>();
+        _changeState =GetComponent<ChangeState>();
     }
     public void GotHit()
     {
-        _impIA.OnHit();
+        _impIA?.OnHit();
+        _beneIA?.OnHit();
     }
 
 
