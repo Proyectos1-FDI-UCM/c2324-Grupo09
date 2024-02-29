@@ -140,8 +140,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        //-------------------------------------        Debug.Log(other.gameObject.layer);------------------------------------------------------------------------------------------------------------------------------
-        if (other.gameObject.layer == _enemyLayer)
+        if (other.gameObject.layer == Mathf.Log((int)_enemyLayer,2))
         {
             Debug.Log("Death");
         }

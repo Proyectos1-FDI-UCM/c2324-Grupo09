@@ -612,6 +612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9438898b4871c4aaca0f217871c45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitboxPosition: {x: 0, y: 0}
+  _hitboxSize: {x: 0, y: 0}
   _layerToCheck:
     serializedVersion: 2
     m_Bits: 192
