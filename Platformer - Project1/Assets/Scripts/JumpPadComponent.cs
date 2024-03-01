@@ -18,6 +18,7 @@ public class JumpPadComponent : MonoBehaviour
     float _angle;
     Vector2 _jumpDirection;
     #endregion
+
     private void Start()
     {
         _arrowTransform = transform.GetChild(0);
@@ -25,12 +26,12 @@ public class JumpPadComponent : MonoBehaviour
         _jumpDirection = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle));
         _arrowTransform.localRotation = Quaternion.Euler(0,0,_angle*180/MathF.PI-90);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        RefactoredCharacterMovement player = collision.collider.GetComponent<RefactoredCharacterMovement>();
+        RefactoredCharacterController player = collider.GetComponent<RefactoredCharacterController>();
         if (player != null)
         {
-
+            player.JumpPadContact(_jumpDirection);
         }
     }
 }

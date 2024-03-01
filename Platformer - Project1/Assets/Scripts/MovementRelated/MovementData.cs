@@ -82,6 +82,9 @@ public class MovementData : ScriptableObject
     public float minWallRunSpeed = 50f;
     public float gravityGain = 0.5f;
 
+    [Header("JumpPad")]
+    public float padJumpForce = 250f;
+
     [Header("Gravity")]
     public float gravityScale = 1;
     //mayor igual de 1

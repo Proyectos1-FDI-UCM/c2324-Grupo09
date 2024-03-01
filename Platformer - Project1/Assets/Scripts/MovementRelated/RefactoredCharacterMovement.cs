@@ -207,6 +207,12 @@ public class RefactoredCharacterMovement : MonoBehaviour
         _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
     }
 
+    public void PadJump(Vector2 direction)
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+        _rb.AddForce(_md.padJumpForce*direction,ForceMode2D.Impulse);
+    }
+
 
 
     public void ChangeGravityScale(float newValue)
