@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b95e791bf428964b94af7049e97e40b, type: 3}
+  m_Name: TestingNew
+  m_EditorClassIdentifier: 
+  maxMoveSpeed: 60
+  acceleration: 5
+  decceleration: 30
+  accelInAir: 0.5
+  deccelInAir: 0.15
+  doConserveMomentum: 1
+  minPogoHeight: 20
+  pogoXDuration: 0.1
+  pogoYDuration: 0.33
+  pogoFallForce: 100
+  pogoInitialUpVel: 100
+  pogoEmpoweredJumpDuration: 0.2
+  empoweredJumpForceMultiplier: 1.4
+  pogoSize: {x: 5, y: 15}
+  pogoPosition: {x: 0, y: 0}
+  slideHorizontalForce: 120
+  slideSameDirectionForceMultiplier: 0.4
+  slideForceApplyThreshold: 61
+  timeBetweenSlides: 0.4
+  slideDuration: 0.25
+  slideBufferTime: 0.3
+  jumpForce: 160
+  jumpBufferTime: 0.3
+  jumpCoyoteTime: 0.13
+  jumpCutMultiplier: 0.7
+  jumpHangAccelerationMultiplier: 1.5
+  jumpHangMaxSpeedMultiplier: 1.53
+  jumpHangTimeThreshold: 0.3
+  jumpHangGravityMultiplier: 0.7
+  wallJumpSize: {x: 14, y: 5}
+  wallJumpPosition: {x: 5, y: 5}
+  xSeparationFromWallOnWallJump: 0.3
+  wallJump2ndJumpForceY: 110
+  wallJump2ndJumpForceX: 30
+  blockMovement2ndJumpTime: 0.3
+  maxNumberOfWallJumps: 3
+  wallJumpForce: {x: 50, y: 30}
+  wallJumpSameDirectionForceMultiplier: 0.1
+  wallJumpForceApplyThreshold: 61
+  wallJumpMomentumConserveCoeficient: 1
+  wallJump2ForceReductionCoef: 0.4
+  minWallRunSpeed: 50
+  gravityGain: 0.5
+  gravityScale: 30
+  fallGravityMultiplier: 1.5
+  maxFallSpeed: 200
+  defaultHitboxTimer: 0.5
+  yGroundCheckOffSet: -1
+  groundCheckSize: {x: 3.5, y: 0.1}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64

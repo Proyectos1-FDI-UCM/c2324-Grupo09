@@ -16228,7 +16228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db04871e2a7a4f14593e31aa58d691e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _md: {fileID: 11400000, guid: 33ace157fa96000408dfe821e5dc58fa, type: 2}
+  _md: {fileID: 11400000, guid: 5bdebac5ed48baf478d78869339e3b9d, type: 2}
 --- !u!114 &461205683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17078,7 +17078,7 @@ Transform:
   m_GameObject: {fileID: 1297447244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -239.12901, y: 27.640625, z: -10}
+  m_LocalPosition: {x: -239.129, y: 27.640625, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17378,7 +17378,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 603118958991361326, guid: 5564180d69cf7b04c8d954246eddaf85, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1844896176144484435, guid: 5564180d69cf7b04c8d954246eddaf85, type: 3}
       propertyPath: _movementSpeed
@@ -18115,6 +18115,14 @@ PrefabInstance:
     - target: {fileID: 5954506190677913835, guid: 90bd658a4eb54ed47ad7ca242b251e1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8957313079166050795, guid: 90bd658a4eb54ed47ad7ca242b251e1f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8957313079166050795, guid: 90bd658a4eb54ed47ad7ca242b251e1f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1443747679
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
