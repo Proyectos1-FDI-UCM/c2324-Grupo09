@@ -163,9 +163,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
             _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
         
-        //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.wallJumpForce.y + sameDirectionFactor * _md.wallJumpForce.x * _lastDirection * Vector2.right, ForceMode2D.Impulse);
-        //_isJumping = true;
     }
 
     public void WallJumpPart2()
@@ -181,6 +179,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
         {
             _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection);
         }
+        transform.position += Vector3.right * Mathf.Sign(_xVelocityPreviousToWallJump * -1) * _md.xSeparationFromWallOnWallJump;
         //inserte pausa de antes
         _rb.velocity = new Vector2 (-1 * (_xVelocityPreviousToWallJump), 0);
         _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up + 

@@ -63,6 +63,7 @@ public class MovementData : ScriptableObject
     public Vector2 wallJumpSize = new Vector2(14, 5);
     public Vector2 wallJumpPosition = new Vector2(5, 5);
     //public float wallJump2nd
+    public float xSeparationFromWallOnWallJump = 0.3f;
     public float wallJump2ndJumpForceY = 5f;
     public float wallJump2ndJumpForceX = 10f;
     public float blockMovement2ndJumpTime = 0.5f;
