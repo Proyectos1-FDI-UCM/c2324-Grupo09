@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RefactoredCharacterController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class RefactoredCharacterController : MonoBehaviour
     private MovementData _md;
     //reference to animation component
     private AnimationComponent _animComp;
+    private Transform _spawnPoint;
     public Vector2 CharacterVelocity
     {
         get { return _chMovement.RBVel; }
@@ -145,6 +147,10 @@ public class RefactoredCharacterController : MonoBehaviour
         _padJumpActive = true;
         _padJumpDirection = direction;
     }
+    public void AssignSpawnPoint(Transform spawn)
+    {
+        _spawnPoint = spawn;
+    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -152,6 +158,7 @@ public class RefactoredCharacterController : MonoBehaviour
         {
             Debug.Log("Death");
             //Die();
+            transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
         }
     }
 

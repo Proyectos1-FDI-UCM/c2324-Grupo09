@@ -55,6 +55,7 @@ MonoBehaviour:
   wallJump2ForceReductionCoef: 0.4
   minWallRunSpeed: 50
   gravityGain: 0.5
+  padJumpForce: 250
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200
