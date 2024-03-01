@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
     #region methods
     public void Direction(Vector3 direction)
     {
-        _movementDirection = direction;
+        _movementDirection = direction.normalized;
     }
     public void Speed(float speed)
     {

@@ -143,6 +143,7 @@ public class RefactoredCharacterController : MonoBehaviour
         if (other.gameObject.layer == Mathf.Log((int)_enemyLayer,2))
         {
             Debug.Log("Death");
+            //Die();
         }
     }
 
@@ -452,6 +453,8 @@ public class RefactoredCharacterController : MonoBehaviour
             
        
     }
+
+    //private void Die() { }
 
     #region SorroundingChecks
     /// <summary>
