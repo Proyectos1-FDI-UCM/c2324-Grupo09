@@ -43,6 +43,7 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _canWallRun = false;
     bool _isWallRunning = false;
     bool _wallRunHeld = false;
+    bool _hasWallRun = false;
     bool _padJumpActive = false;
     Vector2 _padJumpDirection;
     //float _xVelocityPreviousToWallJump = 0;
@@ -176,13 +177,14 @@ public class RefactoredCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         _isGrounded = CheckGrounded();
-       
+
             #region WallRun
             if (abilities[3])
             {
                 if (_wallRunHeld && _canWallRun && !_isWallRunning && !_isUsingPogo)
             {
-                _chMovement.WallRunStart();
+                _chMovement.WallRunStart(_hasWallRun);
+                _hasWallRun = true;
                 _isWallRunning = true;
             }
             else if ((!_wallRunHeld || !_canWallRun) && _isWallRunning)
@@ -246,6 +248,7 @@ public class RefactoredCharacterController : MonoBehaviour
             {
                 _hitbox.DisableHitbox();
                 _isWallJumping = false;
+                _hasWallRun = false;
                 _lastWallJumpImpulse = Time.time;
                 _lastJumpTimeInput = -1;
                 _chMovement.WallJumpPart2();
@@ -301,6 +304,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _isUsingPogo = false;
             _isWallJumping = false;
             _isSliding = false;
+            _hasWallRun = false;
             if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
             _animComp.LookTo1D(_chMovement.LastDirection);
             _chMovement.PadJump(_padJumpDirection);
@@ -335,6 +339,7 @@ public class RefactoredCharacterController : MonoBehaviour
                _pogoTouchedGround = Time.time;
                _animComp.LookTo1D(_chMovement.LastDirection);
             }
+            _hasWallRun = false;
             _isWallJumping = false;
             _lastGroundedTime = _md.jumpCoyoteTime;
             _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
