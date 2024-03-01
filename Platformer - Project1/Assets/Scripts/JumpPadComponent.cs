@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class JumpPadComponent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region parameters
+    [SerializeField]
+    [Range(0, 7)]
+    [Tooltip("Defines launch angle in pi/4 radians.")]
+    int _direction;
 
-    // Update is called once per frame
-    void Update()
+    float _angle;
+    Vector2 _JumpDirection;
+    #endregion
+    private void Start()
     {
-        
+        _angle = _direction*Mathf.PI/4;
+        _JumpDirection = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle));
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        RefactoredCharacterMovement player = collision.collider.GetComponent<RefactoredCharacterMovement>();
+        if (player != null)
+        {
+
+        }
     }
 }
