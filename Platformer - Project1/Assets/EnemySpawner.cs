@@ -24,19 +24,8 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject enemyPrefab;
 
-
-    public void Spawn()
+    private void Start()
     {
-
-    }
-
-    private void EnemyTypeChanged()
-    {
-        if(enemy == EnemyType.RegularImp || enemy == EnemyType.BlueImp || enemy == EnemyType.Naha)
-            enemyMoves = true;
-        else 
-            enemyMoves = false;
-
         string pathToEnemyPrefab = "";
         switch (enemy)
         {
@@ -57,6 +46,21 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
         enemyPrefab = Resources.Load<GameObject>(pathToEnemyPrefab);
+        Debug.Log(enemyPrefab);
+        Spawn();
+    }
+
+    public void Spawn()
+    {
+        GameObject spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+    }
+
+    private void EnemyTypeChanged()
+    {
+        if(enemy == EnemyType.RegularImp || enemy == EnemyType.BlueImp || enemy == EnemyType.Naha)
+            enemyMoves = true;
+        else 
+            enemyMoves = false;
     }
 }
 
