@@ -159,7 +159,7 @@ public class RefactoredCharacterController : MonoBehaviour
         {
             Debug.Log("Death");
             //Die();
-            transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
+            //transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
         }
     }
 

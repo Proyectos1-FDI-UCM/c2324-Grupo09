@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Name
-      value: Imp Variant
+      value: BlueImp
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Color.b
@@ -71,6 +71,14 @@ PrefabInstance:
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Color.g
       value: 0.49337363
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1137884853
       objectReference: {fileID: 0}
     - target: {fileID: 6534088235583860015, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: _movementDirection.x

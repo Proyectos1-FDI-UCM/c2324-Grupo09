@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: TestingNew
   m_EditorClassIdentifier: 
   maxMoveSpeed: 60
-  acceleration: 5
+  acceleration: 6
   decceleration: 30
   accelInAir: 0.5
-  deccelInAir: 0.15
+  deccelInAir: 0.02
   doConserveMomentum: 1
   minPogoHeight: 20
   pogoXDuration: 0.1
@@ -43,15 +43,15 @@ MonoBehaviour:
   jumpHangGravityMultiplier: 0.7
   wallJumpSize: {x: 14, y: 5}
   wallJumpPosition: {x: 5, y: 5}
-  xSeparationFromWallOnWallJump: 0.3
-  wallJump2ndJumpForceY: 110
+  xSeparationFromWallOnWallJump: 0
+  wallJump2ndJumpForceY: 120
   wallJump2ndJumpForceX: 30
   blockMovement2ndJumpTime: 0.3
   maxNumberOfWallJumps: 3
-  wallJumpForce: {x: 50, y: 30}
-  wallJumpSameDirectionForceMultiplier: 0.1
-  wallJumpForceApplyThreshold: 61
-  wallJumpMomentumConserveCoeficient: 1
+  wallJumpForce: {x: 40, y: 30}
+  wallJumpSameDirectionForceMultiplier: 0.6
+  wallJumpForceApplyThreshold: 200
+  wallJumpMomentumConserveCoeficient: 0.7
   wallJump2ForceReductionCoef: 0.4
   minWallRunSpeed: 50
   gravityGain: 0.5

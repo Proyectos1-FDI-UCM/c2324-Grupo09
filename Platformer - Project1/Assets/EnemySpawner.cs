@@ -6,6 +6,7 @@ using NaughtyAttributes;
 public class EnemySpawner : MonoBehaviour
 {
     private bool enemyMoves;
+    private GameObject spawnedEnemy;
 
     [SerializeField]
     [OnValueChanged("EnemyTypeChanged")]
@@ -47,12 +48,19 @@ public class EnemySpawner : MonoBehaviour
         }
         enemyPrefab = Resources.Load<GameObject>(pathToEnemyPrefab);
         Debug.Log(enemyPrefab);
-        Spawn();
+        EnemyTypeChanged();
+        //Spawn();
     }
 
     public void Spawn()
     {
-        GameObject spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if(enemyMoves)
+        {
+            EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();
+            eM.Direction(direction);
+            eM.Speed(speed);
+        }
     }
 
     private void EnemyTypeChanged()
@@ -61,6 +69,11 @@ public class EnemySpawner : MonoBehaviour
             enemyMoves = true;
         else 
             enemyMoves = false;
+    }
+
+    public void DestroySpawnedEnemy()
+    {
+        Destroy(spawnedEnemy);
     }
 }
 
