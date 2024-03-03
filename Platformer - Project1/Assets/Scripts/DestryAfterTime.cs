@@ -10,9 +10,6 @@ public class DestryAfterTime : MonoBehaviour
     [SerializeField]
     GameObject[] somethingElseToDestroy; 
 
-    [SerializeField]
-    bool DoesntDestroyAfterGettingWallJump;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Invoke("DestroyThis", secondsToDestroy);

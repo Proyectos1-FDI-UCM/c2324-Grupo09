@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         _cinemachineBrain = FindObjectOfType<CinemachineBrain>();
-        _spawnPoint = GetComponentInChildren<RespawnComponent>().transform;
+        _spawnPoint = GetComponentInChildren<RespawnComponent>()?.transform;
     }
     private void FixedUpdate()
     {
