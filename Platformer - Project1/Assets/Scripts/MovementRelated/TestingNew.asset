@@ -46,7 +46,7 @@ MonoBehaviour:
   xSeparationFromWallOnWallJump: 0
   wallJump2ndJumpForceY: 120
   wallJump2ndJumpForceX: 30
-  blockMovement2ndJumpTime: 0.3
+  blockMovement2ndJumpTime: 0.1
   maxNumberOfWallJumps: 3
   wallJumpForce: {x: 40, y: 30}
   wallJumpSameDirectionForceMultiplier: 0.6

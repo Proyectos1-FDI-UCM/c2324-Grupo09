@@ -11,7 +11,10 @@ public class CameraController : MonoBehaviour
     private CinemachineBrain _cinemachineBrain;
     private RefactoredCharacterController _characterController;
     [SerializeField]
-    private EnemySpawner[] eSpawner; 
+    private EnemySpawner[] eSpawner;
+
+    [SerializeField]
+    private GameObject[] setActivePlatforms;
     #endregion
 
     #region methods
@@ -20,6 +23,11 @@ public class CameraController : MonoBehaviour
         if (collision.GetComponent<RefactoredCharacterController>() != null)
         {
             _characterController = collision.GetComponent<RefactoredCharacterController>();
+            foreach (GameObject platform in setActivePlatforms)
+            {
+                platform.SetActive(true);
+            }
+
             VirtualCamera.SetActive(true);
             SpawnEnemiesOnRoomEnter();
         }
@@ -48,7 +56,7 @@ public class CameraController : MonoBehaviour
     {
         for(int i = 0; i<eSpawner.Length; i++)
         {
-            eSpawner[i].Spawn();
+            eSpawner[i]?.Spawn();
         }
     }
 
@@ -56,7 +64,7 @@ public class CameraController : MonoBehaviour
     {
         for (int i = 0; i < eSpawner.Length; i++)
         {
-            eSpawner[i].DestroySpawnedEnemy();
+            eSpawner[i]?.DestroySpawnedEnemy();
         }
     }
 }

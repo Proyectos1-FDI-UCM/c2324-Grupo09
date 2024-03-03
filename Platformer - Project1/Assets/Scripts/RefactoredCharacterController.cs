@@ -178,7 +178,7 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         _isGrounded = CheckGrounded();
 
-            #region WallRun
+        #region WallRun
             if (abilities[3])
             {
                 if (_wallRunHeld && _canWallRun && !_isWallRunning && !_isUsingPogo)
@@ -356,26 +356,6 @@ public class RefactoredCharacterController : MonoBehaviour
 
 
 
-        /*
-        if (_chMovement.Direction != _chMovement.LastDirection && _flipComplete)
-        {
-            Debug.Log("Flip");
-            _redirTiming = _md.redirectionMargin;
-            _flipComplete = false;
-        }
-
-        if (_redirTiming > 0)
-        {
-            _redirTiming -= Time.deltaTime;
-        }
-        else
-        {
-            _chMovement.DelayedDirection();
-            _flipComplete = true;
-        } 
-
-        */
-
         #endregion
 
 
@@ -441,8 +421,9 @@ public class RefactoredCharacterController : MonoBehaviour
 
         if (!_canPogoJump && !_isWallRunning) _chMovement.Run
         (
+            (Time.time - _lastWallJumpImpulse)/ _md.blockMovement2ndJumpTime,
             targetSpeed,
-            _isWallJumping || _isSliding || _isUsingPogo || Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime,
+            _isWallJumping || _isSliding || _isUsingPogo,
             (_isJumping || _isJumpFalling), 
             _md.doConserveMomentum && Mathf.Abs(_chMovement.RBVel.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_chMovement.RBVel.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0,
             ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)

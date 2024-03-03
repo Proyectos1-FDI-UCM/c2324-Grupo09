@@ -65,9 +65,10 @@ public class RefactoredCharacterMovement : MonoBehaviour
     /// Applies a force in direction to the player input.
     /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum
     /// </summary>
-    public void Run(float targetSpeed, bool movementIsBlocked, bool isOnAir, bool conditionToPreserveMomentum, bool isInJumpApex)
+    public void Run(float lerpValue, float targetSpeed, bool movementIsBlocked, bool isOnAir, bool conditionToPreserveMomentum, bool isInJumpApex)
     {
         if (targetSpeed != 0) _lastDirection = (int)Mathf.Sign(targetSpeed);
+        targetSpeed = Mathf.Lerp(_rb.velocity.x, targetSpeed, lerpValue);
 
         if (movementIsBlocked) return;
 
