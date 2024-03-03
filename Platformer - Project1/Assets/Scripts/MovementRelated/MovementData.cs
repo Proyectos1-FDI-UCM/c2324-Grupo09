@@ -60,6 +60,7 @@ public class MovementData : ScriptableObject
     public float jumpHangGravityMultiplier = 1;
 
     [Header("WallJump")]
+    public float wjHitboxDuration = 2f;
     public Vector2 wallJumpSize = new Vector2(14, 5);
     public Vector2 wallJumpPosition = new Vector2(5, 5);
     //public float wallJump2nd
@@ -92,7 +93,6 @@ public class MovementData : ScriptableObject
     public float maxFallSpeed = 10f;
 
     [Header("CollisionChecks")]
-    public float defaultHitboxTimer = 0.5f;
     public float yGroundCheckOffSet = -0.51f;
     public Vector2 groundCheckSize = new Vector2(0.45f, 0.05f);
     public LayerMask groundLayer;

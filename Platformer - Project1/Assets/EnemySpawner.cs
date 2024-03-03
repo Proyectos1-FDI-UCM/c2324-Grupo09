@@ -47,7 +47,6 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
         enemyPrefab = Resources.Load<GameObject>(pathToEnemyPrefab);
-        Debug.Log(enemyPrefab);
         EnemyTypeChanged();
         //Spawn();
     }

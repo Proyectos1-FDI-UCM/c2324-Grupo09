@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     private RefactoredCharacterController _characterController;
     [SerializeField]
     private EnemySpawner[] eSpawner;
+    [SerializeField]
+    private GameObject[] setActivePlatforms;
     private Transform _spawnPoint;
     #endregion
 
@@ -21,6 +23,11 @@ public class CameraController : MonoBehaviour
         if (collision.GetComponent<RefactoredCharacterController>() != null)
         {
             _characterController = collision.GetComponent<RefactoredCharacterController>();
+            foreach (GameObject platform in setActivePlatforms)
+            {
+                platform.SetActive(true);
+            }
+
             VirtualCamera.SetActive(true);
             SpawnEnemiesOnRoomEnter();
             _characterController.AssignSpawnPoint(_spawnPoint);
@@ -38,7 +45,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         _cinemachineBrain = FindObjectOfType<CinemachineBrain>();
-        _spawnPoint = GetComponentInChildren<RespawnComponent>().transform;
+        _spawnPoint = GetComponentInChildren<RespawnComponent>()?.transform;
     }
     private void FixedUpdate()
     {
@@ -51,7 +58,7 @@ public class CameraController : MonoBehaviour
     {
         for(int i = 0; i<eSpawner.Length; i++)
         {
-            eSpawner[i].Spawn();
+            eSpawner[i]?.Spawn();
         }
     }
 
@@ -59,7 +66,7 @@ public class CameraController : MonoBehaviour
     {
         for (int i = 0; i < eSpawner.Length; i++)
         {
-            eSpawner[i].DestroySpawnedEnemy();
+            eSpawner[i]?.DestroySpawnedEnemy();
         }
     }
 }
