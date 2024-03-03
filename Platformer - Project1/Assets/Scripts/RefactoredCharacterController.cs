@@ -54,7 +54,7 @@ public class RefactoredCharacterController : MonoBehaviour
     bool[] abilities = new bool[4];
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
-
+    bool Dead = false; //booleano para confirmar el estado del jugador
 
     #region Timers
     float _lastGroundedTime = 0f;
@@ -160,8 +160,10 @@ public class RefactoredCharacterController : MonoBehaviour
         if (other.gameObject.layer == Mathf.Log((int)_enemyLayer,2))
         {
             Debug.Log("Death");
-            //Die();
+
             //transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
+            Die();
+
         }
     }
 
@@ -178,6 +180,7 @@ public class RefactoredCharacterController : MonoBehaviour
     //Runs 50 times per second
     void FixedUpdate()
     {
+        if (Dead) return;
         _isGrounded = CheckGrounded();
 
             #region WallRun
@@ -490,7 +493,14 @@ public class RefactoredCharacterController : MonoBehaviour
        
     }
 
-    //private void Die() { }
+    private void Die() 
+    {
+        //Llamar a la animación de muerte
+        Dead = true;
+        _chMovement.ChangeGravityScale(0);
+        _chMovement.ChangePlayerVelocity(Vector2.zero);
+        //transform.position = _spawnPoint.position;
+    }
 
     #region SorroundingChecks
     /// <summary>
