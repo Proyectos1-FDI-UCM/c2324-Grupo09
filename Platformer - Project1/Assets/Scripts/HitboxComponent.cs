@@ -75,7 +75,7 @@ public class HitboxComponent : MonoBehaviour
     {
         //Debug.Log (Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck).GetType());
         Collider2D overlap = Physics2D.OverlapBox(new Vector2(_myTransform.position.x + _hitboxPosition.x, _myTransform.position.y + _hitboxPosition.y), _hitboxSize, 0f, _layerToCheck);
-        if (overlap != null && _hitboxSize != Vector2.zero)
+        if (overlap != null && overlap.GetComponent<PlatformEffector2D>() == null && _hitboxSize != Vector2.zero)
         {
             if (overlap.GetComponent<EnemyMovement>() != null) 
             {
