@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf1dffb20fb0c048ae123183a0fbb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _beneVison: 20
+  _beneVison: 90
   _rightOffset: 15
   _leftOffset: 15
 --- !u!114 &2176225051674873122
