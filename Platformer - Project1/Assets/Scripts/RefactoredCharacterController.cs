@@ -182,33 +182,34 @@ public class RefactoredCharacterController : MonoBehaviour
     //Runs 50 times per second
     void FixedUpdate()
     {
-        if (Dead) return;
-        _isGrounded = CheckGrounded();
+        if (!Dead)
+        {
+            _isGrounded = CheckGrounded();
 
-        #region WallRun
+            #region WallRun
             if (abilities[3])
             {
                 if (_wallRunHeld && _canWallRun && !_isWallRunning && !_isUsingPogo)
-            {
-                _animComp.LookTo1D(_chMovement.LastDirection);
-                _chMovement.WallRunStart(_hasWallRun);
-                _hasWallRun = true;
-                _isWallRunning = true;
+                {
+                    _animComp.LookTo1D(_chMovement.LastDirection);
+                    _chMovement.WallRunStart(_hasWallRun);
+                    _hasWallRun = true;
+                    _isWallRunning = true;
+                }
+                else if ((!_wallRunHeld || !_canWallRun) && _isWallRunning)
+                {
+                    _chMovement.WallRunEnd();
+                    _isWallRunning = false;
+                }
+                else if (_isWallRunning)
+                {
+                    _chMovement.AddGravityScale(_md.gravityGain);
+                }
             }
-            else if ((!_wallRunHeld || !_canWallRun) && _isWallRunning)
-            {
-                _chMovement.WallRunEnd();
-                _isWallRunning = false;
-            }
-            else if (_isWallRunning)
-            {
-                _chMovement.AddGravityScale(_md.gravityGain);
-            }
-        }
-        #endregion
+            #endregion
 
-        #region slide
-           if (Time.time - _lastSlideTime > _md.slideDuration)
+            #region slide
+            if (Time.time - _lastSlideTime > _md.slideDuration)
             {
                 _isSliding = false;
                 _changeCollider.EndSlide();
@@ -218,7 +219,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 if (Time.time - _lastSlideTime > _md.timeBetweenSlides && _isGrounded && abilities[0])
                 {
                     _animComp.LookTo1D(_chMovement.LastDirection);
-                
+
                     _chMovement.Slide();
                     _changeCollider.StartSlide();
 
@@ -242,225 +243,226 @@ public class RefactoredCharacterController : MonoBehaviour
                     }
                 }
             }
-        
-        #endregion
 
-        #region jump
-
-        if (_isWallJumping)
-        {
-            if (_hitboxTimer > 0) _hitboxTimer -= Time.deltaTime;
-            else _hitbox.DisableHitbox();
-
-            if (_hitbox.TargetHit>0)
-            {
-                _hitbox.DisableHitbox();
-                _isWallJumping = false;
-                _hasWallRun = false;
-                _lastWallJumpImpulse = Time.time;
-                _lastJumpTimeInput = -1;
-                _chMovement.WallJumpPart2();
-            }
-        }
-
-        if (_lastJumpTimeInput > 0)
-        {
-            //Do Grounded Jump-----------------------------------------------------------------------
-            if (_lastGroundedTime > 0 && !_isJumping)
-            {
-                if (_canPogoJump)
-                {
-                    _chMovement.PogoJump();
-                }
-                else
-                {
-                    _animComp.LookTo1D(_chMovement.LastDirection);
-                    _chMovement.Jump();
-                    _changeCollider.EndSlide();
-                }
-
-                _pogoTouchedGround = -1;
-                _isSliding = false;
-                _isJumping = true;
-                _lastJumpTimeInput = 0;
-                _lastGroundedTime = 0;
-            }
-            else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
-            {
-
-                if (abilities[1] == true && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
-                {
-                    if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
-                    {
-                        _hitboxTimer = _md.wjHitboxDuration;
-                        _chMovement.WallJump();
-                        _hitbox.CreateHitbox(_md.wallJumpPosition, _md.wallJumpSize, _chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
-                        _lastJumpTimeInput = -1;
-                        _isWallJumping = true;
-                        _remainingWallJumpNumber--;
-                    }
-                }
-            }
-        }
-        #endregion
-
-        #region padJump
-        if (_padJumpActive)
-        {
-            _padJumpActive = false;
-            _isJumping = true;
-            _isUsingPogo = false;
-            _isWallJumping = false;
-            _isSliding = false;
-            _hasWallRun = false;
-            if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-            _animComp.LookTo1D(_chMovement.LastDirection);
-            _chMovement.PadJump(_padJumpDirection);
-        }
-        #endregion
-
-        #region jumpChecks
-        if (_chMovement.RBVel.y < 0.01f && _lastGroundedTime < 0)
-        {
-            _isJumping = false;
-            //no wall jumping
-            _isJumpFalling = true;
-        }
-        else
-        {
-            _isJumpFalling = false;
-        }
-        #endregion
-
-
-        #region SorroundingChecksUpdate
-        if (!_isGrounded)
-        {
-            _lastGroundedTime -= Time.deltaTime;
-        }
-        else
-        {
-            _hitbox.DisableHitbox();
-            if (_isUsingPogo)
-            {
-               _isUsingPogo = false;
-               _pogoTouchedGround = Time.time;
-               _animComp.LookTo1D(_chMovement.LastDirection);
-            }
-            _hasWallRun = false;
-            _isWallJumping = false;
-            _lastGroundedTime = _md.jumpCoyoteTime;
-            _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-        }
-        #endregion
-        _canPogoJump = Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted; 
-
-        #region buffers
-        if (!_isUsingPogo)
-        {
-            _lastTimeSlideInput -= Time.deltaTime;
-            _lastJumpTimeInput -= Time.deltaTime;
-        }
-
-
-
-        #endregion
-
-
-
-
-        #region changeGravity
-        if (!_isWallRunning)
-        {
-            if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
-            {
-                _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
-            }
-            else if (_chMovement.RBVel.y < 0)
-            {
-                _chMovement.ChangeGravityScale(_md.gravityScale * _md.fallGravityMultiplier);
-                //limitar la velocidad máxima de caida
-                _chMovement.LimitMaxFallSpeed();
-            }
-            else
-            {
-                _chMovement.ChangeGravityScale(_md.gravityScale);
-            }
             #endregion
-        }
 
-        #region Pogo
-        if (abilities[2])
-        {
-            if (_isUsingPogo)
+            #region jump
+
+            if (_isWallJumping)
             {
-                if (_hitbox.TargetHit == 2)
+                if (_hitboxTimer > 0) _hitboxTimer -= Time.deltaTime;
+                else _hitbox.DisableHitbox();
+
+                if (_hitbox.TargetHit > 0)
                 {
                     _hitbox.DisableHitbox();
-                    _animComp.LookTo1D(_chMovement.LastDirection);
-                    _chMovement.PogoJump();
-                    _isUsingPogo = false;
+                    _isWallJumping = false;
+                    _hasWallRun = false;
+                    _lastWallJumpImpulse = Time.time;
+                    _lastJumpTimeInput = -1;
+                    _chMovement.WallJumpPart2();
                 }
-                else
+            }
+
+            if (_lastJumpTimeInput > 0)
+            {
+                //Do Grounded Jump-----------------------------------------------------------------------
+                if (_lastGroundedTime > 0 && !_isJumping)
                 {
-                    if (Time.time - _pogoStartTime < _md.pogoXDuration)
+                    if (_canPogoJump)
                     {
-                        _chMovement.ChangePlayerVelocity(new Vector2(Mathf.Lerp(_pogoStartVelocity.x, 0, (Time.time - _pogoStartTime) / _md.pogoXDuration), _chMovement.RBVel.y));
-                    }
-                    if (Time.time - _pogoStartTime < _md.pogoYDuration)
-                    {
-                        _chMovement.ChangePlayerVelocity(new Vector2(_chMovement.RBVel.x, Mathf.Lerp(_pogoStartVelocity.y, _md.pogoInitialUpVel, (Time.time - _pogoStartTime) / _md.pogoYDuration)));
+                        _chMovement.PogoJump();
                     }
                     else
                     {
-                        _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
-                        if (!_pogoAnimationCompleted)
+                        _animComp.LookTo1D(_chMovement.LastDirection);
+                        _chMovement.Jump();
+                        _changeCollider.EndSlide();
+                    }
+
+                    _pogoTouchedGround = -1;
+                    _isSliding = false;
+                    _isJumping = true;
+                    _lastJumpTimeInput = 0;
+                    _lastGroundedTime = 0;
+                }
+                else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
+                {
+
+                    if (abilities[1] == true && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
+                    {
+                        if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                         {
-                            _pogoAnimationCompleted = true;
-                            _hitbox.CreateHitbox(_md.pogoPosition, _md.pogoSize, _chMovement.LastDirection);
+                            _hitboxTimer = _md.wjHitboxDuration;
+                            _chMovement.WallJump();
+                            _hitbox.CreateHitbox(_md.wallJumpPosition, _md.wallJumpSize, _chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
+                            _lastJumpTimeInput = -1;
+                            _isWallJumping = true;
+                            _remainingWallJumpNumber--;
                         }
                     }
                 }
             }
+            #endregion
+
+            #region padJump
+            if (_padJumpActive)
+            {
+                _padJumpActive = false;
+                _isJumping = true;
+                _isUsingPogo = false;
+                _isWallJumping = false;
+                _isSliding = false;
+                _hasWallRun = false;
+                if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
+                _animComp.LookTo1D(_chMovement.LastDirection);
+                _chMovement.PadJump(_padJumpDirection);
+            }
+            #endregion
+
+            #region jumpChecks
+            if (_chMovement.RBVel.y < 0.01f && _lastGroundedTime < 0)
+            {
+                _isJumping = false;
+                //no wall jumping
+                _isJumpFalling = true;
+            }
+            else
+            {
+                _isJumpFalling = false;
+            }
+            #endregion
+
+
+            #region SorroundingChecksUpdate
+            if (!_isGrounded)
+            {
+                _lastGroundedTime -= Time.deltaTime;
+            }
+            else
+            {
+                _hitbox.DisableHitbox();
+                if (_isUsingPogo)
+                {
+                    _isUsingPogo = false;
+                    _pogoTouchedGround = Time.time;
+                    _animComp.LookTo1D(_chMovement.LastDirection);
+                }
+                _hasWallRun = false;
+                _isWallJumping = false;
+                _lastGroundedTime = _md.jumpCoyoteTime;
+                _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
+            }
+            #endregion
+            _canPogoJump = Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted;
+
+            #region buffers
+            if (!_isUsingPogo)
+            {
+                _lastTimeSlideInput -= Time.deltaTime;
+                _lastJumpTimeInput -= Time.deltaTime;
+            }
+
+
+
+            #endregion
+
+
+
+
+            #region changeGravity
+            if (!_isWallRunning)
+            {
+                if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+                {
+                    _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
+                }
+                else if (_chMovement.RBVel.y < 0)
+                {
+                    _chMovement.ChangeGravityScale(_md.gravityScale * _md.fallGravityMultiplier);
+                    //limitar la velocidad máxima de caida
+                    _chMovement.LimitMaxFallSpeed();
+                }
+                else
+                {
+                    _chMovement.ChangeGravityScale(_md.gravityScale);
+                }
+                #endregion
+            }
+
+            #region Pogo
+            if (abilities[2])
+            {
+                if (_isUsingPogo)
+                {
+                    if (_hitbox.TargetHit == 2)
+                    {
+                        _hitbox.DisableHitbox();
+                        _animComp.LookTo1D(_chMovement.LastDirection);
+                        _chMovement.PogoJump();
+                        _isUsingPogo = false;
+                    }
+                    else
+                    {
+                        if (Time.time - _pogoStartTime < _md.pogoXDuration)
+                        {
+                            _chMovement.ChangePlayerVelocity(new Vector2(Mathf.Lerp(_pogoStartVelocity.x, 0, (Time.time - _pogoStartTime) / _md.pogoXDuration), _chMovement.RBVel.y));
+                        }
+                        if (Time.time - _pogoStartTime < _md.pogoYDuration)
+                        {
+                            _chMovement.ChangePlayerVelocity(new Vector2(_chMovement.RBVel.x, Mathf.Lerp(_pogoStartVelocity.y, _md.pogoInitialUpVel, (Time.time - _pogoStartTime) / _md.pogoYDuration)));
+                        }
+                        else
+                        {
+                            _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
+                            if (!_pogoAnimationCompleted)
+                            {
+                                _pogoAnimationCompleted = true;
+                                _hitbox.CreateHitbox(_md.pogoPosition, _md.pogoSize, _chMovement.LastDirection);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            float targetSpeed = xInput * _md.maxMoveSpeed;
+
+            if (!_canPogoJump && !_isWallRunning) _chMovement.Run
+            (
+                (Time.time - _lastWallJumpImpulse) / _md.blockMovement2ndJumpTime,
+                targetSpeed,
+                _isWallJumping || _isSliding || _isUsingPogo,
+                (_isJumping || _isJumpFalling),
+                _md.doConserveMomentum && Mathf.Abs(_chMovement.RBVel.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_chMovement.RBVel.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0,
+                ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+            );
+
+
+
+
+            #region Animator
+            //changes the direction the player is facing
+            /* This should be the scale of the sprite child of this gameObject
+            if(xInput != 0)
+            {
+                transform.localScale = new Vector3(xInput * 1, 1, 1); 
+            }
+            */
+            //activates the run action of character movement
+            //Updating animation parameters
+            if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
+                _animComp.LookTo1D(xInput);
+
+            _animComp.UpdateXInput(xInput);
+            _animComp.SetWJ(_isWallJumping);
+            _animComp.SetVelocityY(_chMovement.RBVel.y);
+            _animComp.SetGrounded(_isGrounded);
+            _animComp.SetSlide(_isSliding);
+            _animComp.SetPogo(_isUsingPogo);
+            _animComp.SetPogoCharge(_canPogoJump);
+            _animComp.SetWallRun(_isWallRunning);
         }
-        #endregion
-
-        float targetSpeed = xInput * _md.maxMoveSpeed;
-
-        if (!_canPogoJump && !_isWallRunning) _chMovement.Run
-        (
-            (Time.time - _lastWallJumpImpulse)/ _md.blockMovement2ndJumpTime,
-            targetSpeed,
-            _isWallJumping || _isSliding || _isUsingPogo,
-            (_isJumping || _isJumpFalling), 
-            _md.doConserveMomentum && Mathf.Abs(_chMovement.RBVel.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_chMovement.RBVel.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && _lastGroundedTime < 0,
-            ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
-        );
-
-
-
-
-        #region Animator
-        //changes the direction the player is facing
-        /* This should be the scale of the sprite child of this gameObject
-        if(xInput != 0)
-        {
-            transform.localScale = new Vector3(xInput * 1, 1, 1); 
-        }
-        */
-        //activates the run action of character movement
-        //Updating animation parameters
-        if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
-            _animComp.LookTo1D(xInput);
-
-        _animComp.UpdateXInput(xInput);
-        _animComp.SetWJ(_isWallJumping);
-        _animComp.SetVelocityY(_chMovement.RBVel.y);
-        _animComp.SetGrounded(_isGrounded);
-        _animComp.SetSlide(_isSliding);
-        _animComp.SetPogo(_isUsingPogo);
-        _animComp.SetPogoCharge(_canPogoJump);
-        _animComp.SetWallRun(_isWallRunning);
         _animComp.SetDeath(Dead);
         #endregion
     }
