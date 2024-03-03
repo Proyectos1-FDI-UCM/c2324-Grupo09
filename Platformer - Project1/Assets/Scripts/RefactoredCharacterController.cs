@@ -151,6 +151,8 @@ public class RefactoredCharacterController : MonoBehaviour
     public void AssignSpawnPoint(Transform spawn)
     {
         _spawnPoint = spawn;
+        Debug.Log(_spawnPoint.position.x);
+        Debug.Log(_spawnPoint.position.y);
     }
 
     public void OnTriggerEnter2D(Collider2D other)
