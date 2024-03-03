@@ -461,6 +461,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetPogo(_isUsingPogo);
         _animComp.SetPogoCharge(_canPogoJump);
         _animComp.SetWallRun(_isWallRunning);
+        _animComp.SetDeath(Dead);
         #endregion
     }
 
