@@ -187,6 +187,7 @@ public class RefactoredCharacterController : MonoBehaviour
             {
                 if (_wallRunHeld && _canWallRun && !_isWallRunning && !_isUsingPogo)
             {
+                _animComp.LookTo1D(_chMovement.LastDirection);
                 _chMovement.WallRunStart(_hasWallRun);
                 _hasWallRun = true;
                 _isWallRunning = true;
