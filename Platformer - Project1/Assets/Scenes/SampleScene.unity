@@ -150,7 +150,11 @@ Transform:
   m_GameObject: {fileID: 134642657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: -118.69998, y: 50.8, z: -11.330872}
+=======
+  m_LocalPosition: {x: -359.5, y: -221, z: -11.330872}
+>>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1914,6 +1918,7 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
+  _hitboxTimer: 0
 --- !u!114 &801813170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2001,7 +2006,11 @@ Transform:
   m_GameObject: {fileID: 801813165}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: -390.4, y: 51.6, z: 0}
+=======
+  m_LocalPosition: {x: -631.2, y: -220.2, z: 0}
+>>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2750,7 +2759,7 @@ Transform:
   m_GameObject: {fileID: 1623099319}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -96.89996, y: -71.59999, z: -11.330872}
+  m_LocalPosition: {x: -75.29999, y: -69.399994, z: -11.330872}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

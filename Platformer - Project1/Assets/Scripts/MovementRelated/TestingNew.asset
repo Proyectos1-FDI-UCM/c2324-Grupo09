@@ -41,6 +41,7 @@ MonoBehaviour:
   jumpHangMaxSpeedMultiplier: 1.53
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
+  wjHitboxDuration: 0.8
   wallJumpSize: {x: 14, y: 5}
   wallJumpPosition: {x: 5, y: 5}
   xSeparationFromWallOnWallJump: 0
@@ -59,7 +60,6 @@ MonoBehaviour:
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 200
-  defaultHitboxTimer: 0.5
   yGroundCheckOffSet: -1
   groundCheckSize: {x: 3.5, y: 0.1}
   groundLayer:
