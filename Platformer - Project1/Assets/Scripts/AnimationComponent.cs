@@ -53,6 +53,10 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator.SetBool("WallRun", val);
     }
+    public void SetDeath(bool val)
+    {
+        _animator.SetBool("Dead", val);
+    }
 
     public void LookTo1D(int direction)
     {
