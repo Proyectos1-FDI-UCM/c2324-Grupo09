@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ImpIA : EnemyIA
 {
 
-    CharacterController _character;
+    RefactoredCharacterController _character;
     EnemyMovement _enemyMove;
     [SerializeField]
     float _maxSpeed;
@@ -16,21 +17,41 @@ public class ImpIA : EnemyIA
     [SerializeField]
     float _gravity;
     EnemyState enemyState=EnemyState.baseState;
+    private bool _isWallJumping;
+    private bool _isUsingPogo;
+    private ProyectileInstantiate _proyectileInstantiate;
+    private float _x;
+
+
     public override void OnHit()
     {
-        
-        if (enemyState == EnemyState.state1)
+        _x = _character.transform.position.x;
+
+        if (enemyState == EnemyState.state1 && _isWallJumping)
         {
-            
             enemyState = EnemyState.dead;
+            if(_x > transform.position.x)
+            {
+                _proyectileInstantiate.Launch(Vector3.left);
+            }
+            if(_x < transform.position.x)
+            {
+                _proyectileInstantiate.Launch(Vector3.right);
+            }
+
+        }
+        else if (enemyState == EnemyState.state1 && _isUsingPogo)
+        {
+            enemyState = EnemyState.dead;
+            _proyectileInstantiate.Launch(Vector3.down);
         }
         else if (enemyState == EnemyState.baseState)
         {
             _timeHit = Time.time;
             enemyState = EnemyState.state1;
             _enemyMove.Direction(Vector3.up);
-
         }
+
     }
     public override void Death()
     {
@@ -39,10 +60,16 @@ public class ImpIA : EnemyIA
     private void Start()
     {
         _enemyMove = GetComponent<EnemyMovement>();
+        _proyectileInstantiate = GetComponent<ProyectileInstantiate>();
+        _character = FindObjectOfType<RefactoredCharacterController>();
+        
     }
     private void Update()
     {
-       if (enemyState == EnemyState.state1) 
+        _isWallJumping = FindObjectOfType<RefactoredCharacterController>().IsWallJumping;
+        _isUsingPogo = FindObjectOfType<RefactoredCharacterController>().IsUsingPogo;
+
+        if (enemyState == EnemyState.state1) 
         {
             if (!((Time.time - _timeHit)  >= _timeForCicle))
             {

@@ -5,21 +5,21 @@ using UnityEngine;
 public class ProyectileInstantiate : MonoBehaviour
 {
     #region references
-    #endregion
-    #region properties
-    private Vector3 _proyectileDirection;
+    private Transform _myTransform;
+    [SerializeField]
+    private GameObject _proyectilePrefab;
+    private RefactoredCharacterController _refactoredChController;
     #endregion
     #region methods
+    public void Launch(Vector3 _proyectileDirection)
+    {
+        GameObject newGameObject = Instantiate(_proyectilePrefab, _myTransform.position, Quaternion.identity);
+        newGameObject.GetComponent<ProyectileMovement>().SetDirection(_proyectileDirection);
+    }
     #endregion
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _myTransform = transform;
+        _refactoredChController = FindObjectOfType<RefactoredCharacterController>();
     }
 }

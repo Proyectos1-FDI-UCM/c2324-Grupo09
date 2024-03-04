@@ -22,6 +22,16 @@ public class RefactoredCharacterController : MonoBehaviour
         get { return _chMovement.RBVel; }
     }
 
+    public bool IsWallJumping
+    {
+        get { return _isWallJumping; }
+    }
+
+    public bool IsUsingPogo
+    {
+        get { return _isUsingPogo; }
+    }
+
     #endregion
 
 
