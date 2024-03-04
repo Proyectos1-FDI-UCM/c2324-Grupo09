@@ -1921,7 +1921,6 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  _hitboxTimer: 0
 --- !u!114 &801813170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9751,7 +9750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
       propertyPath: beginToFallInstead
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
       propertyPath: somethingElseToDestroy.Array.size
