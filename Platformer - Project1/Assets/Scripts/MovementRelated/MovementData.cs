@@ -61,8 +61,7 @@ public class MovementData : ScriptableObject
 
     [Header("WallJump")]
     public float wjHitboxDuration = 2f;
-    public float wallRunNormalDuration = 1f;
-    public float wallRunIncreaseCoeficient = 2f;
+
     public Vector2 wallJumpSize = new Vector2(14, 5);
     public Vector2 wallJumpPosition = new Vector2(5, 5);
     //public float wallJump2nd
@@ -83,6 +82,8 @@ public class MovementData : ScriptableObject
 
     [Header("WallRun")]
     public float minWallRunSpeed = 50f;
+    public float wallRunNormalDuration = 1f;
+    public float wallRunIncreaseCoeficient = 2f;
     //public float gravityGain = 0.5f;
 
     [Header("JumpPad")]
