@@ -79,6 +79,7 @@ public class RefactoredCharacterController : MonoBehaviour
     float _lastWallJumpImpulse = -2f;
     //float _redirTiming = 0f;
     float _hitboxTimer = 0f;
+    float _wallRunStart = 0f;
     #endregion
 
     #endregion
@@ -209,8 +210,10 @@ public class RefactoredCharacterController : MonoBehaviour
                 {
                     _animComp.LookTo1D(_chMovement.LastDirection);
                     _chMovement.WallRunStart(_hasWallRun);
+                    _wallRunStart = Time.time;
                     _hasWallRun = true;
                     _isWallRunning = true;
+                    
                 }
                 else if ((!_wallRunHeld || !_canWallRun) && _isWallRunning)
                 {
@@ -219,7 +222,11 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else if (_isWallRunning)
                 {
-                    _chMovement.AddGravityScale(_md.gravityGain);
+                    Debug.Log(Mathf.Pow((Time.time - _wallRunStart) / _md.wallRunNormalDuration, _md.wallRunIncreaseCoeficient));
+                    //Debug.Log(Time.time - _wallRunStart);
+                    //Debug.Log(Mathf.Lerp(0, _md.gravityScale, -Mathf.Pow(((Time.time - _wallRunStart) / _md.wallRunNormalDuration), _md.wallRunIncreaseCoeficient)));
+                    _chMovement.ChangeGravityScale(Mathf.Lerp(0, _md.gravityScale, Mathf.Pow((Time.time - _wallRunStart) /_md.wallRunNormalDuration, _md.wallRunIncreaseCoeficient)));
+                    //_chMovement.AddGravityScale(_md.gravityGain);
                 }
             }
             #endregion
