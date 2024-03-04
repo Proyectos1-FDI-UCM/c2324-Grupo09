@@ -8,6 +8,11 @@ public class EnemyMovement : MonoBehaviour
     private Transform _myTransform;
     #endregion
     #region parameters
+
+    public float ReadOnlyDirection
+    {
+        get => Mathf.Sign(_movementDirection.x);
+    }
     [SerializeField]
     private float _movementSpeed = 3.0f;
     [SerializeField]

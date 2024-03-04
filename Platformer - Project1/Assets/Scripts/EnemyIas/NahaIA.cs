@@ -17,6 +17,8 @@ public class NahaIA : EnemyIA
     #endregion
     #region parameters
     [SerializeField]
+    private float _xOffset = 1.0f;
+    [SerializeField]
     private float _xRunWallScale = 1.0f;
     [SerializeField]
     private float _yRunWallScale = 1.0f;
@@ -26,6 +28,7 @@ public class NahaIA : EnemyIA
         if(_isUsingPogo && !_alreadyHitWithPogo)
         {
             GameObject newGameObject = Instantiate(_wallrunPrefab,_myTransform.position, Quaternion.identity);
+            newGameObject.transform.position += _xOffset * GetComponent<EnemyMovement>().ReadOnlyDirection * Vector3.right;
             newGameObject.transform.localScale = new Vector3(_myTransform.localScale.x - _xRunWallScale, _myTransform.localScale.y - _yRunWallScale, 0);
             newGameObject.transform.parent = _myTransform;
             _alreadyHitWithPogo = true;
