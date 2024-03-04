@@ -210,7 +210,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
 
     public void PadJump(Vector2 direction)
     {
-        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+        //_rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(_md.padJumpForce*direction,ForceMode2D.Impulse);
     }
 

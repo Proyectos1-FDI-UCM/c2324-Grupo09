@@ -44,7 +44,6 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _isWallRunning = false;
     bool _wallRunHeld = false;
     bool _hasWallRun = false;
-    bool _padJumpActive = false;
     Vector2 _padJumpDirection;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
@@ -70,7 +69,6 @@ public class RefactoredCharacterController : MonoBehaviour
     float _pogoTouchedGround = 0f;
     float _lastWallJumpImpulse = -2f;
     //float _redirTiming = 0f;
-    [SerializeField]
     float _hitboxTimer = 0f;
     #endregion
 
@@ -146,9 +144,18 @@ public class RefactoredCharacterController : MonoBehaviour
 
     public void JumpPadContact(Vector2 direction)
     {
-        _padJumpActive = true;
         _padJumpDirection = direction;
+
+        _isJumping = true;
+        _isUsingPogo = false;
+        _isWallJumping = false;
+        _isSliding = false;
+        _hasWallRun = false;
+        if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
+        _animComp.LookTo1D(_chMovement.LastDirection);
+        _chMovement.PadJump(_padJumpDirection);
     }
+
     public void AssignSpawnPoint(Transform spawn)
     {
         if(spawn != null)
@@ -305,20 +312,6 @@ public class RefactoredCharacterController : MonoBehaviour
             }
             #endregion
 
-            #region padJump
-            if (_padJumpActive)
-            {
-                _padJumpActive = false;
-                _isJumping = true;
-                _isUsingPogo = false;
-                _isWallJumping = false;
-                _isSliding = false;
-                _hasWallRun = false;
-                if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-                _animComp.LookTo1D(_chMovement.LastDirection);
-                _chMovement.PadJump(_padJumpDirection);
-            }
-            #endregion
 
             #region jumpChecks
             if (_chMovement.RBVel.y < 0.01f && _lastGroundedTime < 0)
@@ -373,7 +366,14 @@ public class RefactoredCharacterController : MonoBehaviour
             #region changeGravity
             if (!_isWallRunning)
             {
-                if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+                DestryAfterTime dat = CheckGrounded(true)?.GetComponent<DestryAfterTime>();
+
+                if (!_isJumping && dat != null)
+                {
+                    _chMovement.ChangeGravityScale(0);
+                    transform.position += dat.CurrentGravity * Vector3.down * Time.fixedDeltaTime;
+                }
+                else if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
                 {
                     _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
                 }
@@ -496,6 +496,11 @@ public class RefactoredCharacterController : MonoBehaviour
     private bool CheckGrounded()
     {
         return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer);
+    }
+
+    private GameObject CheckGrounded(bool meow)
+    {
+        return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer)?.gameObject;
     }
 
     #region EDITOR METHODS
