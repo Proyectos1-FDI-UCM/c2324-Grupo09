@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class JumpPadComponent : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class JumpPadComponent : MonoBehaviour
     [SerializeField]
     [Range(0, 7)]
     [Tooltip("Defines launch angle in pi/4 radians.")]
+    [OnValueChanged("AimArrow")]
     int _direction;
 
     float _angle;
@@ -21,11 +23,17 @@ public class JumpPadComponent : MonoBehaviour
 
     private void Start()
     {
-        _arrowTransform = transform.GetChild(0);
-        _angle = _direction*Mathf.PI/4;
-        _jumpDirection = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle));
-        _arrowTransform.localRotation = Quaternion.Euler(0,0,_angle*180/MathF.PI-90);
+        AimArrow();
     }
+
+    private void AimArrow()
+    {
+        _arrowTransform = transform.GetChild(0);
+        _angle = _direction * Mathf.PI / 4;
+        _jumpDirection = new Vector2(Mathf.Cos(_angle), Mathf.Sin(_angle));
+        _arrowTransform.localRotation = Quaternion.Euler(0, 0, _angle * 180 / MathF.PI - 90);
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         RefactoredCharacterController player = collider.GetComponent<RefactoredCharacterController>();
