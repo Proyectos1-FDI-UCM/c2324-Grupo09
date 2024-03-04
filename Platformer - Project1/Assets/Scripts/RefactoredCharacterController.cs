@@ -41,7 +41,8 @@ public class RefactoredCharacterController : MonoBehaviour
     #endregion
 
     #region hiddenVariables
-    //bool _flipComplete = true;
+    [SerializeField]
+    bool[] abilities = new bool[4];
     bool _isGrounded = false;
     bool _isJumping = false;
     bool _isSliding = false;
@@ -59,8 +60,6 @@ public class RefactoredCharacterController : MonoBehaviour
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
     Vector3 _pogoStartVelocity = Vector3.zero;
-    //[SerializeField]
-    bool[] abilities = new bool[4];
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
     bool Dead = false; //booleano para confirmar el estado del jugador

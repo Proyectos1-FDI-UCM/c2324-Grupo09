@@ -35,32 +35,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-    /*
-    public void AddToWallJumpMomentumBuffer(float param)
-    {
-        wallJumpConserveMomentumBuffer[BufferCurrentCapacity] = Mathf.Abs(param);
-
-        if(Mathf.Abs(param) > wallJumpConserveMomentumBuffer[jumpBufferMax] )
-        {
-            jumpBufferMax = BufferCurrentCapacity;
-        }
-
-        BufferCurrentCapacity++;
-    }
-
-    public void EmptyWallJumpMomentumBuffer()
-    {
-        wallJumpConserveMomentumBuffer = new float[80];
-        BufferCurrentCapacity = 0;
-        jumpBufferMax = 0;
-    }
-    */
-    /*
-    public void DelayedDirection()
-    {
-        _direction = _lastDirection;
-    }
-    */
+  
     /// <summary>
     /// Applies a force in direction to the player input.
     /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum
@@ -119,15 +94,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     /// </summary>
     public void Jump()
     {
-        //float jumpForceMultiplier = 1f;
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
-        /*
-         * if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted)
-        {
-            jumpForceMultiplier = _md.empoweredJumpForceMultiplier;
-            _lastTimeSlideInput = -1;
-        }
-        */
         _rb.AddForce(Vector2.up * _md.jumpForce, ForceMode2D.Impulse);
     }
 
@@ -139,13 +106,6 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void PogoJump()
     {
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
-        /*
-         * if (Time.time - _pogoTouchedGround <= _md.pogoEmpoweredJumpDuration && _pogoAnimationCompleted)
-        {
-            jumpForceMultiplier = _md.empoweredJumpForceMultiplier;
-            _lastTimeSlideInput = -1;
-        }
-        */
         _rb.AddForce(Vector2.up * _md.jumpForce * _md.empoweredJumpForceMultiplier, ForceMode2D.Impulse);
     }
 
