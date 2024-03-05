@@ -42,7 +42,7 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
   wjHitboxDuration: 0.8
-  wallJumpSize: {x: 14, y: 14}
+  wallJumpSize: {x: 14, y: 12}
   wallJumpPosition: {x: 5, y: 6}
   xSeparationFromWallOnWallJump: 0
   wallJump2ndJumpForceY: 120
