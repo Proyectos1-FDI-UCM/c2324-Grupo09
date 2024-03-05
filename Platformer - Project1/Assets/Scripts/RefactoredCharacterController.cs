@@ -500,6 +500,7 @@ public class RefactoredCharacterController : MonoBehaviour
         Dead = true;
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
+        GameManager.Instance.OnDie();
         //transform.position = _spawnPoint.position;
     }
 
