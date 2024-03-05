@@ -55,7 +55,6 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _isWallRunning = false;
     bool _wallRunHeld = false;
     bool _hasWallRun = false;
-    Vector2 _padJumpDirection;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
@@ -152,18 +151,17 @@ public class RefactoredCharacterController : MonoBehaviour
 
     #endregion
 
-    public void JumpPadContact(Vector2 direction)
+    public void JumpPadContact(Vector2 direction, float force)
     {
-        _padJumpDirection = direction;
 
         _isJumping = true;
         _isUsingPogo = false;
         _isWallJumping = false;
         _isSliding = false;
         _hasWallRun = false;
-        if (_padJumpDirection.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
+        if (direction.y > 0) _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
         _animComp.LookTo1D(_chMovement.LastDirection);
-        _chMovement.PadJump(_padJumpDirection);
+        _chMovement.ApplyForce(direction, force);
     }
 
     public void AssignSpawnPoint(Transform spawn)

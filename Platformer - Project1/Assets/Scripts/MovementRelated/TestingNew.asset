@@ -42,10 +42,8 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
   wjHitboxDuration: 0.8
-  wallRunNormalDuration: 2
-  wallRunIncreaseCoeficient: 10
-  wallJumpSize: {x: 14, y: 5}
-  wallJumpPosition: {x: 5, y: 5}
+  wallJumpSize: {x: 14, y: 14}
+  wallJumpPosition: {x: 5, y: 6}
   xSeparationFromWallOnWallJump: 0
   wallJump2ndJumpForceY: 120
   wallJump2ndJumpForceX: 30
@@ -57,7 +55,8 @@ MonoBehaviour:
   wallJumpMomentumConserveCoeficient: 0.7
   wallJump2ForceReductionCoef: 0.4
   minWallRunSpeed: 50
-  padJumpForce: 250
+  wallRunNormalDuration: 2
+  wallRunIncreaseCoeficient: 10
   gravityScale: 30
   fallGravityMultiplier: 1.5
   maxFallSpeed: 250

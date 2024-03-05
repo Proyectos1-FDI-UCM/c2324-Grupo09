@@ -19,6 +19,8 @@ public class JumpPadComponent : MonoBehaviour
 
     float _angle;
     Vector2 _jumpDirection;
+    [SerializeField]
+    float _padForce = 100f;
     #endregion
 
     private void Start()
@@ -39,7 +41,7 @@ public class JumpPadComponent : MonoBehaviour
         RefactoredCharacterController player = collider.GetComponent<RefactoredCharacterController>();
         if (player != null)
         {
-            player.JumpPadContact(_jumpDirection);
+            player.JumpPadContact(_jumpDirection, _padForce);
         }
     }
 }
