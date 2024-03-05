@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
         }
         enemyPrefab = Resources.Load<GameObject>(pathToEnemyPrefab);
         EnemyTypeChanged();
-        Spawn();
+        //Spawn();
     }
 
     public void Spawn()
