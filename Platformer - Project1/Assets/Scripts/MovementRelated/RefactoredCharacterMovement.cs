@@ -118,7 +118,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
         
         float sameDirectionFactor = _md.wallJumpSameDirectionForceMultiplier;
         _wallJumpStartDirection = _lastDirection;
-        if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x) || Mathf.Abs(_rb.velocity.x) < _md.wallJumpForceApplyThreshold)
+        if (Mathf.Sign(_wallJumpStartDirection) != Mathf.Sign(_rb.velocity.x))
         {
             sameDirectionFactor = 1;
             _rb.velocity = new Vector2(0, _rb.velocity.y);
@@ -130,19 +130,9 @@ public class RefactoredCharacterMovement : MonoBehaviour
     public void WallJumpPart2()
     {
         float reductionCoef = 1f;
-        //Debug.Log(_rb.velocity.x);
-        if (Mathf.Abs(_rb.velocity.x) > _md.wallJumpForce.x)
-        {
-            _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x / _md.wallJumpMomentumConserveCoeficient) * (_wallJumpStartDirection);
-            reductionCoef = _md.wallJump2ForceReductionCoef;
-        }
-        else
-        {
-            _xVelocityPreviousToWallJump = Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection);
-        }
         transform.position += Vector3.right * Mathf.Sign(_xVelocityPreviousToWallJump * -1) * _md.xSeparationFromWallOnWallJump;
         //inserte pausa de antes
-        _rb.velocity = new Vector2 (-1 * (_xVelocityPreviousToWallJump), 0);
+        _rb.velocity = new Vector2 (-1 * Mathf.Abs(_rb.velocity.x) * (_wallJumpStartDirection), 0);
         _rb.AddForce(_md.wallJump2ndJumpForceY * Vector2.up + 
             Vector2.left * reductionCoef * _lastDirection * _md.wallJump2ndJumpForceX, 
             ForceMode2D.Impulse);
@@ -168,10 +158,10 @@ public class RefactoredCharacterMovement : MonoBehaviour
         _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
     }
 
-    public void PadJump(Vector2 direction)
+    public void ApplyForce(Vector2 direction, float force)
     {
-        //_rb.velocity = new Vector2(_rb.velocity.x, 0);
-        _rb.AddForce(_md.padJumpForce*direction,ForceMode2D.Impulse);
+        _rb.velocity = new Vector2(_rb.velocity.x, 0);
+        _rb.AddForce(force*direction,ForceMode2D.Impulse);
     }
 
 

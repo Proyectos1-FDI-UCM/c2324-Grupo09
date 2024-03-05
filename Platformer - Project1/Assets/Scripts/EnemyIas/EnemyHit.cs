@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
 {
+    [SerializeField]
+    bool _destroyOnHit = false;
     ChangeState _changeState;
     ImpIA _impIA;
     BeneIA _beneIA;
@@ -20,6 +22,10 @@ public class EnemyHit : MonoBehaviour
         _impIA?.OnHit();
         _beneIA?.OnHit();
         _nahaIA?.OnHit();
+        if (_destroyOnHit)
+        {
+            Destroy(gameObject);
+        }
     }
 
 

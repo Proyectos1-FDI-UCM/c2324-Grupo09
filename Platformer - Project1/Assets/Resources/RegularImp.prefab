@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 32
       objectReference: {fileID: 0}
+    - target: {fileID: -3499871074715391123, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: _destroyOnHit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2899302600860387301, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: _gravity
       value: 40
@@ -98,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Name
-      value: BlueImp
+      value: RegularImp
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_FlipX
@@ -110,15 +114,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: abcbdcd9c2bce42459773e1d457da59f, type: 3}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.07058823
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Color.g
-      value: 0.59411913
+      value: 0.214801
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Color.r
-      value: 0.07058823
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_SortingLayer
@@ -132,13 +136,11 @@ PrefabInstance:
       propertyPath: _movementDirection.x
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2899302600860387301, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -1805851661984256054}
     - targetCorrespondingSourceObject: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6554822233232446847}
@@ -148,19 +150,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
   m_PrefabInstance: {fileID: 8405954099909796523}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-1805851661984256054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4072256061151062793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d8ce91bfc164c34ba14ce36539b09bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _proyectilePrefab: {fileID: 4549090819714154491, guid: d6b57d3e44a8d664faa3a4279cb9a907, type: 3}
 --- !u!95 &-6554822233232446847
 Animator:
   serializedVersion: 5

@@ -6,6 +6,16 @@ public class EnemyMovement : MonoBehaviour
 {
     #region references
     private Transform _myTransform;
+
+    public float GetSpeed
+    {
+        get { return _movementSpeed; }
+
+    }
+    public Vector3 _direction
+    {
+        get { return _movementDirection; }
+    }
     #endregion
     #region parameters
 
