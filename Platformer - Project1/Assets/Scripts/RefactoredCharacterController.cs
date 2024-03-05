@@ -500,8 +500,12 @@ public class RefactoredCharacterController : MonoBehaviour
         Dead = true;
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
-        GameManager.Instance.OnDie();
-        //transform.position = _spawnPoint.position;
+        GameManager.Instance.OnDie(transform.position);
+    }
+    private void TeleportPlayer(int i)
+    {
+        Debug.Log("Called");
+        transform.position = Vector3.zero;
     }
 
     #region SorroundingChecks

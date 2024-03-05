@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Animator CameraAnimator;
     [SerializeField]
-    private GameObject Circle;
-    [SerializeField]
-    private Transform Player;
+    private Transform Circle;
     static private GameManager _instance; 
     static public GameManager Instance    
     {     
@@ -28,11 +26,13 @@ public class GameManager : MonoBehaviour
         void Start()
     {
         Application.targetFrameRate = FPS;
+        //CameraAnimator = FindObjectOfType<Animator>(CameraAnimator);
+        //Circle = FindObjectOfType<Transform>(Circle);
 
     }
-    public void OnDie()
+    public void OnDie(Vector3 playerPosition)
     {
-        Circle.transform .position = Player.transform.position;
+        Circle.transform.position = playerPosition;
         CameraAnimator.SetBool("FadeOut", true);
         CameraAnimator.SetBool("FadeOut", false);
     }
