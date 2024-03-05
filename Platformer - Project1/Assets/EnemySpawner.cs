@@ -25,6 +25,9 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject enemyPrefab;
 
+    [SerializeField]
+    Direction _enemyLooking = Direction.right;
+
     private void Start()
     {
         string pathToEnemyPrefab = "";
@@ -59,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();
             eM.Direction(direction);
             eM.Speed(speed);
+            spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
         }
     }
 
@@ -83,5 +87,10 @@ public enum EnemyType
     Bene,
     Hin,
     Naha,
+}
+public enum Direction
+{
+    right = 1,
+    left = -1
 }
 

@@ -101,6 +101,10 @@ PrefabInstance:
       value: BlueImp
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: abcbdcd9c2bce42459773e1d457da59f, type: 3}

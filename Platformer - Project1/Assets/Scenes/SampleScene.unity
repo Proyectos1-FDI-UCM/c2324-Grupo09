@@ -3226,6 +3226,10 @@ PrefabInstance:
       propertyPath: direction.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9024944444620011253, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
+      propertyPath: _enemyLooking
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

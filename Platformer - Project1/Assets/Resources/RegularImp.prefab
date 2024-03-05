@@ -102,7 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5486648751425292706, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Name
-      value: regularImp
+      value: RegularImp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6126249732784115180, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: m_Sprite
