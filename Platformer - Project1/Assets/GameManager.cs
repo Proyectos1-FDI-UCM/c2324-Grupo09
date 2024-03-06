@@ -35,8 +35,12 @@ public class GameManager : MonoBehaviour
     public void OnDie(Vector3 playerPosition)
     {
         FadeCanvas.SetActive(true);
-        Circle.transform.position = playerPosition;
+        SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
+    }
+    public void SetCirclePosition(Vector3 position)
+    {
+        Circle.transform.position = position;
     }
     public void PlayerTeleport()
     {

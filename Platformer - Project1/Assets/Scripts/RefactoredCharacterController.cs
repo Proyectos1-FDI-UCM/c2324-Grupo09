@@ -16,6 +16,7 @@ public class RefactoredCharacterController : MonoBehaviour
     private MovementData _md;
     //reference to animation component
     private AnimationComponent _animComp;
+    [SerializeField]
     private Transform _spawnPoint;
     public Vector2 CharacterVelocity
     {
@@ -510,6 +511,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _dead = false;
         _animComp.SetDeath(_dead);
         transform.position = _spawnPoint.position;
+        GameManager.Instance.SetCirclePosition(transform.position);
     }
 
     #region SorroundingChecks
