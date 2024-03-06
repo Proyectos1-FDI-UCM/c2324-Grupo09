@@ -8,6 +8,8 @@ public class HinIA : EnemyIA
     private Transform _myTransform;
     private EnemyMovement _enemyMovement;
     private RefactoredCharacterController _player;
+    private BoxCollider2D _myCollider;
+    private EnemyHit _hitControl;
     EnemyState _enemyState;
     #endregion
     #region parameters
@@ -17,7 +19,6 @@ public class HinIA : EnemyIA
     private float _yMaxPosInFirstStage = 1.0f;
     [SerializeField]
     private float _firstStageCoolDown = 1.0f;
-    private float _time;
     [SerializeField]
     private float _alturaMax = 1.0f;
     #endregion
@@ -25,36 +26,61 @@ public class HinIA : EnemyIA
     private bool _HinHasTeleported = false;
     private bool _isFalling = false;
     private float _yPreviousFrameValue;
-    private Vector3 _direction;
-    [SerializeField]
-    private float _speed;
+    private float _timeSinceSecondStage;
+    private bool _FinalStageControl = true;
+    private bool _playerIsInRange;
     #endregion
     #region methods
     public override void OnHit()
     {
-
+        Death();
     }
     public override void Death()
     {
-
+        Destroy(this.gameObject);
     }
     private void HinFirstStage()
-    { 
-        _enemyMovement.Direction(Vector3.up);
-
-    }
-    private void HinSecondStage()
     {
-        _time = Time.time;
+        Debug.Log("Estoy en la primera fase");
+        _myTransform.transform.position = new Vector3(_player.transform.position.x, _myTransform.position.y, 0);
+
+        if (_myTransform.position.y < _yPreviousFrameValue + _yMaxPosInFirstStage)
+        {
+            _enemyMovement.Direction(Vector3.up);
+        }
+
+        else if (_myTransform.transform.position.y > _yPreviousFrameValue + _yMaxPosInFirstStage)
+        {
+            _HinHasTeleported = true;
+            _enemyMovement.Direction(Vector3.zero);
+        }
+
     }
     private void HinFinalStage()
     {
-        _enemyMovement.Direction(Vector3.up);
-        _enemyMovement.Speed(_speed);
-        if (_myTransform.position.y > _yMaxPosInFirstStage + _yPreviousFrameValue + _alturaMax)
+        if(_myTransform.position.y < (_yPreviousFrameValue + _alturaMax) && !_isFalling)
         {
-            _enemyMovement.Speed(0);
+            _enemyMovement.Direction(Vector3.up);
+        }
+        else
+        {
             _isFalling=true;
+        }
+        if (_isFalling)
+        {
+            _enemyMovement.Direction(Vector3.down);
+
+            if (_myTransform.position.y < _yPreviousFrameValue)
+            {
+                _enemyMovement.Direction(Vector3.zero);
+                _HinHasTeleported = false;
+                _isFalling = false;
+                _FinalStageControl = true;
+                _myCollider.enabled = false;
+                _hitControl.enabled = false;
+
+            }
+
         }
     }
     #endregion
@@ -65,49 +91,32 @@ public class HinIA : EnemyIA
         _enemyMovement = GetComponent<EnemyMovement>();
         _player = FindObjectOfType<RefactoredCharacterController>();
         _yPreviousFrameValue = _myTransform.position.y;
+        _myCollider = GetComponent<BoxCollider2D>();
+        _hitControl = GetComponent<EnemyHit>();
     }
 
-    
+
     void Update()
     {
-        _direction = _enemyMovement._direction;
+        _playerIsInRange = _player.transform.position.x < (_myTransform.position.x + _hinVision) && _player.transform.position.x > (_myTransform.position.x - _hinVision);
+        _timeSinceSecondStage = Mathf.FloorToInt(Time.time) + _firstStageCoolDown - 1;
 
-        if ((_player.transform.position.x < (_myTransform.position.x + _hinVision) && (_player.transform.position.x > _myTransform.position.x - _hinVision))&&!_HinHasTeleported)
-        {
-            _myTransform.transform.position = new Vector3(_player.transform.position.x, _myTransform.position.y, 0);
-            _HinHasTeleported=true;
-        }
-
-        _enemyMovement.Direction(Vector3.zero);
-
-        if (_HinHasTeleported && _myTransform.position.y <= _yPreviousFrameValue + _yMaxPosInFirstStage)
+        if (_playerIsInRange && !_HinHasTeleported)
         {
             HinFirstStage();
         }
-
-        if(_HinHasTeleported && _direction == Vector3.zero)
+        if ((_timeSinceSecondStage % _firstStageCoolDown == 0) && _HinHasTeleported && _FinalStageControl)
         {
-            HinSecondStage();
+            _FinalStageControl = false;
         }
-        if(_time > _firstStageCoolDown && !_isFalling)
+        if(!_FinalStageControl)
         {
+            _myCollider.enabled = true;
+            _hitControl.enabled = true;
+
             HinFinalStage();
         }
-        if (_isFalling)
-        {
-            
-            _enemyMovement.Speed(_speed);
-            _enemyMovement.Direction(Vector3.down);
-            
-        }
-        if(_myTransform.position.y < _yPreviousFrameValue)
-        {
-            _enemyMovement.Direction(Vector3.zero);
-            _HinHasTeleported = false;
-            _isFalling = false;
-            _time = 0;
-        }
 
-        Debug.Log(_time);
     }
+
 }
