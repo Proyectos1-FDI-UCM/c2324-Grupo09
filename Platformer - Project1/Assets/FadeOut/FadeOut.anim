@@ -410,9 +410,16 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 3.6666667
-    functionName: TeleportPlayer
+    functionName: TeleportPlayers
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 267881ce4bd7b654595e3a5d093a58de, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
+    messageOptions: 0
+  - time: 4.35
+    functionName: Desactivar
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
     messageOptions: 0

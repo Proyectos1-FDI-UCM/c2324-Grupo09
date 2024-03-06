@@ -61,7 +61,7 @@ public class RefactoredCharacterController : MonoBehaviour
     Vector3 _pogoStartVelocity = Vector3.zero;
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
-    bool Dead = false; //booleano para confirmar el estado del jugador
+    bool _dead = false; //booleano para confirmar el estado del jugador
 
     #region Timers
     float _lastGroundedTime = 0f;
@@ -197,7 +197,7 @@ public class RefactoredCharacterController : MonoBehaviour
     //Runs 50 times per second
     void FixedUpdate()
     {
-        if (!Dead)
+        if (!_dead)
         {
             _isGrounded = CheckGrounded();
 
@@ -477,7 +477,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _animComp.SetPogoCharge(_canPogoJump);
             _animComp.SetWallRun(_isWallRunning);
         }
-        _animComp.SetDeath(Dead);
+        _animComp.SetDeath(_dead);
         #endregion
     }
 
@@ -497,15 +497,14 @@ public class RefactoredCharacterController : MonoBehaviour
     private void Die() 
     {
         //Llamar a la animación de muerte
-        Dead = true;
+        _dead = true;
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
         GameManager.Instance.OnDie(transform.position);
     }
-    private void TeleportPlayer(int i)
+    public void TeleportPlayer()
     {
-        Debug.Log("Called");
-        transform.position = Vector3.zero;
+        transform.position = _spawnPoint.position;
     }
 
     #region SorroundingChecks
