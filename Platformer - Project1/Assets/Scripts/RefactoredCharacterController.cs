@@ -61,6 +61,7 @@ public class RefactoredCharacterController : MonoBehaviour
     Vector3 _pogoStartVelocity = Vector3.zero;
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
+    [SerializeField]
     bool _dead = false; //booleano para confirmar el estado del jugador
 
     #region Timers
@@ -498,12 +499,15 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         //Llamar a la animación de muerte
         _dead = true;
+        _animComp.SetDeath(_dead);
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
         GameManager.Instance.OnDie(transform.position);
     }
     public void TeleportPlayer()
     {
+        _dead = false;
+        _animComp.SetDeath(_dead);
         transform.position = _spawnPoint.position;
     }
 

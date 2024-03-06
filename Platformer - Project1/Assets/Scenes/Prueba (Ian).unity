@@ -8437,10 +8437,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1455040886}
-    - target: {fileID: 2752863459310942155, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
-      propertyPath: m_ShowMaskGraphic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3985539532671753853, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
