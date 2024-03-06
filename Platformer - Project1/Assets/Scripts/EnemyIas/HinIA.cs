@@ -10,7 +10,6 @@ public class HinIA : EnemyIA
     private RefactoredCharacterController _player;
     private BoxCollider2D _myCollider;
     private EnemyHit _hitControl;
-    EnemyState _enemyState;
     #endregion
     #region parameters
     [SerializeField]
@@ -31,14 +30,6 @@ public class HinIA : EnemyIA
     private bool _playerIsInRange;
     #endregion
     #region methods
-    public override void OnHit()
-    {
-        Death();
-    }
-    public override void Death()
-    {
-        Destroy(this.gameObject);
-    }
     private void HinFirstStage()
     {
         Debug.Log("Estoy en la primera fase");
@@ -84,7 +75,14 @@ public class HinIA : EnemyIA
         }
     }
     #endregion
-
+    public override void OnHit()
+    {
+        Death();
+    }
+    public override void Death()
+    {
+        Destroy(this.gameObject);
+    }
     void Start()
     {
         _myTransform = transform;

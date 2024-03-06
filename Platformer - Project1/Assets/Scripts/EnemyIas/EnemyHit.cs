@@ -10,11 +10,13 @@ public class EnemyHit : MonoBehaviour
     ImpIA _impIA;
     BeneIA _beneIA;
     NahaIA _nahaIA;
+    HinIA _hinIA;
     private void Start()
     {
         _impIA = GetComponent<ImpIA>();
         _beneIA = GetComponent<BeneIA>();
         _nahaIA = GetComponentInParent<NahaIA>();
+        _hinIA = GetComponent<HinIA>();
         _changeState =GetComponent<ChangeState>();
     }
     public void GotHit()
@@ -22,6 +24,8 @@ public class EnemyHit : MonoBehaviour
         _impIA?.OnHit();
         _beneIA?.OnHit();
         _nahaIA?.OnHit();
+        _hinIA?.OnHit();
+
         if (_destroyOnHit)
         {
             Destroy(gameObject);
