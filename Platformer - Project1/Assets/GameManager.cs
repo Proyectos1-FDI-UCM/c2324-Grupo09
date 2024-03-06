@@ -6,10 +6,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private int FPS;
-    [SerializeField]
-    private Animator CameraAnimator;
-    [SerializeField]
+    private GameObject FadeCanvas;
     private Transform Circle;
+    private Animator CameraAnimator;
+    private RefactoredCharacterController charController;
     static private GameManager _instance; 
     static public GameManager Instance    
     {     
@@ -26,15 +26,22 @@ public class GameManager : MonoBehaviour
         void Start()
     {
         Application.targetFrameRate = FPS;
-        //CameraAnimator = FindObjectOfType<Animator>(CameraAnimator);
-        //Circle = FindObjectOfType<Transform>(Circle);
+        FadeCanvas = FindObjectOfType<Canvas>().gameObject;
+        Circle = FadeCanvas.transform.GetChild(0);
+        CameraAnimator = FadeCanvas.GetComponent<Animator>();
+        charController = FindObjectOfType<RefactoredCharacterController>();
 
     }
     public void OnDie(Vector3 playerPosition)
     {
+        FadeCanvas.SetActive(true);
         Circle.transform.position = playerPosition;
-        CameraAnimator.SetBool("FadeOut", true);
-        CameraAnimator.SetBool("FadeOut", false);
+        CameraAnimator.SetTrigger("FadeOut");
+    }
+    public void PlayerTeleport()
+    {
+        charController.TeleportPlayer();
+        //CharController.Dead = false;
     }
 
 }
