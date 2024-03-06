@@ -314,6 +314,7 @@ public class RefactoredCharacterController : MonoBehaviour
                     {
                         if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                         {
+                            _animComp.LookTo1D(_chMovement.LastDirection);
                             _hitboxTimer = _md.wjHitboxDuration;
                             _chMovement.WallJump();
                             _hitbox.CreateHitbox(_md.wallJumpPosition, _md.wallJumpSize, _chMovement.LastDirection); //IMPORTANTE: Habrá que emplear la variante de 4 parámetros en el futuro.
