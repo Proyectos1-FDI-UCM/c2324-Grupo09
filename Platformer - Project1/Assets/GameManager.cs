@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private Transform Circle;
     private Animator CameraAnimator;
     private RefactoredCharacterController charController;
+    private CameraController cameraController;
     static private GameManager _instance; 
     static public GameManager Instance    
     {     
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         Circle = FadeCanvas.transform.GetChild(0);
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
+        cameraController = FindObjectOfType<CameraController>();
 
     }
     public void OnDie(Vector3 playerPosition)
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
+        cameraController.DespawnEnemiesOnRoomExit();
     }
     public void SetCirclePosition(Vector3 position)
     {
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void PlayerTeleport()
     {
         charController.TeleportPlayer();
+        cameraController.SpawnEnemiesOnRoomEnter();
         //CharController.Dead = false;
     }
 

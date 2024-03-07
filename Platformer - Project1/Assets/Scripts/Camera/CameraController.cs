@@ -54,7 +54,7 @@ public class CameraController : MonoBehaviour
         //Debug.Log(_characterController.CharacterVelocity.x);
     }
 
-    private void SpawnEnemiesOnRoomEnter()
+    public void SpawnEnemiesOnRoomEnter()
     {
         for(int i = 0; i<eSpawner.Length; i++)
         {
@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void DespawnEnemiesOnRoomExit()
+    public void DespawnEnemiesOnRoomExit()
     {
         for (int i = 0; i < eSpawner.Length; i++)
         {
