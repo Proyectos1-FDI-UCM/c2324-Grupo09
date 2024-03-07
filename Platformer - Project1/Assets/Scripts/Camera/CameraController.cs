@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
             {
                 platform.SetActive(true);
             }
-
+            GameManager.Instance.UpdateCameraControllerReference(this);
             VirtualCamera.SetActive(true);
             SpawnEnemiesOnRoomEnter();
             _characterController.AssignSpawnPoint(_spawnPoint);
@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
     {
         if (collision.GetComponent<RefactoredCharacterController>() != null)
         {
+            _characterController = null;
             VirtualCamera.SetActive(false);
             DespawnEnemiesOnRoomExit();
         }
@@ -50,7 +51,9 @@ public class CameraController : MonoBehaviour
     private void FixedUpdate()
     {
         if (_characterController != null)
+        {
             _cinemachineBrain.m_DefaultBlend.m_Time = Mathf.Min(Mathf.Abs(40 / _characterController.CharacterVelocity.magnitude), 1.5f);
+        }
         //Debug.Log(_characterController.CharacterVelocity.x);
     }
 

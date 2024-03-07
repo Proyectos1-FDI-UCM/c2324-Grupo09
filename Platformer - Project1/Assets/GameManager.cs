@@ -11,16 +11,13 @@ public class GameManager : MonoBehaviour
     private Animator CameraAnimator;
     private RefactoredCharacterController charController;
     private CameraController cameraController;
-    static private GameManager _instance; 
-    static public GameManager Instance    
-    {     
-        get { return _instance; }    
-    }
-    private void Awake()
+    static public GameManager Instance;
+    
+    void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
         }
         else Destroy(gameObject);
     } 
@@ -34,8 +31,14 @@ public class GameManager : MonoBehaviour
         cameraController = FindObjectOfType<CameraController>();
 
     }
+
+    public void UpdateCameraControllerReference(CameraController meow)
+    {
+        cameraController = meow;
+    }
     public void OnDie(Vector3 playerPosition)
     {
+        Debug.Log("Sinne");
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
     }
     public void PlayerTeleport()
     {
+        Debug.Log("Tp");
         charController.TeleportPlayer();
         cameraController.SpawnEnemiesOnRoomEnter();
         //CharController.Dead = false;
