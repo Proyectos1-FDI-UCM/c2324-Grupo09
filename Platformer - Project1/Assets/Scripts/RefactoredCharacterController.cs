@@ -222,7 +222,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else if (_isWallRunning)
                 {
-                    Debug.Log(Mathf.Pow((Time.time - _wallRunStart) / _md.wallRunNormalDuration, _md.wallRunIncreaseCoeficient));
+                    //Debug.Log(Mathf.Pow((Time.time - _wallRunStart) / _md.wallRunNormalDuration, _md.wallRunIncreaseCoeficient));
                     //Debug.Log(Time.time - _wallRunStart);
                     //Debug.Log(Mathf.Lerp(0, _md.gravityScale, -Mathf.Pow(((Time.time - _wallRunStart) / _md.wallRunNormalDuration), _md.wallRunIncreaseCoeficient)));
                     _chMovement.ChangeGravityScale(Mathf.Lerp(0, _md.gravityScale, Mathf.Pow((Time.time - _wallRunStart) /_md.wallRunNormalDuration, _md.wallRunIncreaseCoeficient)));
@@ -417,6 +417,7 @@ public class RefactoredCharacterController : MonoBehaviour
                         _hitbox.DisableHitbox();
                         _animComp.LookTo1D(_chMovement.LastDirection);
                         _chMovement.PogoJump();
+                        _hasWallRun = false;
                         _isUsingPogo = false;
                     }
                     else
