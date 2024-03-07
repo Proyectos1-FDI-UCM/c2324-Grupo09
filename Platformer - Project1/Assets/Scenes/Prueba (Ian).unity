@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1508250144}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 79.68
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 109087647}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.97815, y: 133.59749, z: 7.6266375}
+  m_LocalPosition: {x: -40.153656, y: 75.59749, z: 7.6266375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7649,7 +7649,7 @@ Transform:
   m_GameObject: {fileID: 1455040884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -309.95215, y: -0.550045, z: -2.7200003}
+  m_LocalPosition: {x: -293.462, y: -0.5586662, z: -2.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8631,6 +8631,22 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1443747679
       objectReference: {fileID: 0}
+    - target: {fileID: 3180735009667563773, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 132.3323
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180735009667563773, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150.1707
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180735009667563773, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 145.53256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180735009667563773, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 133.70187
+      objectReference: {fileID: 0}
     - target: {fileID: 3985539532671753853, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8714,6 +8730,10 @@ PrefabInstance:
     - target: {fileID: 8397173130448779634, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
       propertyPath: m_Name
       value: FadeOutCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397173130448779634, guid: de260297aa21e6c4996a8988b275aa45, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
