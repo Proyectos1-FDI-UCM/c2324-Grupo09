@@ -8,12 +8,7 @@ public class DestroyEnemies : MonoBehaviour
    
     LayerMask _layerchecked;
     int _layer = 7;
-    void Start()
-    {
-        
-    }
   
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         _layerchecked=collision.gameObject.layer;

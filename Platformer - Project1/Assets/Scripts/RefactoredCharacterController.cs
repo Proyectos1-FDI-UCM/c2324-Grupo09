@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,7 +31,6 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         get { return _isUsingPogo; }
     }
-
     #endregion
 
 
@@ -178,8 +176,6 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         if (other.gameObject.layer == Mathf.Log((int)_enemyLayer,2))
         {
-            Debug.Log("Death");
-
             //transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
             Die();
 

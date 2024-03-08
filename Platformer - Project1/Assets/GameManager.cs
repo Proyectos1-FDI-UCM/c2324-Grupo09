@@ -34,11 +34,15 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCameraControllerReference(CameraController meow)
     {
-        cameraController = meow;
+        if(cameraController.Id != meow.Id)
+        {
+            cameraController.EraseRoom();
+            cameraController = meow;
+            cameraController.DrawRoom();
+        }
     }
     public void OnDie(Vector3 playerPosition)
     {
-        Debug.Log("Sinne");
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
@@ -50,7 +54,6 @@ public class GameManager : MonoBehaviour
     }
     public void PlayerTeleport()
     {
-        Debug.Log("Tp");
         charController.TeleportPlayer();
         cameraController.SpawnEnemiesOnRoomEnter();
         //CharController.Dead = false;

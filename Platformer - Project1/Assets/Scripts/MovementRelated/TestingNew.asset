@@ -21,7 +21,7 @@ MonoBehaviour:
   minPogoHeight: 20
   pogoXDuration: 0.1
   pogoYDuration: 0.33
-  pogoFallForce: 100
+  pogoFallForce: 70
   pogoInitialUpVel: 100
   pogoEmpoweredJumpDuration: 0.2
   empoweredJumpForceMultiplier: 1.4

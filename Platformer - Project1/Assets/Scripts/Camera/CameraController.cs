@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     #region references
+    public int Id;
     public GameObject VirtualCamera;
     [SerializeField]
     private CinemachineBrain _cinemachineBrain;
@@ -20,28 +21,30 @@ public class CameraController : MonoBehaviour
     #region methods
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<RefactoredCharacterController>() != null)
+        _characterController = collision.GetComponent<RefactoredCharacterController>();
+        if (_characterController != null)
         {
-            _characterController = collision.GetComponent<RefactoredCharacterController>();
-            foreach (GameObject platform in setActivePlatforms)
-            {
-                platform.SetActive(true);
-            }
             GameManager.Instance.UpdateCameraControllerReference(this);
-            VirtualCamera.SetActive(true);
-            SpawnEnemiesOnRoomEnter();
-            _characterController.AssignSpawnPoint(_spawnPoint);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    public void DrawRoom()
     {
-        if (collision.GetComponent<RefactoredCharacterController>() != null)
+        foreach (GameObject platform in setActivePlatforms)
         {
-            _characterController = null;
-            VirtualCamera.SetActive(false);
-            DespawnEnemiesOnRoomExit();
+            platform.SetActive(true);
         }
+        VirtualCamera.SetActive(true);
+        SpawnEnemiesOnRoomEnter();
+        _characterController.AssignSpawnPoint(_spawnPoint);
     }
+
+    public void EraseRoom()
+    {
+        VirtualCamera.SetActive(false);
+        DespawnEnemiesOnRoomExit();
+    }
+
     #endregion
     private void Start()
     {
@@ -59,6 +62,7 @@ public class CameraController : MonoBehaviour
 
     public void SpawnEnemiesOnRoomEnter()
     {
+        DespawnEnemiesOnRoomExit();
         for(int i = 0; i<eSpawner.Length; i++)
         {
             eSpawner[i]?.Spawn();
