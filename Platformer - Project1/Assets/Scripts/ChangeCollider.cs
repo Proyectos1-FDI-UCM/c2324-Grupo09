@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeCollider : MonoBehaviour
 {
-    private CapsuleCollider2D _capsuleCollider;
+    private BoxCollider2D _boxCollider;
     [SerializeField]
     Vector2 _newOffset;
     [SerializeField]
@@ -15,21 +15,21 @@ public class ChangeCollider : MonoBehaviour
     Vector2 _oldSize;
         void Awake()
     {
-        _capsuleCollider = GetComponent<CapsuleCollider2D>();
-        _oldOffset = _capsuleCollider.offset;
-        _oldSize = _capsuleCollider.size;
+        _boxCollider = GetComponent<BoxCollider2D>();
+        _oldOffset = _boxCollider.offset;
+        _oldSize = _boxCollider.size;
     }
 
     // Update is called once per frame
    public void StartSlide()
     {
        
-        _capsuleCollider.offset = _newOffset;
-        _capsuleCollider.size =_newSize;   
+        _boxCollider.offset = _newOffset;
+        _boxCollider.size =_newSize;   
     }
     public void EndSlide() 
     {
-        _capsuleCollider.offset = _oldOffset;
-        _capsuleCollider.size = _oldSize;
+        _boxCollider.offset = _oldOffset;
+        _boxCollider.size = _oldSize;
     }
 }
