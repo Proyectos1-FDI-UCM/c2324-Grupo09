@@ -8,7 +8,8 @@ public class RefactoredCharacterController : MonoBehaviour
 {
     #region references
     [SerializeField]
-    private LayerMask _enemyLayer;
+    private LayerMask _killsMeLayer;
+
     ChangeCollider _changeCollider;
     private HitboxComponent _hitbox;
     private RefactoredCharacterMovement _chMovement;
@@ -174,11 +175,9 @@ public class RefactoredCharacterController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == Mathf.Log((int)_enemyLayer,2))
+        if (_killsMeLayer == (_killsMeLayer | (1 << other.gameObject.layer)))
         {
-            //transform.position = _spawnPoint.position; //Esto se incluirá en el método Die().
             Die();
-
         }
     }
 

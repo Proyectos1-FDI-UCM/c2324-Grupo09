@@ -22,6 +22,11 @@ public class BossIA : MonoBehaviour
     /// Valor del patron por el que se llega el boos, referido a la posicion de la array de arriba
     /// </summary>
     private int _patronIndex = 0;
+    [Header("Pilars")]
+    #region references
+    [SerializeField]
+    private Transform _pilarReferenceTransform;
+    #endregion
 
     /// <summary>
     ///Llama al siguiente patrón. En caso de haber llegado al último vuelve a shufflear
@@ -87,9 +92,11 @@ public class BossIA : MonoBehaviour
         _currentBossPatronSeries[positionsShuffled.Length] = _bossPatrons[4];
     }
 
-    #region stateLoopFunctions
+    #region BossPatronFunctions
+
     private void EmergingWalls()
     {
+
     }
 
     private void FallingBenes()
