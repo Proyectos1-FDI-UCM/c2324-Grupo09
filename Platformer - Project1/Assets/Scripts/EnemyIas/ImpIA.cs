@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ImpIA : EnemyIA
 {
-
+    EnemyAnimController _anim;
     RefactoredCharacterController _character;
     EnemyMovement _enemyMove;
     [SerializeField]
@@ -50,6 +50,7 @@ public class ImpIA : EnemyIA
             _timeHit = Time.time;
             enemyState = EnemyState.state1;
             _enemyMove.Direction(Vector3.up);
+            _anim.BlueImpTransition();
         }
 
     }
@@ -62,6 +63,7 @@ public class ImpIA : EnemyIA
         _enemyMove = GetComponent<EnemyMovement>();
         _proyectileInstantiate = GetComponent<ProyectileInstantiate>();
         _character = FindObjectOfType<RefactoredCharacterController>();
+        _anim = GetComponent<EnemyAnimController>();
         
     }
     private void Update()
