@@ -383,7 +383,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 if (!_isJumping && dat != null)
                 {
                     _chMovement.ChangeGravityScale(0);
-                    transform.position += dat.CurrentGravity * Vector3.down * Time.fixedDeltaTime;
+                    transform.position += dat.CurrentGravity * Vector3.up * Time.fixedDeltaTime * dat.FallDirectionValue;
                 }
                 else if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
                 {
