@@ -14,4 +14,8 @@ public class EnemyAnimController : MonoBehaviour
     {
         _animator.SetBool("Spin", true);
     }
+    public void BeneActivate()
+    {
+        _animator.SetBool("Fly", true);
+    }
 }
