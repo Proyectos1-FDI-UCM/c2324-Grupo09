@@ -114,7 +114,6 @@ public class BossIA : MonoBehaviour
     /// </summary>
     void UseNextPatron()
     {
-        Debug.Log(_patronIndex + ", " + (5 - (int)currentBS));
         if (_patronIndex == 5 - (int)currentBS)
         {
             GetNewPatronSeries();
@@ -141,7 +140,7 @@ public class BossIA : MonoBehaviour
         {
             order += (positionsShuffled[i] + ", ");
         }
-        Debug.Log(order);
+
         for (int i = 0; i < positionsShuffled.Length; i++)
         {
             _currentBossPatronSeries[i] = _bossPatrons[positionsShuffled[i]];
