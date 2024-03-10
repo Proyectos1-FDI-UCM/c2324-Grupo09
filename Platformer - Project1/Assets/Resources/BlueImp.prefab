@@ -41,6 +41,10 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: -2899302600860387301, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
+      propertyPath: _maxSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -2899302600860387301, guid: edf77cf5daf2e8444a3b5cd3ce690672, type: 3}
       propertyPath: _timeForCicle
       value: 2
       objectReference: {fileID: 0}

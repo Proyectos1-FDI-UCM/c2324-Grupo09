@@ -22,21 +22,25 @@ public class BossIA : MonoBehaviour
     /// Valor del patron por el que se llega el boos, referido a la posicion de la array de arriba
     /// </summary>
     private int _patronIndex = 0;
-    [Header("Pinchos")]
+
+    [SerializeField]
+    private float timeTillPatronStartLVL1 = 2f;
+
+[Header("Pinchos")]
     [SerializeField]
     private GameObject pinchosTecho;
     [SerializeField]
     private GameObject pinchosParedL;
     [SerializeField]
     private GameObject pinchosParedR;
+    [SerializeField]
+    private GameObject pinchosSuelo;
 
 
     [Header("Pilars")]
     GameObject pilarPrefab;
     [SerializeField]
     private Transform _pilarReferenceTransform;
-    [SerializeField]
-    private float initialDelay = 1f;
     [SerializeField]
     private float timeUntilPilarsTouchCeiling = 0.3f;
     [SerializeField]
@@ -48,13 +52,24 @@ public class BossIA : MonoBehaviour
     [Header("HandsSweep")]
     GameObject stompingHandPrefab;
     [SerializeField]
-    private float timeTillStompFalls = 1.5f;
-    [SerializeField]
     private float stompingPrevisualize = 0.3f;
     [SerializeField]
     private float timeTillProjectileDestroy = 2f;
     [SerializeField]
     private Vector3 stompingHandSpawnOffset;
+
+    [Header("BlueImp")]
+    [SerializeField]
+    private float timeBetweenImps = 0.5f;
+    [SerializeField]
+    private float impSpeed = 50f;
+    [SerializeField]
+    private float yImpSpawnOffset = -20f;
+    [SerializeField]
+    private Vector3 HeadOffset;
+    private GameObject bossHead;
+    private GameObject eSpawner;
+
 
 
 
@@ -62,6 +77,8 @@ public class BossIA : MonoBehaviour
     {
         pilarPrefab = Resources.Load<GameObject>("Pilar");
         stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
+        bossHead = Resources.Load<GameObject>("BossHead");
+        eSpawner = Resources.Load<GameObject>("Spawner");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
         _bossPatrons = new Action<int>[5];
@@ -72,8 +89,13 @@ public class BossIA : MonoBehaviour
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
+        //BlueImpOne(3);
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
         GetNewPatronSeries();
         UseNextPatron();
+
+        
         //_bossPatrons[0]((int)currentBS);
     }
 
@@ -92,14 +114,12 @@ public class BossIA : MonoBehaviour
     /// </summary>
     void UseNextPatron()
     {
-        if (_patronIndex != 5 - (int)currentBS)
-        {
-            _patronIndex++;
-        }
-        else
+        Debug.Log(_patronIndex + ", " + (5 - (int)currentBS));
+        if (_patronIndex == 5 - (int)currentBS)
         {
             GetNewPatronSeries();
         }
+        _patronIndex++;
         _currentBossPatronSeries[_patronIndex]((int)currentBS);
     }
 
@@ -159,7 +179,10 @@ public class BossIA : MonoBehaviour
  
     private void BlueImpOne(int i)
     {
-
+        if (i == 3)
+        {
+            StartCoroutine("BlueImpLVL1");
+        }
     }
 
     #region auxiliarBossPatronFunctions
@@ -174,9 +197,10 @@ public class BossIA : MonoBehaviour
         pinchosTecho.SetActive(true);
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
 
         pilarReferences[0] = Instantiate(pilarPrefab, _pilarReferenceTransform.position, Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
-        yield return new WaitForSeconds(initialDelay);
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
         pilarReferences[0].DestroyThis();
         StartCoroutine("FrozePillar", 0);
         int i = 1;
@@ -237,14 +261,16 @@ public class BossIA : MonoBehaviour
     }
     #endregion
 
+    #region HandSweep
     IEnumerator HandSweepLVL1()
     {
         pinchosTecho.SetActive(false);
         pinchosParedL.SetActive(true);
         pinchosParedR.SetActive(true);
+        pinchosSuelo.SetActive(false);
         int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
         StompingHandIA stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
-        yield return new WaitForSeconds(timeTillStompFalls);
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
         stompingHand.PrevisualizeStomp();
         yield return new WaitForSeconds(stompingPrevisualize);
         stompingHand.BeginToFall(rdNumber * -1);
@@ -254,6 +280,43 @@ public class BossIA : MonoBehaviour
         UseNextPatron();
         //--------------------------------------------------------------------------------------------------UseNextPatron();
     }
+    #endregion
+
+    #region BlueImp
+    IEnumerator BlueImpLVL1()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+        GameObject head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+        EnemySpawner[] eS = new EnemySpawner[3];
+        for(int i = 0; i < eS.Length-1; i++)
+        {
+            eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
+            eS[i].Spawn(EnemyType.RegularImp, Vector2.right, impSpeed);
+            yield return new WaitForSeconds(timeBetweenImps);
+        }
+        pinchosSuelo.SetActive(true);
+
+        eS[2] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
+        eS[2].Spawn(EnemyType.BlueImp, Vector2.right, impSpeed);
+
+        yield return new WaitForSeconds(3f);
+        pinchosSuelo.SetActive(false);
+
+        yield return new WaitForSeconds(3f);
+        for (int i= 0; i < eS.Length; i++)
+        {
+            eS[i].DestroySpawnedEnemy();
+            Destroy(eS[i].gameObject);
+        }
+        Destroy(head);
+        UseNextPatron();
+    }
+    #endregion
+
 
     #endregion
     #endregion

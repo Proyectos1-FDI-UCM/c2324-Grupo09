@@ -30,6 +30,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        FindNewEnemyPrefab();
+    }
+
+    private void FindNewEnemyPrefab()
+    {
         string pathToEnemyPrefab = "";
         switch (enemy)
         {
@@ -51,7 +56,6 @@ public class EnemySpawner : MonoBehaviour
         }
         enemyPrefab = Resources.Load<GameObject>(pathToEnemyPrefab);
         EnemyTypeChanged();
-        //Spawn();
     }
 
     public void Spawn()
@@ -62,6 +66,21 @@ public class EnemySpawner : MonoBehaviour
             EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();
             eM.Direction(direction);
             eM.Speed(speed);
+            spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
+        }
+    }
+
+    public void Spawn(EnemyType eT, Vector2 dir, float sp)
+    {
+        enemy = eT;
+        FindNewEnemyPrefab();
+
+        spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if (enemyMoves)
+        {
+            EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();
+            eM.Direction(dir);
+            eM.Speed(sp);
             spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
         }
     }

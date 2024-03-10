@@ -20,8 +20,8 @@ MonoBehaviour:
   doConserveMomentum: 1
   minPogoHeight: 20
   pogoXDuration: 0.1
-  pogoYDuration: 0.33
-  pogoFallForce: 70
+  pogoYDuration: 0.2
+  pogoFallForce: 85
   pogoInitialUpVel: 100
   pogoEmpoweredJumpDuration: 0.2
   empoweredJumpForceMultiplier: 1.4
