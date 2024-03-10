@@ -13,11 +13,11 @@ public class BossIA : MonoBehaviour
     /// <summary>
     /// Array con todo los patrones del Boss ordenados debidamente
     /// </summary>
-    private Action[] _bossPatrons;
+    private Action<int>[] _bossPatrons;
     /// <summary>
     /// Array con los patrones del boss en el orden en el que los va a ejecutar.
     /// </summary>
-    private Action[] _currentBossPatronSeries;
+    private Action<int>[] _currentBossPatronSeries;
     /// <summary>
     /// Valor del patron por el que se llega el boos, referido a la posicion de la array de arriba
     /// </summary>
@@ -26,14 +26,17 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private GameObject pinchosTecho;
     [SerializeField]
-    private GameObject pinchosVacio;
+    private GameObject pinchosParedL;
+    [SerializeField]
+    private GameObject pinchosParedR;
 
 
     [Header("Pilars")]
-    #region references
     GameObject pilarPrefab;
     [SerializeField]
     private Transform _pilarReferenceTransform;
+    [SerializeField]
+    private float initialDelay = 1f;
     [SerializeField]
     private float timeUntilPilarsTouchCeiling = 0.3f;
     [SerializeField]
@@ -41,16 +44,27 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private float destroyPilarDelay = 1f;
     private DestryAfterTime[] pilarReferences = new DestryAfterTime[27];
-    #endregion
+
+    [Header("HandsSweep")]
+    GameObject stompingHandPrefab;
+    [SerializeField]
+    private float timeTillStompFalls = 1.5f;
+    [SerializeField]
+    private float stompingPrevisualize = 0.3f;
+    [SerializeField]
+    private float timeTillProjectileDestroy = 2f;
+    [SerializeField]
+    private Vector3 stompingHandSpawnOffset;
 
 
 
     void Start()
     {
         pilarPrefab = Resources.Load<GameObject>("Pilar");
+        stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
-        _bossPatrons = new Action[5];
+        _bossPatrons = new Action<int>[5];
         _bossPatrons[0] = EmergingWalls;    //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
         _bossPatrons[2] = FallingBenes;     //Desbloqueado tras golpear 1 vez al boss
@@ -58,7 +72,9 @@ public class BossIA : MonoBehaviour
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
-        StartCoroutine("SpawnPilarsLVL1");
+        GetNewPatronSeries();
+        UseNextPatron();
+        //_bossPatrons[0]((int)currentBS);
     }
 
     /// <summary>
@@ -84,7 +100,7 @@ public class BossIA : MonoBehaviour
         {
             GetNewPatronSeries();
         }
-        _currentBossPatronSeries[_patronIndex]();
+        _currentBossPatronSeries[_patronIndex]((int)currentBS);
     }
 
     /// <summary>
@@ -92,9 +108,9 @@ public class BossIA : MonoBehaviour
     /// </summary>
     void GetNewPatronSeries()
     {
-        _patronIndex = 0;
+        _patronIndex = -1;
         int[] positionsShuffled = new int[5 - (int)currentBS];
-        _currentBossPatronSeries = new Action[6 - (int)currentBS];
+        _currentBossPatronSeries = new Action<int>[6 - (int)currentBS];
         for (int i = 0; i < positionsShuffled.Length; i++)
         {
             positionsShuffled[i] = i;
@@ -115,31 +131,40 @@ public class BossIA : MonoBehaviour
 
     #region BossPatronFunctions
 
-    private void EmergingWalls()
+    private void EmergingWalls(int i)
+    {
+        if (i == 3)
+        {
+            StartCoroutine("SpawnPilarsLVL1");
+        }
+    }
+
+    private void HandsSweep(int i)
+    {
+        if (i == 3)
+        {
+            StartCoroutine("HandSweepLVL1");
+        }
+    }
+
+    private void FallingBenes(int i)
     {
 
     }
 
-    private void FallingBenes()
+    private void OpossingNahas(int i)
     {
 
     }
-
-    private void OpossingNahas()
-    {
-
-    }
-
-    private void HandsSweep()
-    {
-
-    }
-    private void BlueImpOne()
+ 
+    private void BlueImpOne(int i)
     {
 
     }
 
     #region auxiliarBossPatronFunctions
+
+    #region Pillars
     /// <summary>
     /// spawnea pilares del centro de la pantalla a los extremos y pasado un tiempo los elimina
     /// LVL1
@@ -147,9 +172,11 @@ public class BossIA : MonoBehaviour
     IEnumerator SpawnPilarsLVL1()
     {
         pinchosTecho.SetActive(true);
-        pinchosVacio.SetActive(true);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
 
         pilarReferences[0] = Instantiate(pilarPrefab, _pilarReferenceTransform.position, Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
+        yield return new WaitForSeconds(initialDelay);
         pilarReferences[0].DestroyThis();
         StartCoroutine("FrozePillar", 0);
         int i = 1;
@@ -198,8 +225,9 @@ public class BossIA : MonoBehaviour
             i += 2;
         }
 
-        pinchosTecho.SetActive(false);
-        pinchosVacio.SetActive(false);
+        //Patrón se ha terminado 
+
+        UseNextPatron();
     }
 
     IEnumerator FrozePillar(int i)
@@ -207,7 +235,26 @@ public class BossIA : MonoBehaviour
         yield return new WaitForSeconds(timeUntilPilarsTouchCeiling);
         pilarReferences[i].SetFrozen(true);
     }
-    
+    #endregion
+
+    IEnumerator HandSweepLVL1()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(true);
+        pinchosParedR.SetActive(true);
+        int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        StompingHandIA stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        yield return new WaitForSeconds(timeTillStompFalls);
+        stompingHand.PrevisualizeStomp();
+        yield return new WaitForSeconds(stompingPrevisualize);
+        stompingHand.BeginToFall(rdNumber * -1);
+        yield return new WaitForSeconds(timeTillProjectileDestroy);
+        stompingHand.ProjectileDestroy();
+        stompingHand.DestroySelf();
+        UseNextPatron();
+        //--------------------------------------------------------------------------------------------------UseNextPatron();
+    }
+
     #endregion
     #endregion
 }
