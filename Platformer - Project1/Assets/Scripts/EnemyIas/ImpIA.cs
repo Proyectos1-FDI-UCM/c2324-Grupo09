@@ -21,6 +21,7 @@ public class ImpIA : EnemyIA
     private bool _isUsingPogo;
     private ProyectileInstantiate _proyectileInstantiate;
     private float _x;
+    private ParticleManager _myParticleManager;
 
 
     public override void OnHit()
@@ -30,13 +31,16 @@ public class ImpIA : EnemyIA
         if (enemyState == EnemyState.state1 && _isWallJumping)
         {
             enemyState = EnemyState.dead;
+
             if(_x > transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.left);
+                _myParticleManager.InstantiateParticle(1);
             }
             if(_x < transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.right);
+                _myParticleManager.InstantiateParticle(0);
             }
 
         }
@@ -64,7 +68,7 @@ public class ImpIA : EnemyIA
         _proyectileInstantiate = GetComponent<ProyectileInstantiate>();
         _character = FindObjectOfType<RefactoredCharacterController>();
         _anim = GetComponent<EnemyAnimController>();
-        
+        _myParticleManager = _character.gameObject.GetComponent<ParticleManager>();
     }
     private void Update()
     {
