@@ -16,7 +16,9 @@ public class ProyectileMovement : MonoBehaviour
     #region methods
     public void SetDirection(Vector3 newDirection)
     {
+        newDirection.Normalize();
         _direction = newDirection;
+        transform.localRotation = Quaternion.Euler(Vector3.forward * (newDirection.x * 90 + newDirection.y * -180));
     }
     #endregion
 

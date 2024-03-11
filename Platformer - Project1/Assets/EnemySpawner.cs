@@ -85,6 +85,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public void ChangeDirectionLooking(float i)
+    {
+        _enemyLooking = (Direction)Mathf.Sign(i);
+    }
+
     private void EnemyTypeChanged()
     {
         if(enemy == EnemyType.RegularImp || enemy == EnemyType.BlueImp || enemy == EnemyType.Naha)

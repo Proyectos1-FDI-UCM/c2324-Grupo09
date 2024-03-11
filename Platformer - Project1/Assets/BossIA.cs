@@ -6,6 +6,8 @@ using NaughtyAttributes;
 
 public class BossIA : MonoBehaviour
 {
+    //private Transform playerTransform;
+
     [SerializeField]
     [OnValueChanged("StateChanged")]
     ///Estado actual del boss
@@ -26,7 +28,7 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private float timeTillPatronStartLVL1 = 2f;
 
-[Header("Pinchos")]
+    [Header("Pinchos")]
     [SerializeField]
     private GameObject pinchosTecho;
     [SerializeField]
@@ -38,7 +40,6 @@ public class BossIA : MonoBehaviour
 
 
     [Header("Pilars")]
-    GameObject pilarPrefab;
     [SerializeField]
     private Transform _pilarReferenceTransform;
     [SerializeField]
@@ -48,15 +49,16 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private float destroyPilarDelay = 1f;
     private DestryAfterTime[] pilarReferences = new DestryAfterTime[27];
+    GameObject pilarPrefab;
 
     [Header("HandsSweep")]
-    GameObject stompingHandPrefab;
     [SerializeField]
     private float stompingPrevisualize = 0.3f;
     [SerializeField]
     private float timeTillProjectileDestroy = 2f;
     [SerializeField]
     private Vector3 stompingHandSpawnOffset;
+    GameObject stompingHandPrefab;
 
     [Header("BlueImp")]
     [SerializeField]
@@ -71,25 +73,42 @@ public class BossIA : MonoBehaviour
     private GameObject eSpawner;
 
 
+    [Header("OpposingNahas")]
+    [SerializeField]
+    private GameObject restrictingWall;
+    [SerializeField]
+    float _yNagasSeparation = 20f;
+    [SerializeField]
+    float _yNagasSpawnOffset = 120f;
+    [SerializeField]
+    float _xNagasSpawnOffset = 70f;
+    [SerializeField]
+    float _timeBetweenNagas = 1f;
 
+    /*
+    [Header("Jumpers")]
+    private GameObject jumperPrefab;
+    */
 
     void Start()
     {
+        //playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
+
+
         pilarPrefab = Resources.Load<GameObject>("Pilar");
         stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
         bossHead = Resources.Load<GameObject>("BossHead");
         eSpawner = Resources.Load<GameObject>("Spawner");
+        //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
         _bossPatrons = new Action<int>[5];
         _bossPatrons[0] = EmergingWalls;    //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
         _bossPatrons[2] = FallingBenes;     //Desbloqueado tras golpear 1 vez al boss
-        _bossPatrons[3] = OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
+        _bossPatrons[3] = //OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
-
-        //BlueImpOne(3);
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         GetNewPatronSeries();
@@ -168,13 +187,21 @@ public class BossIA : MonoBehaviour
 
     private void FallingBenes(int i)
     {
+        if (i == 3)
+        {
 
+        }
     }
 
+    /*
     private void OpossingNahas(int i)
     {
-
+        if (i == 3)
+        {
+            StartCoroutine("OpposingNagasLVL1");
+        }
     }
+    */
  
     private void BlueImpOne(int i)
     {
@@ -197,6 +224,7 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
+        restrictingWall.SetActive(false);
 
         pilarReferences[0] = Instantiate(pilarPrefab, _pilarReferenceTransform.position, Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
@@ -267,6 +295,7 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(true);
         pinchosParedR.SetActive(true);
         pinchosSuelo.SetActive(false);
+        restrictingWall.SetActive(false);
         int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
         StompingHandIA stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
@@ -288,6 +317,7 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
+        restrictingWall.SetActive(false);
         GameObject head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
         EnemySpawner[] eS = new EnemySpawner[3];
@@ -316,6 +346,60 @@ public class BossIA : MonoBehaviour
     }
     #endregion
 
+    /*
+
+    #region Jumpers
+    IEnumerator JumpersLVL1()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+        restrictingWall.SetActive(false);
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+        GameObject jumper = Instantiate(jumperPrefab, )
+        UseNextPatron();
+    }
+    #endregion
+    */
+    /*
+    #region OpposingNagas
+    IEnumerator OpposingNagasLVL1()
+    {
+        restrictingWall.SetActive(true);
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+        EnemySpawner[] eS = new EnemySpawner[4];
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+        float randomNumber = Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        for(int i= 0; i < 3; i++)
+        {
+            eS[i] = Instantiate(eSpawner, _pilarReferenceTransform.position + randomNumber * Math.Abs(_xNagasSpawnOffset) * Vector3.right + (_yNagasSpawnOffset + i * _yNagasSeparation) * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
+            randomNumber *= -1;
+            eS[i].ChangeDirectionLooking(randomNumber);
+            eS[i].Spawn(EnemyType.Naha, randomNumber * Vector3.right, 60);
+            
+            if (i == 2) pinchosSuelo.SetActive(true);
+
+            yield return new WaitForSeconds(_timeBetweenNagas);
+        }
+        
+    }
+    #endregion
+    
+    #region FallingBenes
+
+
+    IEnumerator FallingBenesLVL1()
+    {
+
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+    }
+    
+    #endregion
+    */
 
     #endregion
     #endregion
