@@ -10,6 +10,7 @@ public class NahaIA : EnemyIA
     private GameObject _wallrunPrefab;
     private Transform _myTransform;
     private RefactoredCharacterController _characterController;
+    private EnemyAnimController _anim;
     #endregion
     #region properties
     private bool _isUsingPogo;
@@ -27,6 +28,7 @@ public class NahaIA : EnemyIA
     {
         if(_isUsingPogo && !_alreadyHitWithPogo)
         {
+            _anim.NahaShift();
             GameObject newGameObject = Instantiate(_wallrunPrefab,_myTransform.position, Quaternion.identity);
             newGameObject.transform.position += _xOffset * GetComponent<EnemyMovement>().ReadOnlyDirection * Vector3.right;
             newGameObject.transform.localScale = new Vector3(_myTransform.localScale.x - _xRunWallScale, _myTransform.localScale.y - _yRunWallScale, 0);
@@ -43,6 +45,7 @@ public class NahaIA : EnemyIA
     {
         _myTransform = transform;
         _characterController = FindObjectOfType<RefactoredCharacterController>();
+        _anim = GetComponent<EnemyAnimController>();
     }
 
     // Update is called once per frame

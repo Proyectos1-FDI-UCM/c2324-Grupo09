@@ -18,4 +18,8 @@ public class EnemyAnimController : MonoBehaviour
     {
         _animator.SetBool("Fly", true);
     }
+    public void NahaShift()
+    {
+        _animator.SetBool("Weak", true);
+    }
 }
