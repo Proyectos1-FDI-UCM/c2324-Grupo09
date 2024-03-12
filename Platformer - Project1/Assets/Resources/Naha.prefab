@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 6078426784134693325}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.515, z: 0}
-  m_LocalScale: {x: 0.049999997, y: 0.5, z: 1}
+  m_LocalPosition: {x: -5.9, y: 54.8, z: 0}
+  m_LocalScale: {x: 10, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4109138407704213350}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5635314, g: 0, b: 0.7924528, a: 1}
+  m_Color: {r: 0.5635314, g: 0, b: 0.7924528, a: 0}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -175,8 +175,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -156.9, y: -30, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7534323779307923437}
   m_Father: {fileID: 0}
@@ -260,10 +260,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallrunPrefab: {fileID: 2808754021037740387, guid: 28c6e712df513894d951f4c8c28ab803, type: 3}
-  _bodyPrefab: {fileID: 0}
-  _xOffset: -30
+  xOffsetCuloNaha: 20
+  _offsetWR: {x: 0, y: 15}
+  _sizeWR: {x: 22, y: 20}
   _xRunWallScale: 90
   _yRunWallScale: 2
+  _initialOffsetCulosNaha: {x: 5, y: 5, z: 0}
 --- !u!95 &5875847149652638195
 Animator:
   serializedVersion: 5
