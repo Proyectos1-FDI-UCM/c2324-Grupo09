@@ -140,6 +140,7 @@ public class RefactoredCharacterController : MonoBehaviour
     public void WallRunToggle(bool toggle)
     {
         _canWallRun = toggle;
+        if (!toggle) _hasWallRun = false;
     }
 
     //triggers when the value of the x movement is equal to 0
