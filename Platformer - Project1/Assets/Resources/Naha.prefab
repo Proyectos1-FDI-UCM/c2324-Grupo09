@@ -224,7 +224,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a3246e48d3900664dbb97c0d12885822, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallrunPrefab: {fileID: 2808754021037740387, guid: 28c6e712df513894d951f4c8c28ab803, type: 3}
+  _bodyPrefab: {fileID: 0}
   _xOffset: -30
   _xRunWallScale: 90
   _yRunWallScale: 2
