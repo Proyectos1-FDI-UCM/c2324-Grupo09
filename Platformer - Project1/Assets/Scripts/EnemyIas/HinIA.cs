@@ -95,7 +95,6 @@ public class HinIA : EnemyIA
         _myCollider = GetComponent<BoxCollider2D>();
         _hitControl = GetComponent<EnemyHit>();
         _enemyAnimController = GetComponent<EnemyAnimController>();
-        _enemyAnimController.HinWait();
     }
 
 

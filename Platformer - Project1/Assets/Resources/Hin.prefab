@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3157777918776290402}
   - component: {fileID: 5804490185235588641}
   - component: {fileID: 1791009937392220816}
+  - component: {fileID: -3868248469526225263}
   m_Layer: 7
   m_Name: Hin
   m_TagString: Untagged
@@ -198,3 +199,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3868248469526225263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4718306128082867205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1457e6e27c4918e45803bf3423aa6f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
