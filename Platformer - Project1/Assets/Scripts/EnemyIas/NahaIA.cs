@@ -11,6 +11,11 @@ public class NahaIA : EnemyIA
     private Transform _myTransform;
     private RefactoredCharacterController _characterController;
     private EnemyAnimController _anim;
+    private GameObject[] _culosNaha;
+    private GameObject _prefabCuloNaha;
+    [SerializeField]
+    private float xOffsetCuloNaha = 40f;
+    private int _lookingTo;
     #endregion
     #region properties
     private bool _isUsingPogo;
@@ -18,21 +23,32 @@ public class NahaIA : EnemyIA
     #endregion
     #region parameters
     [SerializeField]
-    private float _xOffset = 1.0f;
+    private Vector2 _offsetWR;
+    [SerializeField]
+    private Vector2 _sizeWR;
+    //private float _xOffsetWR = 1.0f;
     [SerializeField]
     private float _xRunWallScale = 1.0f;
     [SerializeField]
     private float _yRunWallScale = 1.0f;
+
+    [SerializeField]
+    private Vector3 _initialOffsetCulosNaha;
     #endregion
     public override void OnHit()
     {
         if(_isUsingPogo && !_alreadyHitWithPogo)
         {
             _anim.NahaShift();
+            for(int i= 0; i < _culosNaha.Length; i++)
+            {
+                _culosNaha[i].GetComponent<Animator>().SetBool("Weak", true);
+            }
             GameObject newGameObject = Instantiate(_wallrunPrefab,_myTransform.position, Quaternion.identity);
-            newGameObject.transform.position += _xOffset * GetComponent<EnemyMovement>().ReadOnlyDirection * Vector3.right;
-            newGameObject.transform.localScale = new Vector3(_myTransform.localScale.x - _xRunWallScale, _myTransform.localScale.y - _yRunWallScale, 0);
+            newGameObject.transform.position += (0.5f * (1 + _culosNaha.Length) * _sizeWR.x -  0.75f * xOffsetCuloNaha) * Vector3.right * _lookingTo + Vector3.up * _offsetWR.y;//((((_culosNaha.Length-1) * xOffsetCuloNaha * 15/20) + _offsetWR.x)) * Vector3.right  * _lookingTo + Vector3.up * _offsetWR.y;
+            newGameObject.transform.localScale = (1+_culosNaha.Length) * _sizeWR.x * Vector3.right + _sizeWR.y * Vector3.up;//new Vector3(_myTransform.localScale.x - _xRunWallScale, _myTransform.localScale.y - _yRunWallScale, 0);
             newGameObject.transform.parent = _myTransform;
+            newGameObject.GetComponent<SpriteRenderer>().color = Color.clear;
             _alreadyHitWithPogo = true;
         }
     }
@@ -41,16 +57,32 @@ public class NahaIA : EnemyIA
         Destroy(this.gameObject);
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        _myTransform = transform;
+
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         _anim = GetComponent<EnemyAnimController>();
+        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         _isUsingPogo = _characterController.IsUsingPogo;
+    }
+
+
+    public void SetSize(int n, int Dir)
+    {
+        _lookingTo = Dir;
+        _myTransform = transform;
+        _prefabCuloNaha = Resources.Load<GameObject>("NahaBody");
+        _culosNaha = new GameObject[n];
+        for (int i = 0; i < n; i++)
+        {
+            _culosNaha[i] = Instantiate(_prefabCuloNaha, _initialOffsetCulosNaha.y * Vector3.up +_myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * (i+1) + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
+        }
     }
 }

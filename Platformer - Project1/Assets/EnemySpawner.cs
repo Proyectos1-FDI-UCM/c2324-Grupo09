@@ -26,6 +26,10 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField]
+    [ShowIf("enemy", EnemyType.Naha)]
+    private int NahaSize = 2;
+
+    [SerializeField]
     Direction _enemyLooking = Direction.right;
 
     private void Start()
@@ -68,6 +72,10 @@ public class EnemySpawner : MonoBehaviour
             eM.Speed(speed);
             spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
         }
+        if(enemy == EnemyType.Naha)
+        {
+            spawnedEnemy.GetComponent<NahaIA>().SetSize(NahaSize, (int)_enemyLooking);
+        }
     }
 
     public void Spawn(EnemyType eT, Vector2 dir, float sp)
@@ -83,6 +91,22 @@ public class EnemySpawner : MonoBehaviour
             eM.Speed(sp);
             spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
         }
+    }
+
+    public void Spawn(EnemyType eT, Vector2 dir, float sp, int nahaSize)
+    {
+        enemy = eT;
+        FindNewEnemyPrefab();
+
+        spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if (enemyMoves)
+        {
+            EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();
+            eM.Direction(dir);
+            eM.Speed(sp);
+            spawnedEnemy.transform.localScale = new Vector3(spawnedEnemy.transform.localScale.x * (int)_enemyLooking, spawnedEnemy.transform.localScale.y, spawnedEnemy.transform.localScale.z);
+        }
+        spawnedEnemy.GetComponent<NahaIA>().SetSize(nahaSize, (int)_enemyLooking);
     }
 
     public void ChangeDirectionLooking(float i)

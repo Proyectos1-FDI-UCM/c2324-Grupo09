@@ -30,6 +30,10 @@ public class EnemyHit : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if(_nahaIA != null)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 
 
