@@ -22,4 +22,16 @@ public class EnemyAnimController : MonoBehaviour
     {
         _animator.SetBool("Weak", true);
     }
+    public void HinWait()
+    {
+        _animator.SetInteger("HinState", 0);
+    }
+    public void HinJump() 
+    {
+        _animator.SetInteger("HinState", 1);
+    }
+    public void HinFall()
+    {
+        _animator.SetInteger("HinState", 2);
+    }
 }

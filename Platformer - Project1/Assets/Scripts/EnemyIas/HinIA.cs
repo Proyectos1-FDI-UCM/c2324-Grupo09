@@ -10,6 +10,7 @@ public class HinIA : EnemyIA
     private RefactoredCharacterController _player;
     private BoxCollider2D _myCollider;
     private EnemyHit _hitControl;
+    private EnemyAnimController _enemyAnimController;
     #endregion
     #region parameters
     [SerializeField]
@@ -56,6 +57,7 @@ public class HinIA : EnemyIA
         else
         {
             _isFalling=true;
+            _enemyAnimController.HinFall();
         }
         if (_isFalling)
         {
@@ -69,6 +71,7 @@ public class HinIA : EnemyIA
                 _FinalStageControl = true;
                 _myCollider.enabled = false;
                 _hitControl.enabled = false;
+                _enemyAnimController.HinWait();
 
             }
 
@@ -91,6 +94,8 @@ public class HinIA : EnemyIA
         _yPreviousFrameValue = _myTransform.position.y;
         _myCollider = GetComponent<BoxCollider2D>();
         _hitControl = GetComponent<EnemyHit>();
+        _enemyAnimController = GetComponent<EnemyAnimController>();
+        _enemyAnimController.HinWait();
     }
 
 
@@ -102,6 +107,7 @@ public class HinIA : EnemyIA
         if (_playerIsInRange && !_HinHasTeleported)
         {
             HinFirstStage();
+            _enemyAnimController.HinJump();
         }
         if ((_timeSinceSecondStage % _firstStageCoolDown == 0) && _HinHasTeleported && _FinalStageControl)
         {
