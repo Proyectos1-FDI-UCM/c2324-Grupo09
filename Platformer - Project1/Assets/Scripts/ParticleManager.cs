@@ -11,17 +11,26 @@ public class ParticleManager : MonoBehaviour
     private Animator _characterAnim;
     private Transform _myTransform;
     [SerializeField]
-    private GameObject _particlePrefab;
+    private GameObject _collisionParticlePrefab;
+    [SerializeField]
+    private GameObject _initialJumpParticlePrefab;
+    [SerializeField]
+    private GameObject _endJumpParticlePrefab;
     #endregion
     #region properties
     private int _lastDir;
     private float _xdistance;
     private float _ydistance;
-    private float _yrotation;
     private float _xrotation;
+    private float _yrotation;
+    private float _zrotation;
+    private float _yOffsetOnJump;
     private bool _isRunning = false;
     private bool _hasBeenUsedWallJump = false;
     private bool _saveDir = true;
+    private bool _alreadyJump = false;
+    private bool _isOnAir = false;
+    private bool _hasLanded = false;
     #endregion
     #region parameters
     [SerializeField]
@@ -38,6 +47,7 @@ public class ParticleManager : MonoBehaviour
             _xdistance = _xdistanceParam;
             _yrotation = 90.0f;
             _ydistance = 0.0f;
+            _zrotation = 90.0f;
 
         }
         else if (x == 1)
@@ -46,6 +56,7 @@ public class ParticleManager : MonoBehaviour
             _xdistance = -_xdistanceParam;
             _yrotation = -90.0f;
             _ydistance = 0.0f;
+            _zrotation = 90.0f;
 
         }
         else if(x == 2)
@@ -53,12 +64,30 @@ public class ParticleManager : MonoBehaviour
             _xrotation = 90.0f;
             _xdistance = 0.0f;
             _yrotation = 90.0f;
+            _zrotation = 90.0f;
             _ydistance = _ydistanceParam;
         }
 
-        GameObject newParticles = Instantiate(_particlePrefab, new Vector3(_myTransform.position.x + _xdistance, _myTransform.position.y + _ydistance, _myTransform.position.z), Quaternion.identity);
-        newParticles.transform.Rotate(new Vector3(_xrotation, _yrotation, 90));
+        GameObject newParticles = Instantiate(_collisionParticlePrefab, new Vector3(_myTransform.position.x + _xdistance, _myTransform.position.y + _ydistance, _myTransform.position.z), Quaternion.identity);
+        newParticles.transform.Rotate(new Vector3(_xrotation, _yrotation, _zrotation));
         newParticles.GetComponent<ParticleSystem>().Play();
+    }
+    private void InstantiateJumpParticles(int a)
+    {
+        GameObject JumpParticles;
+        if(a == 0)
+        {
+            JumpParticles = _initialJumpParticlePrefab;
+            _yOffsetOnJump = 8.0f;
+        }
+        else
+        {
+            JumpParticles = _endJumpParticlePrefab;
+            _yOffsetOnJump = 2.5f;
+        }
+        GameObject newIniJumpParticles = Instantiate(JumpParticles, new Vector3(_myTransform.position.x, _myTransform.position.y-_yOffsetOnJump, _myTransform.position.z),Quaternion.identity);
+        newIniJumpParticles.transform.Rotate(new Vector3(-90,0,0));
+        newIniJumpParticles.GetComponent<ParticleSystem>().Play();
     }
     private void RunCheck()
     {
@@ -104,6 +133,33 @@ public class ParticleManager : MonoBehaviour
             _saveDir = false;
         }
     }
+    private void CheckInitialJump()
+    {
+
+        if (!_characterAnim.GetBool("Grounded") && !_characterAnim.GetBool("FallingDown") && !_alreadyJump && !_isOnAir)
+        {
+            _alreadyJump = true;
+            _isOnAir = true;
+        }
+        else if (_alreadyJump && !_characterAnim.GetBool("Grounded") && !_characterAnim.GetBool("FallingDown") && _isOnAir)
+        {
+            InstantiateJumpParticles(0);
+            _alreadyJump = false;
+        }
+        else if (_characterAnim.GetBool("Grounded") && _isOnAir)
+        {
+            _isOnAir = false;
+            _hasLanded = true;
+        }
+    }
+    private void CheckEndOfJump()
+    {
+        if(_hasLanded)
+        {
+            InstantiateJumpParticles(1);
+            _hasLanded = false;
+        }
+    }
     #endregion
     void Start()
     {
@@ -118,6 +174,11 @@ public class ParticleManager : MonoBehaviour
         RunCheck();
         SaveLastDirectionOfWallJump();
         WallJumpCheck();
+
+        CheckInitialJump();
+        CheckEndOfJump();
+
+
     }
 
 }
