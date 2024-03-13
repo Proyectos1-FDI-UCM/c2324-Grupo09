@@ -80,7 +80,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1201
+  Length: 861
 --- !u!114 &-582102307592540536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   - {fileID: 3997045078874866264}
   StringsBanks:
   - {fileID: 6890021976580957202}
-  cacheTime: 638459198711306724
+  cacheTime: 638459283971210474
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -164,7 +164,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 456
+  Length: 326
 --- !u!114 &610976268339355186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,10 +234,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638459198711286550
+  lastModified: 638459283971167157
   FileSizes:
   - Name: Desktop
-    Value: 111712
+    Value: 111584
   Exists: 1
 --- !u!114 &6890021976580957202
 MonoBehaviour:
@@ -254,7 +254,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638459198711306724
+  lastModified: 638459283971210474
   FileSizes:
   - Name: Desktop
     Value: 1016

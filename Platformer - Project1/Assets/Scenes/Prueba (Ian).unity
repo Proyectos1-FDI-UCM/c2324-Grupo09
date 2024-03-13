@@ -393,6 +393,79 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1636838569}
+--- !u!1001 &225320107
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -252.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -26.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190242952497307849, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052017419314579773, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: _padForce
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052017419314579773, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: _direction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803622904582313031, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803622904582313031, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583764454542321642, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_Name
+      value: JumpPad (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
 --- !u!1 &226254085
 GameObject:
   m_ObjectHideFlags: 3
@@ -6866,7 +6939,7 @@ Transform:
   m_GameObject: {fileID: 482957329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377, y: 37, z: 0}
+  m_LocalPosition: {x: -377, y: -3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8567,6 +8640,34 @@ MonoBehaviour:
       Data3: -514430047
       Data4: -2051456235
     Path: event:/WallJump
+  <Slide>k__BackingField:
+    Guid:
+      Data1: -999999776
+      Data2: 1299741240
+      Data3: 441764481
+      Data4: -638874057
+    Path: event:/Slide
+  <Trampoline>k__BackingField:
+    Guid:
+      Data1: -1959088190
+      Data2: 1228723899
+      Data3: -606932803
+      Data4: -252826449
+    Path: event:/Trampoline
+  <Death>k__BackingField:
+    Guid:
+      Data1: -1514779908
+      Data2: 1328308945
+      Data3: 1696137602
+      Data4: -1923215493
+    Path: event:/Death
+  <CollectAbility>k__BackingField:
+    Guid:
+      Data1: 1306416873
+      Data2: 1312584321
+      Data3: 841289383
+      Data4: -1821194234
+    Path: event:/CollectAbility
 --- !u!1 &1951843698
 GameObject:
   m_ObjectHideFlags: 0
@@ -8872,3 +8973,4 @@ SceneRoots:
   - {fileID: 1898641882}
   - {fileID: 1951843700}
   - {fileID: 482957337}
+  - {fileID: 225320107}

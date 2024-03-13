@@ -41,6 +41,7 @@ public class JumpPadComponent : MonoBehaviour
         RefactoredCharacterController player = collider.GetComponent<RefactoredCharacterController>();
         if (player != null)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Trampoline, this.transform.position);
             player.JumpPadContact(_jumpDirection, _padForce);
         }
     }

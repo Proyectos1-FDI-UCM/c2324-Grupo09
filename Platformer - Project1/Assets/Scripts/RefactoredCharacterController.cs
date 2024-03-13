@@ -241,6 +241,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
                     _chMovement.Slide();
                     _changeCollider.StartSlide();
+                    AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Slide, this.transform.position);
 
                     _lastSlideTime = Time.time;
                     _isSliding = true;
@@ -500,9 +501,11 @@ public class RefactoredCharacterController : MonoBehaviour
         //Llamar a la animación de muerte
         _dead = true;
         _animComp.SetDeath(_dead);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Death, this.transform.position);
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
         GameManager.Instance.OnDie(transform.position);
+
     }
     public void TeleportPlayer()
     {
