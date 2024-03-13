@@ -26,11 +26,6 @@ public class NahaIA : EnemyIA
     private Vector2 _offsetWR;
     [SerializeField]
     private Vector2 _sizeWR;
-    //private float _xOffsetWR = 1.0f;
-    [SerializeField]
-    private float _xRunWallScale = 1.0f;
-    [SerializeField]
-    private float _yRunWallScale = 1.0f;
 
     [SerializeField]
     private Vector3 _initialOffsetCulosNaha;
@@ -62,7 +57,7 @@ public class NahaIA : EnemyIA
 
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         _anim = GetComponent<EnemyAnimController>();
-        
+        _culosNaha = new GameObject[0]; 
 
 
     }
