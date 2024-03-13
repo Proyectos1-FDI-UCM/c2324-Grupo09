@@ -2493,11 +2493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7069722652248989234, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 101.5
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 7069722652248989234, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.6
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7069722652248989234, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2533,7 +2533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9024944444620011253, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: enemy
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9024944444620011253, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: speed
@@ -44977,7 +44977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9024944444620011253, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: speed
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9024944444620011253, guid: 94ecacafaca389e4ebc1d2bd5c4cadce, type: 3}
       propertyPath: NahaSize
