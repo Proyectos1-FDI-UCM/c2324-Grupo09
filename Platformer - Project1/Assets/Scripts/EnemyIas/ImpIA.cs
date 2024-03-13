@@ -35,12 +35,12 @@ public class ImpIA : EnemyIA
             if(_x > transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.left);
-                _myParticleManager?.InstantiateParticle(1);
+                _myParticleManager.InstantiateParticle(1);
             }
             if(_x < transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.right);
-                _myParticleManager?.InstantiateParticle(0);
+                _myParticleManager.InstantiateParticle(0);
             }
 
         }
@@ -48,6 +48,7 @@ public class ImpIA : EnemyIA
         {
             enemyState = EnemyState.dead;
             _proyectileInstantiate.Launch(Vector3.down);
+            _myParticleManager.InstantiateParticle(2);
         }
         else if (enemyState == EnemyState.baseState)
         {
@@ -68,7 +69,7 @@ public class ImpIA : EnemyIA
         _proyectileInstantiate = GetComponent<ProyectileInstantiate>();
         _character = FindObjectOfType<RefactoredCharacterController>();
         _anim = GetComponent<EnemyAnimController>();
-        _myParticleManager = _character.gameObject.GetComponent<ParticleManager>();
+        _myParticleManager = _character.gameObject.GetComponentInChildren<ParticleManager>();
     }
     private void Update()
     {

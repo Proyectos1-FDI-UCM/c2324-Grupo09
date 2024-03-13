@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{2350dfa0-f9c4-441b-8a84-0e13e71256e1}">
+		<property name="name">
+			<value>OnTrampoline</value>
+		</property>
+		<relationship name="folder">
+			<destination>{d7e53ec6-c8ab-48f9-8787-9e585a8e4c4d}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5a9ef6dd-7d81-43d6-a4df-38212aca011e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5a9ef6dd-7d81-43d6-a4df-38212aca011e}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

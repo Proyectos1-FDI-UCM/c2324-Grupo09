@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{0796f6cb-29f5-47a9-9ed4-ab28cb6d9d90}">
+		<property name="assetPath">
+			<value>stone-steps-6748 - Trimmed.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ff338745-42b8-4759-b0d9-154672e73f23}</destination>
+		</relationship>
+	</object>
+</objects>

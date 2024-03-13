@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{250982a5-df45-429b-9729-19d0a589022e}">
+		<property name="assetPath">
+			<value>punch-1-166694 - Trimmed - Trimmed.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.37097916666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ff338745-42b8-4759-b0d9-154672e73f23}</destination>
+		</relationship>
+	</object>
+</objects>

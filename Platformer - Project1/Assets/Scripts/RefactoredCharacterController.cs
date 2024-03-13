@@ -241,6 +241,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
                     _chMovement.Slide();
                     _changeCollider.StartSlide();
+                    AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Slide, this.transform.position);
 
                     _lastSlideTime = Time.time;
                     _isSliding = true;
@@ -274,6 +275,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
                 if (_hitbox.TargetHit > 0)
                 {
+                    AudioManager.Instance.PlayOneShot(FMODEvents.Instance.WallJump, this.transform.position);
                     _hitbox.DisableHitbox();
                     _isWallJumping = false;
                     _hasWallRun = false;
@@ -465,7 +467,7 @@ public class RefactoredCharacterController : MonoBehaviour
             */
             //activates the run action of character movement
             //Updating animation parameters
-            if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
+            if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump  && !_isWallRunning && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
                 _animComp.LookTo1D(xInput);
 
             _animComp.UpdateXInput(xInput);
@@ -499,9 +501,11 @@ public class RefactoredCharacterController : MonoBehaviour
         //Llamar a la animación de muerte
         _dead = true;
         _animComp.SetDeath(_dead);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Death, this.transform.position);
         _chMovement.ChangeGravityScale(0);
         _chMovement.ChangePlayerVelocity(Vector2.zero);
         GameManager.Instance.OnDie(transform.position);
+
     }
     public void TeleportPlayer()
     {

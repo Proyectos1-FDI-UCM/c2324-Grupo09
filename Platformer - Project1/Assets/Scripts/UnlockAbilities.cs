@@ -15,6 +15,7 @@ public class UnlockAbilities : MonoBehaviour
         _characterController=collision.GetComponent<RefactoredCharacterController>();
         if(_characterController != null) 
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.CollectAbility, this.transform.position);
             _characterController.Unlock(value);
             Destroy(this.gameObject);
         }
