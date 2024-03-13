@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private RefactoredCharacterController charController;
     private CameraController cameraController;
     static public GameManager Instance;
+
+    private BossIA boss;
     
     void Awake()
     {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
         charController = FindObjectOfType<RefactoredCharacterController>();
         cameraController = FindObjectOfType<CameraController>();
 
+        boss = FindObjectOfType<BossIA>();
+
     }
 
     public void UpdateCameraControllerReference(CameraController meow)
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
         cameraController.DespawnEnemiesOnRoomExit();
+        boss?.PlayerDied();
     }
     public void SetCirclePosition(Vector3 position)
     {

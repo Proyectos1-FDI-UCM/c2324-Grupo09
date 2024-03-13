@@ -48,7 +48,7 @@ public class DestryAfterTime : MonoBehaviour
         if (beginToFallInstead)
             falling = true;
         else
-            Destroy(this.gameObject);
+            if(this != null) Destroy(this?.gameObject);
     }
 
     void Start()
