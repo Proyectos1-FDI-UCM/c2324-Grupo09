@@ -465,7 +465,7 @@ public class RefactoredCharacterController : MonoBehaviour
             */
             //activates the run action of character movement
             //Updating animation parameters
-            if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
+            if (xInput != 0 && (!_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump  && !_isWallRunning && !(Time.time - _lastWallJumpImpulse < _md.blockMovement2ndJumpTime)))
                 _animComp.LookTo1D(xInput);
 
             _animComp.UpdateXInput(xInput);
