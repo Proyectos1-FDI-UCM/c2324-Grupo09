@@ -274,6 +274,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
                 if (_hitbox.TargetHit > 0)
                 {
+                    AudioManager.Instance.PlayOneShot(FMODEvents.Instance.WallJump, this.transform.position);
                     _hitbox.DisableHitbox();
                     _isWallJumping = false;
                     _hasWallRun = false;
