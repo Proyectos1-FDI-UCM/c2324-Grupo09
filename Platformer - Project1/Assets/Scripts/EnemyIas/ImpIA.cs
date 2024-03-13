@@ -35,12 +35,10 @@ public class ImpIA : EnemyIA
             if(_x > transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.left);
-                _myParticleManager.InstantiateParticle(1);
             }
             if(_x < transform.position.x)
             {
                 _proyectileInstantiate.Launch(Vector3.right);
-                _myParticleManager.InstantiateParticle(0);
             }
 
         }
