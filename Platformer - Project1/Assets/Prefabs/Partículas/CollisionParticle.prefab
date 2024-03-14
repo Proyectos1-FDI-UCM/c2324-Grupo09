@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 680705838856283328}
   - component: {fileID: 92523396592221536}
   - component: {fileID: 2108863006037295095}
+  - component: {fileID: 3066109414666245484}
   m_Layer: 0
   m_Name: CollisionParticle
   m_TagString: Untagged
@@ -4886,3 +4887,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3066109414666245484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521627536799371752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd4632edb3fe734f9658ad14c10ca20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

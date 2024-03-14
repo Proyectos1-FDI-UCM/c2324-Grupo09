@@ -7,7 +7,9 @@ public class ParticleManager : MonoBehaviour
 {
     #region references
     private RefactoredCharacterMovement _checkLastDir;
+    private RefactoredCharacterController _checkStates;
     private ParticleSystem _runParticle;
+    private TrailRenderer _myTrail;
     private Animator _characterAnim;
     private Transform _myTransform;
     [SerializeField]
@@ -16,6 +18,7 @@ public class ParticleManager : MonoBehaviour
     private GameObject _initialJumpParticlePrefab;
     [SerializeField]
     private GameObject _endJumpParticlePrefab;
+    private GameObject _particleController;
     #endregion
     #region properties
     private int _lastDir;
@@ -27,6 +30,7 @@ public class ParticleManager : MonoBehaviour
     private float _yOffsetOnJump;
     private bool _isRunning = false;
     private bool _hasBeenUsedWallJump = false;
+    private bool _isSliding = false;
     private bool _saveDir = true;
     private bool _alreadyJump = false;
     private bool _isOnAir = false;
@@ -85,13 +89,13 @@ public class ParticleManager : MonoBehaviour
             JumpParticles = _endJumpParticlePrefab;
             _yOffsetOnJump = 2.5f;
         }
-        GameObject newIniJumpParticles = Instantiate(JumpParticles, new Vector3(_myTransform.position.x, _myTransform.position.y-_yOffsetOnJump, _myTransform.position.z),Quaternion.identity);
-        newIniJumpParticles.transform.Rotate(new Vector3(-90,0,0));
-        newIniJumpParticles.GetComponent<ParticleSystem>().Play();
+        GameObject newJumpParticles = Instantiate(JumpParticles, new Vector3(_myTransform.position.x, _myTransform.position.y-_yOffsetOnJump, _myTransform.position.z),Quaternion.identity);
+        newJumpParticles.transform.Rotate(new Vector3(-90,0,0));
+        newJumpParticles.GetComponent<ParticleSystem>().Play();
     }
     private void RunCheck()
     {
-        if (_characterAnim.GetInteger("xMovement") != 0 && !_isRunning && _characterAnim.GetBool("Grounded"))
+        if (_characterAnim.GetInteger("xMovement") != 0 && !_isSliding && !_isRunning && _characterAnim.GetBool("Grounded"))
         {
             _runParticle.Play();
             _isRunning = true;
@@ -160,6 +164,17 @@ public class ParticleManager : MonoBehaviour
             _hasLanded = false;
         }
     }
+    private void CheckSlide()
+    {
+        if(_isSliding)
+        {
+            _myTrail.emitting = true;
+        }
+        else
+        {
+            _myTrail.emitting = false;        
+        }
+    }
     #endregion
     void Start()
     {
@@ -167,10 +182,14 @@ public class ParticleManager : MonoBehaviour
         _runParticle = GetComponentInChildren<ParticleSystem>();
         _characterAnim = GetComponent<Animator>();
         _checkLastDir = FindObjectOfType<RefactoredCharacterMovement>();
+        _checkStates = GetComponentInParent<RefactoredCharacterController>();
+        _myTrail = GetComponentInChildren<TrailRenderer>();
         
     }
     void Update()
     {
+        _isSliding = _checkStates.IsSliding;
+
         RunCheck();
         SaveLastDirectionOfWallJump();
         WallJumpCheck();
@@ -178,6 +197,7 @@ public class ParticleManager : MonoBehaviour
         CheckInitialJump();
         CheckEndOfJump();
 
+        CheckSlide();
 
     }
 

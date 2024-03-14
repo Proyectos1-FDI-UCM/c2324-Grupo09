@@ -32,6 +32,10 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         get { return _isUsingPogo; }
     }
+    public bool IsSliding
+    {
+        get { return _isSliding; }
+    }
     #endregion
 
 
