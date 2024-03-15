@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     #region references
+    [HideInInspector]
     public int Id;
     public GameObject VirtualCamera;
     [SerializeField]
@@ -24,6 +25,8 @@ public class CameraController : MonoBehaviour
         _characterController = collision.GetComponent<RefactoredCharacterController>();
         if (_characterController != null)
         {
+            //DrawRoom();
+            //Debug.Log("miau");
             GameManager.Instance.UpdateCameraControllerReference(this);
         }
     }
@@ -65,6 +68,8 @@ public class CameraController : MonoBehaviour
         DespawnEnemiesOnRoomExit();
         for(int i = 0; i<eSpawner.Length; i++)
         {
+            //Debug.Log(eSpawner[i]);
+
             eSpawner[i]?.Spawn();
         }
     }

@@ -28,6 +28,9 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private float timeTillPatronStartLVL1 = 2f;
 
+    [SerializeField]
+    private BoxCollider2D _bossHitbox;
+
     [Header("Pinchos")]
     [SerializeField]
     private GameObject pinchosTecho;
@@ -48,6 +51,7 @@ public class BossIA : MonoBehaviour
     private float delayTimeBetweenPilars = 0.3f;
     [SerializeField]
     private float destroyPilarDelay = 1f;
+    [SerializeField]//----------------------------------------------------------------------------------------
     private DestryAfterTime[] pilarReferences = new DestryAfterTime[27];
     GameObject pilarPrefab;
 
@@ -59,6 +63,7 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     private Vector3 stompingHandSpawnOffset;
     GameObject stompingHandPrefab;
+    StompingHandIA stompingHand;
 
     [Header("BlueImp")]
     [SerializeField]
@@ -71,6 +76,8 @@ public class BossIA : MonoBehaviour
     private Vector3 HeadOffset;
     private GameObject bossHead;
     private GameObject eSpawner;
+    GameObject head;
+    EnemySpawner[] eS = new EnemySpawner[0];
 
 
     [Header("OpposingNahas")]
@@ -84,17 +91,95 @@ public class BossIA : MonoBehaviour
     float _xNagasSpawnOffset = 70f;
     [SerializeField]
     float _timeBetweenNagas = 1f;
+    
+
 
     /*
     [Header("Jumpers")]
     private GameObject jumperPrefab;
     */
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<ProyectileMovement>() != null)
+        {
+            ReceiveDamage();
+        }
+    }
+
+    /// <summary>
+    /// Para todos los procesos y espera a la señal del animator para continuar
+    /// </summary>
+    public void PlayerDied()
+    {
+        KillEverythingOnScreen();
+
+        //-------------------------------------------------------provisional
+        StartCoroutine("Restart");
+        //------------------------------------------------------------------
+    }
+
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(1f);
+        _patronIndex = 0;
+        GetNewPatronSeries();
+        UseNextPatron();
+    }
+
+    /// <summary>
+    /// Mata todo lo que haya en pantalla
+    /// </summary>
+    private void KillEverythingOnScreen()
+    {
+
+        StopAllCoroutines();
+
+        for (int i = 0; i < pilarReferences.Length; i++)
+        {
+            pilarReferences[i]?.NegateBeginToFallInstead();
+            pilarReferences[i]?.DestroyThis();
+        }
+        pilarReferences = new DestryAfterTime[27];
+        stompingHand?.ProjectileDestroy();
+        stompingHand?.DestroySelf();
+        stompingHand = null;
+
+        for (int i = 0; i < eS.Length; i++)
+        {
+            eS[i]?.DestroySpawnedEnemy();
+            Destroy(eS[i]?.gameObject);
+        }
+        eS = new EnemySpawner[0];
+        if(head != null) Destroy(head);
+        head = null;
+        _bossHitbox.enabled = false;
+
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+    }
+
+
+    /// <summary>
+    /// Este metodo debería reiniciar el estado y hacer la animación de me has dado
+    /// Esto o no interrumpir las corroutines, solo hacer que parpadee x segundos para denotarlo sin romper flujo de nada
+    /// </summary>
+    private void ReceiveDamage()
+    {
+        currentBS = (BossStates)((int)currentBS-1);
+        _bossHitbox.enabled = false;
+        KillEverythingOnScreen();
+        GetNewPatronSeries();
+    }
+
     void Start()
     {
         //playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
 
-
+        _bossHitbox = GetComponent<BoxCollider2D>();
+        _bossHitbox.enabled = false;
         pilarPrefab = Resources.Load<GameObject>("Pilar");
         stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
         bossHead = Resources.Load<GameObject>("BossHead");
@@ -109,6 +194,8 @@ public class BossIA : MonoBehaviour
         _bossPatrons[3] = //OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
+
+        //StartCoroutine("OpposingNagasLVL1");
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         GetNewPatronSeries();
@@ -224,7 +311,7 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
-        restrictingWall.SetActive(false);
+        //restrictingWall.SetActive(false);
 
         pilarReferences[0] = Instantiate(pilarPrefab, _pilarReferenceTransform.position, Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
@@ -295,9 +382,9 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(true);
         pinchosParedR.SetActive(true);
         pinchosSuelo.SetActive(false);
-        restrictingWall.SetActive(false);
+        //restrictingWall.SetActive(false);
         int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
-        StompingHandIA stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
         stompingHand.PrevisualizeStomp();
         yield return new WaitForSeconds(stompingPrevisualize);
@@ -306,21 +393,21 @@ public class BossIA : MonoBehaviour
         stompingHand.ProjectileDestroy();
         stompingHand.DestroySelf();
         UseNextPatron();
-        //--------------------------------------------------------------------------------------------------UseNextPatron();
     }
     #endregion
 
     #region BlueImp
     IEnumerator BlueImpLVL1()
     {
+        _bossHitbox.enabled = true;
         pinchosTecho.SetActive(false);
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
-        restrictingWall.SetActive(false);
-        GameObject head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
+        //restrictingWall.SetActive(false);
+        head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
-        EnemySpawner[] eS = new EnemySpawner[3];
+        eS = new EnemySpawner[3];
         for(int i = 0; i < eS.Length-1; i++)
         {
             eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
@@ -342,6 +429,7 @@ public class BossIA : MonoBehaviour
             Destroy(eS[i].gameObject);
         }
         Destroy(head);
+        _bossHitbox.enabled = false;
         UseNextPatron();
     }
     #endregion
@@ -362,7 +450,7 @@ public class BossIA : MonoBehaviour
     }
     #endregion
     */
-    /*
+    
     #region OpposingNagas
     IEnumerator OpposingNagasLVL1()
     {
@@ -399,7 +487,7 @@ public class BossIA : MonoBehaviour
     }
     
     #endregion
-    */
+    
 
     #endregion
     #endregion

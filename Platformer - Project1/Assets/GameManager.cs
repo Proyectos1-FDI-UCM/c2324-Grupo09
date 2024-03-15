@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private RefactoredCharacterController charController;
     private CameraController cameraController;
     static public GameManager Instance;
+
+    private BossIA boss;
     
     void Awake()
     {
@@ -30,6 +32,20 @@ public class GameManager : MonoBehaviour
         charController = FindObjectOfType<RefactoredCharacterController>();
         cameraController = FindObjectOfType<CameraController>();
 
+        boss = FindObjectOfType<BossIA>();
+
+
+        NumerateAllRooms();
+    }
+
+    void NumerateAllRooms()
+    {
+        CameraController[] obs = FindObjectsOfType<CameraController>();
+
+        for(int i= 0; i < obs.Length; i++)
+        {
+            obs[i].Id = i;
+        }
     }
 
     public void UpdateCameraControllerReference(CameraController meow)
@@ -47,6 +63,7 @@ public class GameManager : MonoBehaviour
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
         cameraController.DespawnEnemiesOnRoomExit();
+        boss?.PlayerDied();
     }
     public void SetCirclePosition(Vector3 position)
     {

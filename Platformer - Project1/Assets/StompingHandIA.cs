@@ -58,7 +58,14 @@ public class StompingHandIA : MonoBehaviour
     }
     public void DestroySelf()
     {
-        Destroy(gameObject);
+        try
+        {
+            Destroy(this.gameObject);
+        }
+        catch
+        {
+            Debug.Log("Meow");
+        }
     }
 }
 
