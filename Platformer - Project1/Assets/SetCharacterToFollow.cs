@@ -9,7 +9,7 @@ public class SetCharacterToFollow : MonoBehaviour
     private void Start()
     {
         _cinemachine = GetComponent<CinemachineVirtualCamera>();
-       
+       _cinemachine.Follow= FindObjectOfType<RefactoredCharacterController>().gameObject.transform;
     }
 
 }
