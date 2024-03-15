@@ -172,18 +172,18 @@ public class ParticleManager : MonoBehaviour
         {
             _myTrail.emitting = true;
         }
-        else { _myTrail.emitting = false;}
-    }
-    private void ActivateTrailInYAxe()
-    {
-        if(_characterAnim.GetBool("FallingDown") && !_characterAnim.GetBool("Grounded"))
+        else if (_characterAnim.GetBool("FallingDown") && !_characterAnim.GetBool("Grounded"))
         {
-            _myTrail.emitting= true;
+            _myTrail.emitting = true;
         }
         else
         {
             _myTrail.emitting = false;
         }
+    }
+    private void ActivateTrailInYAxe()
+    {
+
     }
     #endregion
     void Start()
@@ -207,7 +207,6 @@ public class ParticleManager : MonoBehaviour
         CheckInitialJump();
         CheckEndOfJump();
 
-        ActivateTrailInYAxe();
         ActivateTrailInXAxe();
 
 
