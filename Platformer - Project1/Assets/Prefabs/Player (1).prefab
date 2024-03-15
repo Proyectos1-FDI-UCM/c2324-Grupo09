@@ -328,6 +328,7 @@ MonoBehaviour:
   _endJumpParticlePrefab: {fileID: 8388867581096634922, guid: 0664b6836739a1044ae0e186dc83e165, type: 3}
   _xdistanceParam: 15
   _ydistanceParam: 5
+  _xMaxVelocity: 60
 --- !u!1 &7426390545445256056
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,8 +434,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.32941177}
-      key1: {r: 1, g: 1, b: 1, a: 0.32941177}
+      key0: {r: 0.64705884, g: 0.4901961, b: 0.8078432, a: 0.32941177}
+      key1: {r: 1, g: 0.9843138, b: 0.8705883, a: 0.32941177}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

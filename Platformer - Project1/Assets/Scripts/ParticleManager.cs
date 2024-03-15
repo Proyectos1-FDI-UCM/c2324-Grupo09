@@ -30,17 +30,19 @@ public class ParticleManager : MonoBehaviour
     private float _yOffsetOnJump;
     private bool _isRunning = false;
     private bool _hasBeenUsedWallJump = false;
-    private bool _isSliding = false;
     private bool _saveDir = true;
     private bool _alreadyJump = false;
     private bool _isOnAir = false;
     private bool _hasLanded = false;
+    private Vector2 _chVel;
     #endregion
     #region parameters
     [SerializeField]
     private float _xdistanceParam = 1.0f;
     [SerializeField]
     private float _ydistanceParam = 1.0f;
+    [SerializeField]
+    private float _xMaxVelocity = 1.0f;
     #endregion
     #region methods
     public void InstantiateParticle(int x)
@@ -95,7 +97,7 @@ public class ParticleManager : MonoBehaviour
     }
     private void RunCheck()
     {
-        if (_characterAnim.GetInteger("xMovement") != 0 && !_isSliding && !_isRunning && _characterAnim.GetBool("Grounded"))
+        if (_characterAnim.GetInteger("xMovement") != 0 && !_isRunning && _characterAnim.GetBool("Grounded"))
         {
             _runParticle.Play();
             _isRunning = true;
@@ -164,15 +166,23 @@ public class ParticleManager : MonoBehaviour
             _hasLanded = false;
         }
     }
-    private void CheckSlide()
+    private void ActivateTrailInXAxe()
     {
-        if(_isSliding)
+        if(Mathf.Abs(_chVel.x) > _xMaxVelocity)
         {
             _myTrail.emitting = true;
         }
+        else { _myTrail.emitting = false;}
+    }
+    private void ActivateTrailInYAxe()
+    {
+        if(_characterAnim.GetBool("FallingDown") && !_characterAnim.GetBool("Grounded"))
+        {
+            _myTrail.emitting= true;
+        }
         else
         {
-            _myTrail.emitting = false;        
+            _myTrail.emitting = false;
         }
     }
     #endregion
@@ -182,22 +192,24 @@ public class ParticleManager : MonoBehaviour
         _runParticle = GetComponentInChildren<ParticleSystem>();
         _characterAnim = GetComponent<Animator>();
         _checkLastDir = FindObjectOfType<RefactoredCharacterMovement>();
-        _checkStates = GetComponentInParent<RefactoredCharacterController>();
         _myTrail = GetComponentInChildren<TrailRenderer>();
         
     }
     void Update()
     {
-        _isSliding = _checkStates.IsSliding;
+        _chVel = _checkLastDir.RBVel;
 
         RunCheck();
+
         SaveLastDirectionOfWallJump();
         WallJumpCheck();
 
         CheckInitialJump();
         CheckEndOfJump();
 
-        CheckSlide();
+        ActivateTrailInYAxe();
+        ActivateTrailInXAxe();
+
 
     }
 
