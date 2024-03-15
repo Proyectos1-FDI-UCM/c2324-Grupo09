@@ -21,6 +21,7 @@ public class EnemyHit : MonoBehaviour
     }
     public void GotHit()
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.EnemyDeath, this.transform.position);
         _impIA?.OnHit();
         _beneIA?.OnHit();
         _nahaIA?.OnHit();
