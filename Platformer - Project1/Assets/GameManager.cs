@@ -34,6 +34,18 @@ public class GameManager : MonoBehaviour
 
         boss = FindObjectOfType<BossIA>();
 
+
+        NumerateAllRooms();
+    }
+
+    void NumerateAllRooms()
+    {
+        CameraController[] obs = FindObjectsOfType<CameraController>();
+
+        for(int i= 0; i < obs.Length; i++)
+        {
+            obs[i].Id = i;
+        }
     }
 
     public void UpdateCameraControllerReference(CameraController meow)
