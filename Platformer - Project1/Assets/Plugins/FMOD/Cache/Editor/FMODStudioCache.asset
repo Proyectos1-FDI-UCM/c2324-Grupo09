@@ -136,7 +136,7 @@ MonoBehaviour:
   - {fileID: 3997045078874866264}
   StringsBanks:
   - {fileID: 6890021976580957202}
-  cacheTime: 638461063533463848
+  cacheTime: 638462229369370798
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -214,7 +214,7 @@ MonoBehaviour:
   - {fileID: 3997045078874866264}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -234,10 +234,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638461063533443393
+  lastModified: 638462229369335518
   FileSizes:
   - Name: Desktop
-    Value: 130208
+    Value: 130336
   Exists: 1
 --- !u!114 &6890021976580957202
 MonoBehaviour:
@@ -254,7 +254,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638461063533463848
+  lastModified: 638462229369370798
   FileSizes:
   - Name: Desktop
     Value: 1016

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using FMOD.Studio;
 public class RefactoredCharacterController : MonoBehaviour
 {
     #region references
@@ -67,6 +67,7 @@ public class RefactoredCharacterController : MonoBehaviour
     //El segundo es walljump, tercero pogo y cuarto wallrun
     [SerializeField]
     bool _dead = false; //booleano para confirmar el estado del jugador
+    private EventInstance playerFootsteps;
 
     #region Timers
     float _lastGroundedTime = 0f;
@@ -194,6 +195,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _hitbox = GetComponent<HitboxComponent>();
         _changeCollider = GetComponent<ChangeCollider>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
+        playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.Steps);
     }
 
     //Runs 50 times per second
@@ -484,6 +486,7 @@ public class RefactoredCharacterController : MonoBehaviour
             _animComp.SetWallRun(_isWallRunning);
         }
         _animComp.SetDeath(_dead);
+        UpdateSound();
         #endregion
     }
 
@@ -517,6 +520,21 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetDeath(_dead);
         transform.position = _spawnPoint.position;
         GameManager.Instance?.SetCirclePosition(transform.position);
+    }
+
+    private void UpdateSound()
+    {
+        if(xInput != 0 && _isGrounded && !_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump)
+        {
+            Debug.Log("MEow");
+            PLAYBACK_STATE playbackState;
+            playerFootsteps.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED)) playerFootsteps.start();
+        }
+        else
+        {
+            playerFootsteps.stop(STOP_MODE.IMMEDIATE);
+        }
     }
 
     #region SorroundingChecks
