@@ -195,7 +195,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _hitbox = GetComponent<HitboxComponent>();
         _changeCollider = GetComponent<ChangeCollider>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-        playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.Steps);
+        //playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.Steps);
     }
 
     //Runs 50 times per second

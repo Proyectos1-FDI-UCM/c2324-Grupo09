@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 
 public class BossIA : MonoBehaviour
 {
@@ -100,11 +101,30 @@ public class BossIA : MonoBehaviour
     float _stompinhHandSizeMultiplier = 4f;
     GameObject _sweepingHandPrefab;
     GameObject _sweepingHand;
-    private Transform _playerTransform;
+    Transform _playerTransform;
+
+    [Header("Lasers")]
+    [SerializeField]
+    Transform _limitL;
+    [SerializeField]
+    Transform _limitR;
+    GameObject _laserPrefab;
+
     /*
     [Header("Jumpers")]
     private GameObject jumperPrefab;
+
     */
+
+    IEnumerator SpawnLasers()
+    {
+        while (BossStates.Wraithed == currentBS)
+        {
+            Debug.Log("Lasers");
+            Instantiate(_laserPrefab, new Vector3(UnityEngine.Random.Range(_limitL.position.x, _limitR.position.x), _limitL.position.y, _limitL.position.z), Quaternion.identity);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.6f, 2f));
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -120,9 +140,9 @@ public class BossIA : MonoBehaviour
     public void PlayerDied()
     {
         KillEverythingOnScreen();
-
         //-------------------------------------------------------provisional
-        StartCoroutine("Restart");
+        StartCoroutine(Restart());
+        
         //------------------------------------------------------------------
     }
 
@@ -132,6 +152,7 @@ public class BossIA : MonoBehaviour
         _patronIndex = 0;
         GetNewPatronSeries();
         UseNextPatron();
+        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
     }
 
     /// <summary>
@@ -192,6 +213,7 @@ public class BossIA : MonoBehaviour
         stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
         bossHead = Resources.Load<GameObject>("BossHead");
         eSpawner = Resources.Load<GameObject>("Spawner");
+        _laserPrefab = Resources.Load<GameObject>("Laser");
         _sweepingHandPrefab = Resources.Load<GameObject>("SweepingHand");
         _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
@@ -201,7 +223,7 @@ public class BossIA : MonoBehaviour
         _bossPatrons[0] = HugeHandsSweep;   //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
         _bossPatrons[2] = EmergingWalls;     //Desbloqueado tras golpear 1 vez al boss
-        _bossPatrons[3] = //OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
+        _bossPatrons[3] = HandsSweep;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
@@ -211,6 +233,7 @@ public class BossIA : MonoBehaviour
         //_bossPatrons[4](3);
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
+        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
 
@@ -225,6 +248,7 @@ public class BossIA : MonoBehaviour
     {
         //Debug.Log((int)currentBS--);
         currentBS = (BossStates)((int)currentBS--);
+        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         Debug.Log(currentBS);
         GetNewPatronSeries();
         UseNextPatron();
