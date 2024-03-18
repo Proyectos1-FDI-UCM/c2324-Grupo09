@@ -51,7 +51,6 @@ public class BossIA : MonoBehaviour
     private float delayTimeBetweenPilars = 0.3f;
     [SerializeField]
     private float destroyPilarDelay = 1f;
-    [SerializeField]//----------------------------------------------------------------------------------------
     private DestryAfterTime[] pilarReferences = new DestryAfterTime[27];
     GameObject pilarPrefab;
 
@@ -91,9 +90,17 @@ public class BossIA : MonoBehaviour
     float _xNagasSpawnOffset = 70f;
     [SerializeField]
     float _timeBetweenNagas = 1f;
-    
 
-
+    [Header("HugeHand")]
+    [SerializeField]
+    float _yHugeHandOffset = 120;
+    [SerializeField]
+    float _ySweepingHandOffset = 0;
+    [SerializeField]
+    float _stompinhHandSizeMultiplier = 4f;
+    GameObject _sweepingHandPrefab;
+    GameObject _sweepingHand;
+    private Transform _playerTransform;
     /*
     [Header("Jumpers")]
     private GameObject jumperPrefab;
@@ -143,6 +150,7 @@ public class BossIA : MonoBehaviour
         pilarReferences = new DestryAfterTime[27];
         stompingHand?.ProjectileDestroy();
         stompingHand?.DestroySelf();
+        Destroy(_sweepingHand);
         stompingHand = null;
 
         for (int i = 0; i < eS.Length; i++)
@@ -168,10 +176,10 @@ public class BossIA : MonoBehaviour
     /// </summary>
     private void ReceiveDamage()
     {
-        currentBS = (BossStates)((int)currentBS-1);
+        StopAllCoroutines();
         _bossHitbox.enabled = false;
         KillEverythingOnScreen();
-        GetNewPatronSeries();
+        NextBossState();
     }
 
     void Start()
@@ -184,18 +192,23 @@ public class BossIA : MonoBehaviour
         stompingHandPrefab = Resources.Load<GameObject>("StompingHand");
         bossHead = Resources.Load<GameObject>("BossHead");
         eSpawner = Resources.Load<GameObject>("Spawner");
+        _sweepingHandPrefab = Resources.Load<GameObject>("SweepingHand");
+        _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
         _bossPatrons = new Action<int>[5];
-        _bossPatrons[0] = EmergingWalls;    //Desbloqueado desde el principio
+        _bossPatrons[0] = HugeHandsSweep;   //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
-        _bossPatrons[2] = FallingBenes;     //Desbloqueado tras golpear 1 vez al boss
+        _bossPatrons[2] = EmergingWalls;     //Desbloqueado tras golpear 1 vez al boss
         _bossPatrons[3] = //OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
+
+        //StartCoroutine(HugeHandSweepLVL1());
+        //_bossPatrons[4](3);
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         GetNewPatronSeries();
@@ -210,8 +223,11 @@ public class BossIA : MonoBehaviour
     /// </summary>
     void NextBossState()
     {
+        //Debug.Log((int)currentBS--);
         currentBS = (BossStates)((int)currentBS--);
+        Debug.Log(currentBS);
         GetNewPatronSeries();
+        UseNextPatron();
     }
 
     /// <summary>
@@ -241,11 +257,15 @@ public class BossIA : MonoBehaviour
             positionsShuffled[i] = i;
         }
         Randomizer.Shuffle(positionsShuffled);
+
+        //Debug----------------------------------------------
         string order = "";
         for (int i = 0; i < positionsShuffled.Length; i++)
         {
             order += (positionsShuffled[i] + ", ");
         }
+        Debug.Log(order);
+        //--------------------------------------------------
 
         for (int i = 0; i < positionsShuffled.Length; i++)
         {
@@ -258,26 +278,23 @@ public class BossIA : MonoBehaviour
 
     private void EmergingWalls(int i)
     {
-        if (i == 3)
-        {
-            StartCoroutine("SpawnPilarsLVL1");
-        }
+        //if (i == 3)
+        //{
+            StartCoroutine(SpawnPilarsLVL1());
+        //}
     }
 
     private void HandsSweep(int i)
     {
-        if (i == 3)
-        {
-            StartCoroutine("HandSweepLVL1");
-        }
+        StartCoroutine(HandSweepLVL1());
     }
 
-    private void FallingBenes(int i)
+    private void HugeHandsSweep(int i)
     {
-        if (i == 3)
-        {
-
-        }
+        //if (i == 3)
+        //{
+            StartCoroutine(HugeHandSweepLVL1());
+        //}
     }
 
     /*
@@ -289,13 +306,13 @@ public class BossIA : MonoBehaviour
         }
     }
     */
- 
+
     private void BlueImpOne(int i)
     {
-        if (i == 3)
-        {
-            StartCoroutine("BlueImpLVL1");
-        }
+        //if (i == 3)
+        //{
+            StartCoroutine(BlueImpLVL1());
+        //}
     }
 
     #region auxiliarBossPatronFunctions
@@ -422,7 +439,7 @@ public class BossIA : MonoBehaviour
         yield return new WaitForSeconds(3f);
         pinchosSuelo.SetActive(false);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         for (int i= 0; i < eS.Length; i++)
         {
             eS[i].DestroySpawnedEnemy();
@@ -430,6 +447,41 @@ public class BossIA : MonoBehaviour
         }
         Destroy(head);
         _bossHitbox.enabled = false;
+        UseNextPatron();
+    }
+    #endregion
+
+    #region HugeHandSweep
+    IEnumerator HugeHandSweepLVL1()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(true);
+        pinchosParedR.SetActive(true);
+        pinchosSuelo.SetActive(false);
+        //restrictingWall.SetActive(false);
+        int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        if(_playerTransform.position.x > -181 || _playerTransform.position.x < -360)
+        {
+            stompingHand = Instantiate(stompingHandPrefab, Vector3.right * Mathf.Sign(_playerTransform.position.x +190) * 88 + _yHugeHandOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        }
+        else
+        {
+            stompingHand = Instantiate(stompingHandPrefab, _playerTransform.position.y * Vector3.up + Vector3.right * _playerTransform.position.x + _yHugeHandOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        }
+        stompingHand.transform.localScale = new Vector3(stompingHand.transform.localScale.x * _stompinhHandSizeMultiplier, stompingHand.transform.localScale.y, stompingHand.transform.localScale.z);
+        stompingHand.GetComponent<StompingHandIA>().spawnProjectile = false;
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+        stompingHand.PrevisualizeStomp();
+        yield return new WaitForSeconds(stompingPrevisualize);
+        stompingHand.BeginToFall(rdNumber * -1);
+        int[] toChose = { -160, -380 };
+        int[] givenDirection = { -1, 1 };
+        int randomChosen = UnityEngine.Random.Range(0, 2);
+        _sweepingHand = Instantiate(_sweepingHandPrefab, Vector3.right * toChose[randomChosen] + _ySweepingHandOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform);
+        _sweepingHand.GetComponent<EnemyMovement>().Direction(Vector3.right * givenDirection[randomChosen]);
+        yield return new WaitForSeconds(timeTillProjectileDestroy/4 + stompingPrevisualize);
+        Destroy(_sweepingHand);
+        stompingHand.DestroySelf();
         UseNextPatron();
     }
     #endregion
@@ -450,7 +502,7 @@ public class BossIA : MonoBehaviour
     }
     #endregion
     */
-    
+
     #region OpposingNagas
     IEnumerator OpposingNagasLVL1()
     {

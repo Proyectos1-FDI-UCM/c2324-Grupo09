@@ -13,6 +13,7 @@ public class StompingHandIA : MonoBehaviour
 
     [SerializeField]
     float projectileSpawnVerticalPos = 5f;
+    public bool spawnProjectile = true;
 
     stompDirection sD = stompDirection.left;
 
@@ -39,7 +40,8 @@ public class StompingHandIA : MonoBehaviour
         if ((floor == (floor | (1 << other.gameObject.layer))) && projectileSpawned == null)
         {
             eM.Speed(0);
-            SpawnProjectile();
+            if(spawnProjectile)
+                SpawnProjectile();
         }
     }
 
@@ -62,10 +64,7 @@ public class StompingHandIA : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        catch
-        {
-            Debug.Log("Meow");
-        }
+        catch{}
     }
 }
 
