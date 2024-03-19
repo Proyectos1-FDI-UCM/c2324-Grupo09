@@ -246,12 +246,18 @@ public class BossIA : MonoBehaviour
     /// </summary>
     void NextBossState()
     {
-        //Debug.Log((int)currentBS--);
+
         currentBS = (BossStates)((int)currentBS--);
         if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
-        Debug.Log(currentBS);
+        else if (currentBS == BossStates.Dead) PlayerWins();
         GetNewPatronSeries();
         UseNextPatron();
+    }
+
+    //------------------------------------------------------------------------------------------------------------To be Implemented 
+    void PlayerWins()
+    {
+
     }
 
     /// <summary>
