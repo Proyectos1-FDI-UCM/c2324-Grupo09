@@ -136,7 +136,7 @@ MonoBehaviour:
   - {fileID: 3997045078874866264}
   StringsBanks:
   - {fileID: 6890021976580957202}
-  cacheTime: 638464726259425859
+  cacheTime: 638464852394210911
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -234,7 +234,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638464726259335777
+  lastModified: 638464852394201277
   FileSizes:
   - Name: Desktop
     Value: 130336
@@ -254,7 +254,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638464726259425859
+  lastModified: 638464852394210911
   FileSizes:
   - Name: Desktop
     Value: 1016
