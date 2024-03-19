@@ -526,7 +526,6 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         if(xInput != 0 && _isGrounded && !_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump)
         {
-            Debug.Log("MEow");
             PLAYBACK_STATE playbackState;
             playerFootsteps.getPlaybackState(out playbackState);
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED)) playerFootsteps.start();
