@@ -8789,6 +8789,13 @@ MonoBehaviour:
       Data3: 988320949
       Data4: -963450694
     Path: event:/EnemyDeath
+  <Steps>k__BackingField:
+    Guid:
+      Data1: 1794602982
+      Data2: 1124145333
+      Data3: -1820051328
+      Data4: 1844924374
+    Path: event:/Steps
 --- !u!1001 &1938632965
 PrefabInstance:
   m_ObjectHideFlags: 0
