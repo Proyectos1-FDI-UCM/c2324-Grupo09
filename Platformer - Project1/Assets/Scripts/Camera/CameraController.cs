@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour
         if (_characterController != null)
         {
             GameManager.Instance.UpdateCameraControllerReference(this);
-            Debug.Log("prepreMiau");
         }
     }
 
@@ -70,7 +69,6 @@ public class CameraController : MonoBehaviour
             //Debug.Log(eSpawner[i]);
 
             eSpawner[i]?.Spawn();
-            Debug.Log(eSpawner);
         }
     }
 
