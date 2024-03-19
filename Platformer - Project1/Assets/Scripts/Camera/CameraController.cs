@@ -25,8 +25,6 @@ public class CameraController : MonoBehaviour
         _characterController = collision.GetComponent<RefactoredCharacterController>();
         if (_characterController != null)
         {
-            //DrawRoom();
-            //Debug.Log("miau");
             GameManager.Instance.UpdateCameraControllerReference(this);
         }
     }

@@ -25,7 +25,7 @@ MonoBehaviour:
   pogoInitialUpVel: 100
   pogoEmpoweredJumpDuration: 0.2
   empoweredJumpForceMultiplier: 1.4
-  pogoSize: {x: 8, y: 13}
+  pogoSize: {x: 8, y: 16}
   pogoPosition: {x: 0, y: -5}
   slideHorizontalForce: 120
   slideSameDirectionForceMultiplier: 0.4

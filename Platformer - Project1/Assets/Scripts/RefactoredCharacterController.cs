@@ -195,7 +195,7 @@ public class RefactoredCharacterController : MonoBehaviour
         _hitbox = GetComponent<HitboxComponent>();
         _changeCollider = GetComponent<ChangeCollider>();
         _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
-        playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.Steps);
+        //playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.Steps);
     }
 
     //Runs 50 times per second
@@ -526,7 +526,6 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         if(xInput != 0 && _isGrounded && !_isWallJumping && !_isSliding && !_isUsingPogo && !_canPogoJump)
         {
-            Debug.Log("MEow");
             PLAYBACK_STATE playbackState;
             playerFootsteps.getPlaybackState(out playbackState);
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED)) playerFootsteps.start();

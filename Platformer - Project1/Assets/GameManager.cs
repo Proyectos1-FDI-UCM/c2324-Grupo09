@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         Circle = FadeCanvas.transform.GetChild(0);
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = null;
 
         boss = FindObjectOfType<BossIA>();
 
@@ -50,11 +50,13 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCameraControllerReference(CameraController meow)
     {
-        if(cameraController.Id != meow.Id)
+        Debug.Log("premiau");
+        if(cameraController == null || cameraController.Id != meow.Id)
         {
-            cameraController.EraseRoom();
+            cameraController?.EraseRoom();
             cameraController = meow;
             cameraController.DrawRoom();
+            Debug.Log(cameraController.gameObject);
         }
     }
     public void OnDie(Vector3 playerPosition)
