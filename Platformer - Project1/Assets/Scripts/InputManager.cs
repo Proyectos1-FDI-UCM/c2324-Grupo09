@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static Unity.Collections.Unicode;
 
 public class InputManager : MonoBehaviour
@@ -99,11 +100,20 @@ public class InputManager : MonoBehaviour
     {
        _characterController.WallRunUp();
     }
-   /* public void Unlock(int i)
+
+    private void Update()
     {
-        abilities[3] = true;
-        Debug.Log("true");
-    }*/
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    /* public void Unlock(int i)
+     {
+         abilities[3] = true;
+         Debug.Log("true");
+     }*/
 
     /* Update is called once per frame
     void Update()

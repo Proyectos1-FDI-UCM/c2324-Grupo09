@@ -13,11 +13,11 @@ public class ScriptMenu : MonoBehaviour
 
     public void PressedLevel1()
     {
-        SceneManager.LoadScene("Nivel Prueba Build");   
+        SceneManager.LoadScene(1);   
     }
     public void PressedLevel2()
     {
-        SceneManager.LoadScene("Nivel Boss");
+        SceneManager.LoadScene(2);
     }
     public void PressedExit()
     {
