@@ -5202,7 +5202,7 @@ GameObject:
   - component: {fileID: 5683426203862685660}
   - component: {fileID: 1456330492906009232}
   m_Layer: 0
-  m_Name: Just In Time
+  m_Name: Just In Time (solo WJ y Pogo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5234,6 +5234,7 @@ Transform:
   - {fileID: 98865429670209839}
   - {fileID: 2582075238769569426}
   - {fileID: 7042053350124531427}
+  - {fileID: 4436389290755667193}
   - {fileID: 5156599317753411993}
   - {fileID: 1891255559419936404}
   - {fileID: 2797920851368786200}
@@ -5894,6 +5895,88 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7936530949433411857, guid: b9a6d58bfed835c47bdf3bf045810ec5, type: 3}
   m_PrefabInstance: {fileID: 599949319665637468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &605022509178558547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8935862840834309202}
+    m_Modifications:
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 62.8008
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 103.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -41.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.3308716
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: maxFallSpeed
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: secondsToDestroy
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: beginToFallInstead
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254914070588267396, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: somethingElseToDestroy.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8345982696153233459, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+      propertyPath: m_Name
+      value: BloqueEfimeroPisarSobre (27)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+--- !u!4 &4436389290755667193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3887803065644002474, guid: 7334cf912efc44146b9f619282974a64, type: 3}
+  m_PrefabInstance: {fileID: 605022509178558547}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &610047380198985370
 PrefabInstance:
