@@ -61,7 +61,6 @@ public class CameraController : MonoBehaviour
     {
         foreach (GameObject platform in setActivePlatforms)
         {
-            Debug.Log(platform);
             platform?.SetActive(true);
         }
         DespawnEnemiesOnRoomExit();
