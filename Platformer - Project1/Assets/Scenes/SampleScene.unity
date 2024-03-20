@@ -13700,6 +13700,22 @@ PrefabInstance:
       propertyPath: _cinemachineBrain
       value: 
       objectReference: {fileID: 75440598}
+    - target: {fileID: 5382309724270556410, guid: 0786b5efae08da846a519383566a86d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382309724270556410, guid: 0786b5efae08da846a519383566a86d0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382309724270556410, guid: 0786b5efae08da846a519383566a86d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382309724270556410, guid: 0786b5efae08da846a519383566a86d0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5572777635635364310, guid: 0786b5efae08da846a519383566a86d0, type: 3}
       propertyPath: m_Name
       value: Room1 (1)

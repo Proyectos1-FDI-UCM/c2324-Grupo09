@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCameraControllerReference(CameraController meow)
     {
-        Debug.Log("premiau");
         if(cameraController == null || cameraController.Id != meow.Id)
         {
             cameraController?.EraseRoom();

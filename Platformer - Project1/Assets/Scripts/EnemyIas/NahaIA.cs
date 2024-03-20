@@ -58,8 +58,6 @@ public class NahaIA : EnemyIA
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         _anim = GetComponent<EnemyAnimController>();
         _culosNaha = new GameObject[0]; 
-
-
     }
 
     // Update is called once per frame
