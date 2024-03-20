@@ -324,7 +324,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 else if (_remainingWallJumpNumber > 0 && !_isWallJumping && !_isUsingPogo)
                 {
 
-                    if (abilities[1] == true && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
+                    if (abilities[1] == true && !_isWallRunning && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
                     {
                         if (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer))
                         {

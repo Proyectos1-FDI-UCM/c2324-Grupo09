@@ -28,7 +28,7 @@ MonoBehaviour:
   pogoSize: {x: 8, y: 16}
   pogoPosition: {x: 0, y: -5}
   slideHorizontalForce: 120
-  slideSameDirectionForceMultiplier: 0.4
+  slideSameDirectionForceMultiplier: 0.753
   slideForceApplyThreshold: 61
   timeBetweenSlides: 0.4
   slideDuration: 0.25
@@ -50,8 +50,8 @@ MonoBehaviour:
   blockMovement2ndJumpTime: 0.4
   maxNumberOfWallJumps: 3
   wallJumpForce: {x: 40, y: 30}
-  wallJumpSameDirectionForceMultiplier: 0.6
-  wallJumpForceApplyThreshold: 200
+  wallJumpSameDirectionForceMultiplier: 0.835
+  wallJumpForceApplyThreshold: 60
   wallJumpMomentumConserveCoeficient: 0.7
   wallJump2ForceReductionCoef: 0.4
   minWallRunSpeed: 50
