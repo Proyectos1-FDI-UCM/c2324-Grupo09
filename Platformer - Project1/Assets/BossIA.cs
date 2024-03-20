@@ -166,7 +166,7 @@ public class BossIA : MonoBehaviour
         for (int i = 0; i < pilarReferences.Length; i++)
         {
             pilarReferences[i]?.NegateBeginToFallInstead();
-            pilarReferences[i]?.DestroyThis();
+            pilarReferences[i]?.startDestroyingitForReal();
         }
         pilarReferences = new DestryAfterTime[27];
         stompingHand?.ProjectileDestroy();
@@ -362,7 +362,7 @@ public class BossIA : MonoBehaviour
 
         pilarReferences[0] = Instantiate(pilarPrefab, _pilarReferenceTransform.position, Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
-        pilarReferences[0].DestroyThis();
+        pilarReferences[0].startDestroyingitForReal();
         StartCoroutine("FrozePillar", 0);
         int i = 1;
         while (i != pilarReferences.Length)
@@ -370,10 +370,10 @@ public class BossIA : MonoBehaviour
 
             yield return new WaitForSeconds(delayTimeBetweenPilars);
             pilarReferences[i]   = Instantiate(pilarPrefab, _pilarReferenceTransform.position + (i * 4 * Vector3.right), Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
-            pilarReferences[i].DestroyThis();
+            pilarReferences[i].startDestroyingitForReal();
             StartCoroutine("FrozePillar",i);
             pilarReferences[i+1] = Instantiate(pilarPrefab, _pilarReferenceTransform.position + (i * 4 * Vector3.left), Quaternion.identity, _pilarReferenceTransform).GetComponent<DestryAfterTime>();
-            pilarReferences[i+1].DestroyThis();
+            pilarReferences[i+1].startDestroyingitForReal();
             StartCoroutine("FrozePillar", i+1);
             i += 2;
         }
@@ -397,16 +397,16 @@ public class BossIA : MonoBehaviour
         yield return new WaitForSeconds(destroyPilarDelay);
 
         pilarReferences[0].NegateBeginToFallInstead();
-        pilarReferences[0].DestroyThis();
+        pilarReferences[0].startDestroyingitForReal();
         i = 1;
         while (i != pilarReferences.Length)
         {
 
             yield return new WaitForSeconds(delayTimeBetweenPilars);
             pilarReferences[i].NegateBeginToFallInstead();
-            pilarReferences[i].DestroyThis();
+            pilarReferences[i].startDestroyingitForReal();
             pilarReferences[i + 1].NegateBeginToFallInstead();
-            pilarReferences[i + 1].DestroyThis();
+            pilarReferences[i + 1].startDestroyingitForReal();
             i += 2;
         }
 

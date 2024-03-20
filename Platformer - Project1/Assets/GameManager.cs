@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
             cameraController?.EraseRoom();
             cameraController = meow;
             cameraController.DrawRoom();
-            Debug.Log(cameraController.gameObject);
         }
     }
     public void OnDie(Vector3 playerPosition)
@@ -74,6 +73,11 @@ public class GameManager : MonoBehaviour
     {
         charController.TeleportPlayer();
         cameraController.SpawnEnemiesOnRoomEnter();
+        DestryAfterTime[] _obj = FindObjectsOfType<DestryAfterTime>();
+        foreach (DestryAfterTime block in _obj)
+        {
+            block.Reset();
+        }
         //CharController.Dead = false;
     }
 

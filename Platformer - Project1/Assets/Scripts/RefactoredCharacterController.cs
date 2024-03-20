@@ -47,7 +47,7 @@ public class RefactoredCharacterController : MonoBehaviour
     #region hiddenVariables
     [SerializeField]
     bool[] abilities = new bool[4];
-    bool _isGrounded = false;
+    public static bool _isGrounded = false;
     bool _isJumping = false;
     bool _isSliding = false;
     bool _isJumpFalling = false;
@@ -98,13 +98,21 @@ public class RefactoredCharacterController : MonoBehaviour
         _lastJumpTimeInput = _md.jumpBufferTime;
     }
 
+    public void JumpDown(float totalSlideValue)
+    {
+        //llama a una corroutina pa hacer el JumpCut
+    }
+
     //Triggers on pressing the slide/pogo key
     public void SlideDown()
     {
-       
-       
             _lastTimeSlideInput = _md.slideBufferTime;
-       
+    }
+
+    public void SlideDown(int direction)
+    {
+        _lastTimeSlideInput = _md.slideBufferTime;
+        //hacer que haga el slide pal lao que toque
     }
     public void WallRunDown()
     {
@@ -421,6 +429,7 @@ public class RefactoredCharacterController : MonoBehaviour
                         _hitbox.DisableHitbox();
                         _animComp.LookTo1D(_chMovement.LastDirection);
                         _chMovement.PogoJump();
+                        _remainingWallJumpNumber = _md.maxNumberOfWallJumps;
                         _hasWallRun = false;
                         _isUsingPogo = false;
                     }

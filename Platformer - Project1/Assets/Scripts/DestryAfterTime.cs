@@ -27,6 +27,9 @@ public class DestryAfterTime : MonoBehaviour
     public float CurrentGravity {  get { return currentGravity; }}
     [SerializeField]
     private FallDirection fDirection= FallDirection.down;
+
+    Vector3 _originalPos;
+
     public int FallDirectionValue
     {
         get => (int)fDirection;
@@ -36,24 +39,32 @@ public class DestryAfterTime : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Invoke("DestroyThis", secondsToDestroy);
+        if(collision.gameObject.GetComponent<RefactoredCharacterController>() != null)
+            StartCoroutine(DestroyThis());
     }
 
-    public void DestroyThis()
+    IEnumerator DestroyThis()
     {
-        for(int i = 0; i < somethingElseToDestroy.Length; i++)
+        yield return new WaitForSeconds(secondsToDestroy);
+        startDestroyingitForReal();
+    }
+
+    public void startDestroyingitForReal()
+    {
+        for (int i = 0; i < somethingElseToDestroy.Length; i++)
         {
             somethingElseToDestroy[i].SetActive(false);
         }
         if (beginToFallInstead)
             falling = true;
         else
-            if(this != null) Destroy(this?.gameObject);
+            if (this != null) Destroy(this?.gameObject);
     }
 
     void Start()
     {
         _myTransform = transform;
+        _originalPos = _myTransform.position;
     }
 
     void FixedUpdate()
@@ -79,6 +90,14 @@ public class DestryAfterTime : MonoBehaviour
     public void SetFrozen(bool val)
     {
         frozen = val;
+    }
+
+    public void Reset()
+    {
+        StopAllCoroutines();
+        falling = false;
+        currentGravity = 0;
+        _myTransform.position = _originalPos;
     }
 
 

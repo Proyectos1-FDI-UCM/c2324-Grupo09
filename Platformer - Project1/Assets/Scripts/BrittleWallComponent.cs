@@ -12,7 +12,7 @@ public class BrittleWallComponent : MonoBehaviour
         if (other.gameObject.GetComponent<ProyectileMovement>() != null)
         {
             Destroy(other.gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -65,7 +65,6 @@ public class EnemySpawner : MonoBehaviour
     public void Spawn()
     {
         spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        Debug.Log(spawnedEnemy);
         if(enemyMoves)
         {
             EnemyMovement eM = spawnedEnemy.GetComponent<EnemyMovement>();

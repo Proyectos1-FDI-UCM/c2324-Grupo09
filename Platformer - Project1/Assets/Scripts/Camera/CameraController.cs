@@ -31,10 +31,6 @@ public class CameraController : MonoBehaviour
 
     public void DrawRoom()
     {
-        foreach (GameObject platform in setActivePlatforms)
-        {
-            platform.SetActive(true);
-        }
         VirtualCamera.SetActive(true);
         SpawnEnemiesOnRoomEnter();
         _characterController.AssignSpawnPoint(_spawnPoint);
@@ -63,8 +59,13 @@ public class CameraController : MonoBehaviour
 
     public void SpawnEnemiesOnRoomEnter()
     {
+        foreach (GameObject platform in setActivePlatforms)
+        {
+            Debug.Log(platform);
+            platform?.SetActive(true);
+        }
         DespawnEnemiesOnRoomExit();
-        for(int i = 0; i<eSpawner.Length; i++)
+        for (int i = 0; i<eSpawner.Length; i++)
         {
             //Debug.Log(eSpawner[i]);
 
