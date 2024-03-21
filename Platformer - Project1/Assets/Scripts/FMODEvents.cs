@@ -12,6 +12,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference CollectAbility { get; private set; }
     [field: SerializeField] public EventReference EnemyDeath { get; private set; }
     [field: SerializeField] public EventReference Steps { get; private set; }
+    [field: SerializeField] public EventReference Music { get; private set; }
 
     static public FMODEvents Instance;
 

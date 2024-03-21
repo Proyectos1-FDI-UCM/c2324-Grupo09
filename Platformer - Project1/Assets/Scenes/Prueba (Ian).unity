@@ -1329,6 +1329,13 @@ MonoBehaviour:
       Data3: -1820051328
       Data4: 1844924374
     Path: event:/Steps
+  <Music>k__BackingField:
+    Guid:
+      Data1: -211164660
+      Data2: 1314659694
+      Data3: 1353535623
+      Data4: 327866351
+    Path: event:/Music
 --- !u!1 &1951843698
 GameObject:
   m_ObjectHideFlags: 0
