@@ -261,63 +261,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &416820478
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1752329411744676963, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_Name
-      value: Metroidvania(Pogo, WJ)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -239.13055
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -28.26593
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 36176.215
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7621389357399329377, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a041bfbd80c7c46478f50862d1d87fec, type: 3}
 --- !u!1001 &647637447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,11 +279,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -380.5
+      value: -438
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -36.9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.z
@@ -520,7 +463,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.24528301, g: 0.23695265, b: 0.23695265, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -570,7 +513,7 @@ Transform:
   m_GameObject: {fileID: 1455040884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -293.4492, y: 22.650932, z: -2.71875}
+  m_LocalPosition: {x: -294.39642, y: 19.039642, z: -2.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1097,4 +1040,3 @@ SceneRoots:
   - {fileID: 5828939156599603282}
   - {fileID: 1840975481}
   - {fileID: 1951843700}
-  - {fileID: 416820478}
