@@ -12677,6 +12677,18 @@ PrefabInstance:
       propertyPath: _padForce
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 6052017419314579773, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: _direction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803622904582313031, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9238795
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803622904582313031, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.38268346
+      objectReference: {fileID: 0}
     - target: {fileID: 7583764454542321642, guid: e24357f395ea7ca449cfcbc6f00e4bc7, type: 3}
       propertyPath: m_Name
       value: JumpPad
