@@ -9,6 +9,8 @@ using static Unity.Collections.Unicode;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject _pauseMenu;
     RefactoredCharacterController _characterController;
     [SerializeField]
     InputActionReference _jumpAction;
@@ -105,7 +107,8 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(0);
+            _pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
 

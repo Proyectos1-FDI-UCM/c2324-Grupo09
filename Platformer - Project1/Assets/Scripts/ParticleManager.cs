@@ -19,6 +19,7 @@ public class ParticleManager : MonoBehaviour
     [SerializeField]
     private GameObject _endJumpParticlePrefab;
     private GameObject _particleController;
+    private GameManager _gameManager;
     #endregion
     #region properties
     private int _lastDir;
@@ -193,6 +194,12 @@ public class ParticleManager : MonoBehaviour
         _characterAnim = GetComponent<Animator>();
         _checkLastDir = FindObjectOfType<RefactoredCharacterMovement>();
         _myTrail = GetComponentInChildren<TrailRenderer>();
+        _gameManager=FindObjectOfType<GameManager>();
+        //Lo hago en el start para comprobar si las partículas
+        //estaban activadas o desactivadas desde el menu:
+        _gameManager.AfterLoad();
+        _gameManager.Check();
+
         
     }
     void Update()
