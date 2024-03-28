@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4072542550125192114}
   - component: {fileID: 3033551344605527842}
   m_Layer: 0
-  m_Name: Bouncy
+  m_Name: Bouncy (Slide pogo WJ)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
