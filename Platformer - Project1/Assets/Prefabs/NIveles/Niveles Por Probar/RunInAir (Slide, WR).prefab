@@ -9676,7 +9676,7 @@ GameObject:
   - component: {fileID: 6853749652543501771}
   - component: {fileID: 9022642358112372308}
   m_Layer: 0
-  m_Name: RunInAir
+  m_Name: RunInAir (Slide, WR)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

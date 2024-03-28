@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     } 
         void Start()
     {
-
+        FadeCanvas = FindObjectOfType<Canvas>()?.gameObject;
         Application.targetFrameRate = FPS;
         FadeCanvas = FindObjectOfType<Canvas>().gameObject;
         Circle = FadeCanvas.transform.GetChild(0);
@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
     }
     public void OnDie(Vector3 playerPosition)
     {
-        
-        FadeCanvas = FindObjectOfType<Canvas>().gameObject;
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         Circle = FadeCanvas.transform.GetChild(0);
         FadeCanvas.SetActive(true);

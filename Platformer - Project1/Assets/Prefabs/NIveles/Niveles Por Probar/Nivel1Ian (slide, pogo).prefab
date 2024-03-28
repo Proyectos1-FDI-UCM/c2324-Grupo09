@@ -3719,7 +3719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 689952261563056337}
   m_Layer: 0
-  m_Name: Nivel1Ian
+  m_Name: Nivel1Ian (slide, pogo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
