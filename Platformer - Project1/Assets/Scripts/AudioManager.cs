@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
         else Destroy(gameObject);
         masterBus = RuntimeManager.GetBus("bus:/");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
-        musicBus = RuntimeManager.GetBus("bus:/Music");
+        musicBus = RuntimeManager.GetBus("bus:/MusicBus");
     }
     private void Start()
     {
