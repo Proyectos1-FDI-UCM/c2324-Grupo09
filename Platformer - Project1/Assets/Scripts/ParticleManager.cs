@@ -167,7 +167,7 @@ public class ParticleManager : MonoBehaviour
             _hasLanded = false;
         }
     }
-    private void ActivateTrailInXAxe()
+    private void ActivateTrail()
     {
         if(Mathf.Abs(_chVel.x) > _xMaxVelocity)
         {
@@ -181,10 +181,6 @@ public class ParticleManager : MonoBehaviour
         {
             _myTrail.emitting = false;
         }
-    }
-    private void ActivateTrailInYAxe()
-    {
-
     }
     #endregion
     void Start()
@@ -214,7 +210,7 @@ public class ParticleManager : MonoBehaviour
         CheckInitialJump();
         CheckEndOfJump();
 
-        ActivateTrailInXAxe();
+        ActivateTrail();
 
 
     }
