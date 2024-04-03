@@ -448,6 +448,7 @@ public class RefactoredCharacterController : MonoBehaviour
                         }
                         else
                         {
+                            _chMovement.ChangePlayerVelocity(new Vector2(0, _chMovement.RBVel.y));
                             _chMovement.AddImpulseForceToPlayer(Vector2.down * _md.pogoFallForce);
                             if (!_pogoAnimationCompleted)
                             {
