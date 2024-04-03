@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1fc729ca-a33b-434d-bba5-9fa1ffc74e29}">
+		<property name="assetPath">
+			<value>falling-whistle-cartoon-180581 - Trimmed.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0476417233560091</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ff338745-42b8-4759-b0d9-154672e73f23}</destination>
+		</relationship>
+	</object>
+</objects>
