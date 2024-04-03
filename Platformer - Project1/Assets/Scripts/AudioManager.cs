@@ -7,11 +7,11 @@ public class AudioManager : MonoBehaviour
     static public AudioManager Instance;
     [Header ("Volume")]
     [Range(0f, 1f)]
-    private float mastervolume = 1f;
+    public float mastervolume = 1f;
     [Range(0f, 1f)]
-    private float SFXvolume = 1f;
+    public float SFXvolume = 1f;
     [Range(0f, 1f)]
-    private float Musicvolume = 1f;
+    public float Musicvolume = 1f;
     private Bus masterBus;
     private Bus sfxBus;
     private Bus musicBus;
@@ -59,19 +59,6 @@ public class AudioManager : MonoBehaviour
     {
         musicEventInstance = CreateInstance(musicEventReference);
         musicEventInstance.start();
-    }
-    public void ChangeVolume(float v)
-    {
-        mastervolume = v;
-
-    } public void ChangeMusic(float v)
-    {
-        Musicvolume = v;
-
-    } public void ChangeSFX(float v)
-    {
-        SFXvolume = v;
-
     }
 
 
