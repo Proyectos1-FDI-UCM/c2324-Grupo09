@@ -56,7 +56,12 @@ public class DestryAfterTime : MonoBehaviour
             somethingElseToDestroy[i].SetActive(false);
         }
         if (beginToFallInstead)
+        {
             falling = true;
+            try { AudioManager.Instance?.PlayOneShot(FMODEvents.Instance.FallingPlatform, this.transform.position); }
+            catch { Debug.Log("Falta el audio"); }
+        }
+
         else
             if (this != null) Destroy(this?.gameObject);
     }

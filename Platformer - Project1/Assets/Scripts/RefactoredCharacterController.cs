@@ -269,6 +269,9 @@ public class RefactoredCharacterController : MonoBehaviour
                     {
                         _hitbox.DisableHitbox();
                         _animComp.SetPogoTr();
+                        try { AudioManager.Instance?.PlayOneShot(FMODEvents.Instance.Pogo, this.transform.position); }
+                        catch { Debug.Log("Falta el audio"); }
+ 
                         _isUsingPogo = true;
                         _isWallJumping = false;
                         _pogoStartTime = Time.time;
@@ -545,7 +548,7 @@ public class RefactoredCharacterController : MonoBehaviour
         }
     }
 
-    #region SorroundingChecks
+    #region SurroundingChecks
     /// <summary>
     /// </summary>
     /// <returns>if player ground hitbox is touching ground</returns>
