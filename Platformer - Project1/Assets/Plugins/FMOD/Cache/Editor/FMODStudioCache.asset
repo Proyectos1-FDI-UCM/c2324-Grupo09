@@ -1,32 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8780929100798070814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Pogo
-  m_EditorClassIdentifier: 
-  Path: event:/Pogo
-  Guid:
-    Data1: 1428765869
-    Data2: 1298976194
-    Data3: 519761812
-    Data4: -2030647439
-  Banks:
-  - {fileID: 3900988852417737636}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
 --- !u!114 &-8725235631966930939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +42,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638472610331518310
+  lastModified: 638473036839917095
   FileSizes:
   - Name: Desktop
     Value: 129824
@@ -316,14 +289,12 @@ MonoBehaviour:
   - {fileID: -1971359943254677655}
   - {fileID: 896350325739195774}
   - {fileID: -853120981610349392}
-  - {fileID: -8780929100798070814}
-  - {fileID: 516447597001983895}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3900988852417737636}
   StringsBanks:
   - {fileID: 757989061321503002}
-  cacheTime: 638477380503557744
+  cacheTime: 638473036839917095
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -352,33 +323,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 326
---- !u!114 &516447597001983895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/FallingPlatform
-  m_EditorClassIdentifier: 
-  Path: event:/FallingPlatform
-  Guid:
-    Data1: 1007313837
-    Data2: 1101153773
-    Data3: 572711086
-    Data4: 1184885509
-  Banks:
-  - {fileID: 3900988852417737636}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 430
 --- !u!114 &519181383832477295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,7 +338,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638472610331248964
+  lastModified: 638473036839467109
   FileSizes:
   - Name: Desktop
     Value: 552896
@@ -441,10 +385,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638477380503557744
+  lastModified: 638473036839346967
   FileSizes:
   - Name: Desktop
-    Value: 1298
+    Value: 1218
   Exists: 1
 --- !u!114 &896350325739195774
 MonoBehaviour:
@@ -535,10 +479,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638477380503532450
+  lastModified: 638473036839266964
   FileSizes:
   - Name: Desktop
-    Value: 262016
+    Value: 1340
   Exists: 1
 --- !u!114 &3997045078874866264
 MonoBehaviour:

@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
     } 
         void Start()
     {
-        FadeCanvas = FindObjectOfType<Canvas>()?.gameObject;
+        FadeCanvas = FindObjectOfType<TeleportPlayer>()?.gameObject;
         Application.targetFrameRate = FPS;
-        FadeCanvas = FindObjectOfType<Canvas>().gameObject;
+        //FadeCanvas = FindObjectOfType<Canvas>().gameObject;
         Circle = FadeCanvas.transform.GetChild(0);
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
     }
     public void OnDie(Vector3 playerPosition)
     {
-        CameraAnimator = FadeCanvas.GetComponent<Animator>();
-        Circle = FadeCanvas.transform.GetChild(0);
+       
+      
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
     {
         charController.TeleportPlayer();
         cameraController.SpawnEnemiesOnRoomEnter();
-        charController = FindObjectOfType<RefactoredCharacterController>();
         DestryAfterTime[] _obj = FindObjectsOfType<DestryAfterTime>();
         foreach (DestryAfterTime block in _obj)
         {
