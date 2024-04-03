@@ -75,7 +75,8 @@ public class InputManager : MonoBehaviour
     private void SlideDown(InputAction.CallbackContext obj)
     {
        
-            _characterController.SlideDown();
+        _characterController.SlideDown();
+        //obj.InputControl
        
     }
     private void RunDown(InputAction.CallbackContext obj)
