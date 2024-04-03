@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
     }
     public void OnDie(Vector3 playerPosition)
     {
-        CameraAnimator = FadeCanvas.GetComponent<Animator>();
-        Circle = FadeCanvas.transform.GetChild(0);
+       
+      
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
         CameraAnimator.SetTrigger("FadeOut");
@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
     {
         charController.TeleportPlayer();
         cameraController.SpawnEnemiesOnRoomEnter();
-        charController = FindObjectOfType<RefactoredCharacterController>();
         DestryAfterTime[] _obj = FindObjectsOfType<DestryAfterTime>();
         foreach (DestryAfterTime block in _obj)
         {
