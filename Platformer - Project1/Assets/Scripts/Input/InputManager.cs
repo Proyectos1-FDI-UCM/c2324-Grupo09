@@ -25,8 +25,10 @@ public class InputManager : MonoBehaviour
     //El segundo es pogo, tercero walljump y cuarto wallrun
     
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
+        //Debug.Log(FindObjectOfType<PauseScript>()?.gameObject);
+        //_pauseMenu = FindObjectOfType<PauseScript>()?.gameObject;
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         abilities = new bool[] { true, true, true, false };
     }

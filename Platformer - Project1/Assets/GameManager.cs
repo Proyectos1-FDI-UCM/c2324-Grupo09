@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
     } 
         void Start()
     {
-        FadeCanvas = FindObjectOfType<Canvas>()?.gameObject;
+        FadeCanvas = FindObjectOfType<TeleportPlayer>()?.gameObject;
         Application.targetFrameRate = FPS;
-        FadeCanvas = FindObjectOfType<Canvas>().gameObject;
+        //FadeCanvas = FindObjectOfType<Canvas>().gameObject;
         Circle = FadeCanvas.transform.GetChild(0);
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
