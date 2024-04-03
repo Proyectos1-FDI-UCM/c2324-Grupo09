@@ -100,11 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToDestroy: 0.3
-  somethingElseToDestroy:
-  - {fileID: 0}
+  somethingElseToDestroy: []
   beginToFallInstead: 0
   fallGravity: 3
   maxFallSpeed: 120
+  fDirection: -1
 --- !u!61 &5093486409663765112
 BoxCollider2D:
   m_ObjectHideFlags: 0
