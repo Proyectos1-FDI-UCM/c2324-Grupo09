@@ -73,3 +73,5 @@ crashlytics-build.properties
 Platformer - Project1/Assets/Plugins/FMOD/platforms/mac/lib/fmodstudio.bundle/Contents/Info.plist
 Platformer - Project1/Assets/Plugins/FMOD/platforms/mac/lib/fmodstudioL.bundle/Contents/Info.plist
 Platformer - Project1/Assets/Plugins/FMOD/platforms/mac/lib/resonanceaudio.bundle/Contents/Info.plist
+Platformer - Project1/fmod_editor.log
+Platformer - Project1/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
