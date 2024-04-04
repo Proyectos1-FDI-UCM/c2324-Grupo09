@@ -465,6 +465,20 @@ MonoBehaviour:
       Data3: 1353535623
       Data4: 327866351
     Path: event:/Music
+  <Pogo>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <FallingPlatform>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &1591056977
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +508,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d6402e305f4d9469ebd20193ea4d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mastervolume: 1
+  SFXvolume: 1
+  Musicvolume: 1
 --- !u!4 &1591056979
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +932,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 35715689226739249, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4749720170357704547, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7843578776720831063, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
