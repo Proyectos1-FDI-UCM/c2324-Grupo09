@@ -86,6 +86,34 @@ MonoBehaviour:
       Data3: 988320949
       Data4: -963450694
     Path: event:/EnemyDeath
+  <Steps>k__BackingField:
+    Guid:
+      Data1: 1794602982
+      Data2: 1124145333
+      Data3: -1820051328
+      Data4: 1844924374
+    Path: event:/Steps
+  <Music>k__BackingField:
+    Guid:
+      Data1: -211164660
+      Data2: 1314659694
+      Data3: 1353535623
+      Data4: 327866351
+    Path: event:/Music
+  <Pogo>k__BackingField:
+    Guid:
+      Data1: 1428765869
+      Data2: 1298976194
+      Data3: 519761812
+      Data4: -2030647439
+    Path: event:/Pogo
+  <FallingPlatform>k__BackingField:
+    Guid:
+      Data1: 1007313837
+      Data2: 1101153773
+      Data3: 572711086
+      Data4: 1184885509
+    Path: event:/FallingPlatform
 --- !u!1 &4655291061840927266
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,3 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d6402e305f4d9469ebd20193ea4d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mastervolume: 1
+  SFXvolume: 1
+  Musicvolume: 1

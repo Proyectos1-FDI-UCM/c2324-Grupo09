@@ -110,8 +110,9 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
+            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            if(_pauseMenu.activeSelf) Time.timeScale = 0f;
+            else Time.timeScale = 1f;
         }
     }
 
