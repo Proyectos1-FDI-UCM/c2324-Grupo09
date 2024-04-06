@@ -247,8 +247,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 64
   projectileSpawnVerticalPos: -48
+  spawnProjectile: 1
 --- !u!61 &7865320989799626040
 BoxCollider2D:
   m_ObjectHideFlags: 0

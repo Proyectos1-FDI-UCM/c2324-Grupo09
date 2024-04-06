@@ -197,6 +197,7 @@ public class BossIA : MonoBehaviour
     /// </summary>
     private void ReceiveDamage()
     {
+        Debug.Log("hit");
         StopAllCoroutines();
         _bossHitbox.enabled = false;
         KillEverythingOnScreen();
@@ -247,7 +248,9 @@ public class BossIA : MonoBehaviour
     void NextBossState()
     {
 
-        currentBS = (BossStates)((int)currentBS--);
+        Debug.Log((int)currentBS + " " + (((int)currentBS)-1));
+        currentBS = (BossStates)(((int)currentBS) - 1);
+        Debug.Log(currentBS);
         if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         else if (currentBS == BossStates.Dead) PlayerWins();
         GetNewPatronSeries();
@@ -294,7 +297,7 @@ public class BossIA : MonoBehaviour
         {
             order += (positionsShuffled[i] + ", ");
         }
-        Debug.Log(order);
+        //Debug.Log(order);
         //--------------------------------------------------
 
         for (int i = 0; i < positionsShuffled.Length; i++)

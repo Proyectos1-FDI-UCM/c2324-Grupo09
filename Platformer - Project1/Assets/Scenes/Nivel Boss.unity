@@ -1393,6 +1393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FPS: 60
+  particleManager: {fileID: 0}
+  isEnabled: 1
 --- !u!4 &584976922
 Transform:
   m_ObjectHideFlags: 0
