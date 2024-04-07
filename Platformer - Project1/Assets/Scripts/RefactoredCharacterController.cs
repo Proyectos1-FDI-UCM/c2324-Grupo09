@@ -116,9 +116,7 @@ public class RefactoredCharacterController : MonoBehaviour
     }
     public void WallRunDown()
     {
-       
             _wallRunHeld = true;
-       
     }
 
     //Triggers on changing the value of the x movement joystick

@@ -20,6 +20,15 @@ public class InputManager : MonoBehaviour
     InputActionReference _runAction;
     [SerializeField]
     InputActionReference _wallRunAction;
+
+    [SerializeField]
+    InputActionReference _closeMenuAction;
+
+    GameObject _spawnMenuPrefab;
+    GameObject _spawnMenu;
+
+    bool _blockInput = false;
+
     bool[] abilities;
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es pogo, tercero walljump y cuarto wallrun
@@ -30,7 +39,9 @@ public class InputManager : MonoBehaviour
         //Debug.Log(FindObjectOfType<PauseScript>()?.gameObject);
         //_pauseMenu = FindObjectOfType<PauseScript>()?.gameObject;
         _characterController = FindObjectOfType<RefactoredCharacterController>();
-        abilities = new bool[] { true, true, true, false };
+        abilities = new bool[5];
+
+        _spawnMenuPrefab = Resources.Load<GameObject>("_AbilityUnlockExplanationScreen");
     }
     void Awake()
     {
@@ -42,6 +53,7 @@ public class InputManager : MonoBehaviour
         _wallRunAction.action.canceled += WallrunUp;
         _slideAction.action.canceled += SlideUp;
         _runAction.action.canceled += RunUp;
+        _closeMenuAction.action.performed += CloseMenu;
     }
     private void OnEnable()
     {
@@ -49,6 +61,7 @@ public class InputManager : MonoBehaviour
         _slideAction.action.Enable();
         _runAction.action.Enable();
         _wallRunAction.action.Enable();
+        _closeMenuAction.action.Enable();
     }
     private void OnDisable()
     {
@@ -56,6 +69,7 @@ public class InputManager : MonoBehaviour
         _slideAction.action.Disable();
         _runAction.action.Disable();
         _wallRunAction.action.Disable();
+        _closeMenuAction.action.Disable();
     }
     private void OnDestroy()
     {
@@ -67,43 +81,59 @@ public class InputManager : MonoBehaviour
         _slideAction.action.canceled -= SlideUp;
         _wallRunAction.action.canceled -= WallrunUp;
         _runAction.action.canceled -= RunUp;
+        _closeMenuAction.action.canceled -= CloseMenu;
+    }
+
+    private void CloseMenu(InputAction.CallbackContext obj)
+    {
+        if (_blockInput)
+        {
+            _blockInput = false;
+            Destroy(_spawnMenu);
+        }
     }
     private void JumpDown(InputAction.CallbackContext obj) 
     {
-        _characterController.JumpDown();
+        if (!_blockInput)
+            _characterController.JumpDown();
     }
     private void SlideDown(InputAction.CallbackContext obj)
     {
-       
-        _characterController.SlideDown();
+        if (!_blockInput)
+            _characterController.SlideDown();
         //obj.InputControl
        
     }
     private void RunDown(InputAction.CallbackContext obj)
     {
-        _characterController.RunDown(obj.ReadValue<float>());
+        if (!_blockInput)
+            _characterController.RunDown(obj.ReadValue<float>());
     }
     private void WallRunDown(InputAction.CallbackContext obj)
     {
-       
+        if (!_blockInput)
             _characterController.WallRunDown();
         
     }
     private void RunUp(InputAction.CallbackContext obj)
     {
-        _characterController.RunUp(0);
+        if (!_blockInput)
+            _characterController.RunUp(0);
     }
     private void SlideUp(InputAction.CallbackContext obj)
     {
-        _characterController.SlideUp();
+        if (!_blockInput)
+            _characterController.SlideUp();
     }
     private void JumpUp(InputAction.CallbackContext obj)
     {
-        _characterController.JumpUp();
+        if(!_blockInput)
+            _characterController.JumpUp();
     }
     private void WallrunUp(InputAction.CallbackContext obj)
     {
-       _characterController.WallRunUp();
+        if (!_blockInput)
+            _characterController.WallRunUp();
     }
 
     private void Update()
@@ -116,15 +146,15 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    /* public void Unlock(int i)
-     {
-         abilities[3] = true;
-         Debug.Log("true");
-     }*/
-
-    /* Update is called once per frame
-    void Update()
+    public void SpawnUnlockMenu(int i)
     {
+        _characterController.JumpUp();
+        _characterController.SlideUp();
+        _characterController.WallRunUp();
+        _characterController.RunUp(0);
+
+        _blockInput = true;
+        _spawnMenu = Instantiate(_spawnMenuPrefab);
+        _spawnMenu.GetComponent<SpawnMenuComponent>().SetMenu(i);
     }
-    */
 }

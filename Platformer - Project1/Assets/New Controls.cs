@@ -62,6 +62,15 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""0613dbb8-7228-4aab-8e55-3c37c7ce39f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,28 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""action"": ""Wallride"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6fd9c2a-661a-46d2-a3df-6db855844f27"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82d561e0-1b7c-4960-83ac-6cfde187c48d"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +239,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         m_Move_Run = m_Move.FindAction("Run", throwIfNotFound: true);
         m_Move_Jump = m_Move.FindAction("Jump", throwIfNotFound: true);
         m_Move_Wallride = m_Move.FindAction("Wallride", throwIfNotFound: true);
+        m_Move_CloseMenu = m_Move.FindAction("CloseMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +305,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Move_Run;
     private readonly InputAction m_Move_Jump;
     private readonly InputAction m_Move_Wallride;
+    private readonly InputAction m_Move_CloseMenu;
     public struct MoveActions
     {
         private @NewControls m_Wrapper;
@@ -281,6 +314,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Move_Run;
         public InputAction @Jump => m_Wrapper.m_Move_Jump;
         public InputAction @Wallride => m_Wrapper.m_Move_Wallride;
+        public InputAction @CloseMenu => m_Wrapper.m_Move_CloseMenu;
         public InputActionMap Get() { return m_Wrapper.m_Move; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +336,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Wallride.started += instance.OnWallride;
             @Wallride.performed += instance.OnWallride;
             @Wallride.canceled += instance.OnWallride;
+            @CloseMenu.started += instance.OnCloseMenu;
+            @CloseMenu.performed += instance.OnCloseMenu;
+            @CloseMenu.canceled += instance.OnCloseMenu;
         }
 
         private void UnregisterCallbacks(IMoveActions instance)
@@ -318,6 +355,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Wallride.started -= instance.OnWallride;
             @Wallride.performed -= instance.OnWallride;
             @Wallride.canceled -= instance.OnWallride;
+            @CloseMenu.started -= instance.OnCloseMenu;
+            @CloseMenu.performed -= instance.OnCloseMenu;
+            @CloseMenu.canceled -= instance.OnCloseMenu;
         }
 
         public void RemoveCallbacks(IMoveActions instance)
@@ -341,5 +381,6 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWallride(InputAction.CallbackContext context);
+        void OnCloseMenu(InputAction.CallbackContext context);
     }
 }

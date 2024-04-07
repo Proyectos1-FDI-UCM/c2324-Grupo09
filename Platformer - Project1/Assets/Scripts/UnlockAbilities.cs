@@ -17,17 +17,8 @@ public class UnlockAbilities : MonoBehaviour
         {
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.CollectAbility, this.transform.position);
             _characterController.Unlock(value);
+            _characterController.gameObject.GetComponent<InputManager>().SpawnUnlockMenu(value);
             Destroy(this.gameObject);
         }
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
