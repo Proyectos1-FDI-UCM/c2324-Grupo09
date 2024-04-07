@@ -9960,7 +9960,7 @@ GameObject:
   - component: {fileID: 642810997232626709}
   - component: {fileID: 6239441014605914072}
   m_Layer: 0
-  m_Name: IntroductionWallJumpOnlyImp
+  m_Name: IntroductionPogoJumpOnlyImp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

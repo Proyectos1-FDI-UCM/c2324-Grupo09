@@ -39,6 +39,7 @@ public class AudioManager : MonoBehaviour
         sfxBus.setVolume(SFXvolume);
         musicBus.setVolume(Musicvolume);
     }
+
     private EventInstance musicEventInstance;
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {

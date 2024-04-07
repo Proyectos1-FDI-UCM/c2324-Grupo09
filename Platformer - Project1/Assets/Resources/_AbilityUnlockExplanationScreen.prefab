@@ -200,10 +200,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pulsa el bot\xF3n I / Gatillo Derecho en el suelo para hacer un Dash.\n\nAl
-    hacer el Dash ganas velocidad en la direcci\xF3n a la que mir\xE1s.\n\nAl saltar
-    mientras haces el Dash conservar\xE1s la velocidad permitiendote hacer un salto
-    largo."
+  m_text: "Pulsa el bot\xF3n I / Gatillo Derecho en el suelo para deslizarte por
+    el suelo.\n\nAl hacer el slide ganas velocidad en la direcci\xF3n a la que mir\xE1s.\n\nAl
+    saltar mientras haces el slide conservar\xE1s la velocidad permiti\xE9ndote hacer
+    un salto largo."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -597,9 +597,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Pulsa el Bot\xF3n de salto en el aire para pegar una patada en la direcci\xF3n
-    en la que estes mirando.\n\nSi con la patada golpeas una pared o un enemigo saltar\xE1s
-    en direcci\xF3n contraria. Si es un enemigo lo eliminar\xE1s.\n\nAl hacer WJ
-    conviertes tu velocidad horizontal a la nueva direcci\xF3n."
+    en la que est\xE9s mirando.\n\nSi con la patada golpeas una pared o un enemigo
+    saltar\xE1s en direcci\xF3n contraria. Si es un enemigo lo eliminar\xE1s.\n\nAl
+    hacer Wall Jump conviertes tu velocidad horizontal a la nueva direcci\xF3n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -869,7 +869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: POGO
+  m_text: Pogo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1080,8 +1080,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pulsa I / Gatillo derecho en el aire para caer en picado. \n\nSi durante
     la caida golpeas a un enemigo lo eliminar\xE1s y saltar\xE1s muy alto.\n\nAl
-    caer al suelo usando el Pogo, saltar poco desp\xFAes te permitir\xE1 hacer un
-    salto alto."
+    tocar el suelo tras la ca\xEDda pulsar salto (sin estar pulsando la I) ejecutar\xE1
+    un salto alto."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pulsa el Bot\xF3n O / gatillo izquierdo mientras est\xE1s dentro de una
+  m_text: "Pulsa el Bot\xF3n O / Gatillo izquierdo mientras est\xE1s dentro de una
     zona morada para correr por la pared.\n\nAl hacerlo conservar\xE1s la velocidad
     horizontal y tu velocidad de caida se reducir\xE1 dr\xE1sticamente.\n\n\xA1Cuidado!
     Si pasas mucho tiempo corriendo por la misma pared empezar\xE1s a caer."
