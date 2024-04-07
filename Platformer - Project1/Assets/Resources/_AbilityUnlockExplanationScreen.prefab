@@ -598,8 +598,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pulsa el Bot\xF3n de salto en el aire para pegar una patada en la direcci\xF3n
     en la que est\xE9s mirando.\n\nSi con la patada golpeas una pared o un enemigo
-    saltar\xE1s en direcci\xF3n contraria. Si es un enemigo lo eliminar\xE1s.\n\nAl
-    hacer Wall Jump conviertes tu velocidad horizontal a la nueva direcci\xF3n."
+    saltar\xE1s har\xE1s un salto de pared. Si es un enemigo lo eliminar\xE1s.\n\nAl
+    hacer un salto de pared conviertes tu velocidad horizontal a la nueva direcci\xF3n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 5406171965422404785}
   - component: {fileID: 299461980814476384}
   m_Layer: 5
-  m_Name: WJ
+  m_Name: Jump Kick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,7 +734,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wall Jump
+  m_text: 'Jump Kick
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1079,9 +1081,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Pulsa I / Gatillo derecho en el aire para caer en picado. \n\nSi durante
-    la caida golpeas a un enemigo lo eliminar\xE1s y saltar\xE1s muy alto.\n\nAl
-    tocar el suelo tras la ca\xEDda pulsar salto (sin estar pulsando la I) ejecutar\xE1
-    un salto alto."
+    la caida golpeas a un enemigo lo eliminar\xE1s y saltar\xE1s muy alto.\n\nSi
+    tocas el suelo tras la ca\xEDda y pulsas el bot\xF3n de salto (sin estar pulsando
+    la I) ejecutar\xE1 un salto alto."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}

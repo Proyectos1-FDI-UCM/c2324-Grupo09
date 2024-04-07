@@ -30,8 +30,8 @@ public class BackgroundComponent : MonoBehaviour
     {
         if (_targetCameraTransform != null)
         {
-            _myTransform.position = new Vector3(_startpos.x + _targetCameraTransform.position.x * _followValues.x,
-                _startpos.y + _targetCameraTransform.position.y * _followValues.y);
+            _myTransform.position = new Vector3((_startpos.x + _targetCameraTransform.position.x) * _followValues.x,
+                (_startpos.y + _targetCameraTransform.position.y) * _followValues.y);
         }
     }
 }
