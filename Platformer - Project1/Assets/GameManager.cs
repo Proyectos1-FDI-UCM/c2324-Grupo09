@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     private GameObject FadeCanvas;
     private Transform Circle;
     private Animator CameraAnimator;
-    private float volume = 1f;
+    private float masterVolume = 1f;
+    private float musicVolume = 1f;
+    private float sfxVolume = 1f;
     
     private RefactoredCharacterController charController;
     private CameraController cameraController;
+    private PauseScript _pause;
     static public GameManager Instance;
     public bool isEnabled=true;
 
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
         cameraController = null;
         particleManager = FindObjectOfType<ParticleManager>();
         boss = FindObjectOfType<BossIA>();
+        _pause=FindObjectOfType<PauseScript>();
 
 
         NumerateAllRooms();
@@ -127,10 +131,35 @@ public class GameManager : MonoBehaviour
         cameraController = null;
         particleManager = FindObjectOfType<ParticleManager>();
         boss = FindObjectOfType<BossIA>();
-
-
         NumerateAllRooms();
+        AudioManager.Instance.mastervolume = masterVolume;
+        AudioManager.Instance.Musicvolume = musicVolume;
+        AudioManager.Instance.SFXvolume = sfxVolume;
+        _pause= FindObjectOfType<PauseScript>();
+        
+        Debug.Log("a");
+        _pause.ChangeSliderValue(masterVolume,musicVolume,sfxVolume);
+        _pause.ChangeToggleValue(isEnabled);
+        
+        Check();
+        
     }
-    
+    public void SaveMasterVolume(float volume) 
+    {
+        masterVolume = volume;  
+    }
+    public void SaveMusicVolume(float volume)
+    {
+        musicVolume=volume;
+    }
+    public void SaveSFXVolume(float volume)
+    {
+        sfxVolume = volume;
+    } 
+    public bool IsToggleEnabled() 
+    {
+        return isEnabled;
+    }
+
 
 }

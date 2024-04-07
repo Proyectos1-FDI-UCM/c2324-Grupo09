@@ -3136,6 +3136,10 @@ MonoBehaviour:
   _backButton: {fileID: 6081262689518823496}
   _mainMenu: {fileID: 8979935747720578119}
   _optionsMenu: {fileID: 1890165448239832220}
+  masterSlider: {fileID: 1800887394821719413}
+  musicSlider: {fileID: 2906641927219968963}
+  sfxSlider: {fileID: 3382503728552926197}
+  particle: {fileID: 4230044538796827430}
 --- !u!1 &7964091087817796334
 GameObject:
   m_ObjectHideFlags: 0

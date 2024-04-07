@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseScript : MonoBehaviour
 {
@@ -14,10 +15,20 @@ public class PauseScript : MonoBehaviour
     [SerializeField]
     private GameObject _optionsMenu;
     GameManager _gameManager;
+    [SerializeField]
+    private Slider masterSlider;
+    [SerializeField]
+    private Slider musicSlider;
+    [SerializeField]
+    private Slider sfxSlider;
+    [SerializeField]
+    private Toggle particle;
     private void Start() 
     {
         _gameManager= FindObjectOfType<GameManager>();
     _eventSystem=FindObjectOfType<EventSystem>();
+       Debug.Log( _gameManager.IsToggleEnabled());
+        particle.isOn=_gameManager.IsToggleEnabled();
     }
 
     public void OnPressedBackToMenu() 
@@ -47,5 +58,17 @@ public class PauseScript : MonoBehaviour
         _mainMenu.SetActive(true);
         _optionsMenu.SetActive(false);
         _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
+    }
+    public void ChangeSliderValue(float master, float music ,float sfx) 
+    {
+        masterSlider.value = master;
+        musicSlider.value = music;
+        sfxSlider.value = sfx;    
+    }
+    public void ChangeToggleValue(bool booleano)
+    {
+        Debug.Log(booleano);
+        particle.isOn=booleano;
+      
     }
 }
