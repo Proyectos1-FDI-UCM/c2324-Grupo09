@@ -59,6 +59,7 @@ public class RefactoredCharacterController : MonoBehaviour
     bool _isWallRunning = false;
     bool _wallRunHeld = false;
     bool _hasWallRun = false;
+    bool _isNowPogoJumping = false;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
     //stores the rigidbody velocity when the pogo button is pressed
@@ -130,7 +131,7 @@ public class RefactoredCharacterController : MonoBehaviour
     //Triggers on releasing jump button
     public void JumpUp()
     {
-        if (_isJumping)
+        if (_isJumping && !_isNowPogoJumping)
         {
             _chMovement.JumpCut();
         }
@@ -307,6 +308,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 {
                     if (_canPogoJump)
                     {
+                        _isNowPogoJumping = true;   
                         _chMovement.PogoJump();
                     }
                     else
@@ -347,6 +349,7 @@ public class RefactoredCharacterController : MonoBehaviour
             if (_chMovement.RBVel.y < 0.01f && _lastGroundedTime < 0)
             {
                 _isJumping = false;
+                _isNowPogoJumping = false;
                 //no wall jumping
                 _isJumpFalling = true;
             }
