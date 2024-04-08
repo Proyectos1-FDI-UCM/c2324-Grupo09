@@ -47063,6 +47063,10 @@ PrefabInstance:
       propertyPath: _closeMenuAction
       value: 
       objectReference: {fileID: 1356029625106349507, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
+    - target: {fileID: 7975995863228283395, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
+      propertyPath: _openCloseMenuAion
+      value: 
+      objectReference: {fileID: -8345801715195494057, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
     - target: {fileID: 8777431847029660876, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_Enabled
       value: 1
