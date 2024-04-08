@@ -137,7 +137,6 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.SFXvolume = sfxVolume;
         _pause= FindObjectOfType<PauseScript>();
         
-        Debug.Log("a");
         _pause.ChangeSliderValue(masterVolume,musicVolume,sfxVolume);
         _pause.ChangeToggleValue(isEnabled);
         
