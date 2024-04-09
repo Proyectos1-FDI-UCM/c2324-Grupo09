@@ -224,7 +224,7 @@ public class BossIA : MonoBehaviour
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
         _bossPatrons = new Action[5];
-        _bossPatrons[0] = HugeHandsSweep;   //Desbloqueado desde el principio
+        _bossPatrons[0] = HandsSweep;//HugeHandsSweep;   //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
         _bossPatrons[2] = EmergingWalls;     //Desbloqueado tras golpear 1 vez al boss
         _bossPatrons[3] = StartLasersPatron;    //Desbloqueado tras golpear 2 veces al boss
@@ -474,6 +474,10 @@ public class BossIA : MonoBehaviour
         //restrictingWall.SetActive(false);
         int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
         stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        if(rdNumber == 1)
+        {
+            stompingHand.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = true;
+        }
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
         stompingHand.PrevisualizeStomp();
         yield return new WaitForSeconds(stompingPrevisualize);
