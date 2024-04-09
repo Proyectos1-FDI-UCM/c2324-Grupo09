@@ -60,6 +60,7 @@ public class StompingHandIA : MonoBehaviour
             else
             {
                 projectileSpawned = Instantiate(waveAttackPrefab, (transform.position.x - (offsetX*(2f/3))) * Vector3.right + projectileSpawnVerticalPos * Vector3.up, Quaternion.identity);//, transform);
+                projectileSpawned.transform.localScale = new Vector3(projectileSpawned.transform.localScale.x * -1, projectileSpawned.transform.localScale.y, projectileSpawned.transform.localScale.z);
             }
             projectileSpawned.GetComponent<EnemyMovement>().Direction(Vector3.right * (int)sD);
         }
