@@ -5466,7 +5466,7 @@ Transform:
   m_GameObject: {fileID: 721639290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -271.69998, y: 0.80000687, z: -10}
+  m_LocalPosition: {x: -271.7, y: 0.80000687, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48642,6 +48642,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3091856293135305079, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3382503728552926197, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -48766,13 +48770,77 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.34986
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.34986
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.34986
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20.666687
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578352405711484776, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780974953609861349, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3467694
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780974953609861349, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3467694
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780974953609861349, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.04623592
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780974953609861349, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 116.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7843578776720831063, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
     - target: {fileID: 7843578776720831063, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3546258
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3546258
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3546258
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 151.83331
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485943248370997550, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
