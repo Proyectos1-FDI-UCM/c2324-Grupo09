@@ -7872,6 +7872,7 @@ MonoBehaviour:
   _yHugeHandOffset: 40
   _ySweepingHandOffset: -70
   _stompinhHandSizeMultiplier: 4
+  _bossImagePosition: {fileID: 2053318242}
   _limitL: {fileID: 1686242790}
   _limitR: {fileID: 1791456823}
   _laserSize: 6
@@ -19451,6 +19452,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7936530949433411857, guid: b9a6d58bfed835c47bdf3bf045810ec5, type: 3}
   m_PrefabInstance: {fileID: 2040799081}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2053318241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2053318242}
+  m_Layer: 0
+  m_Name: BossLancePreviewPositionMarker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053318242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053318241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -382.5, y: -41.7, z: 3.0988433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2065173706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7936530949433411857, guid: b9a6d58bfed835c47bdf3bf045810ec5, type: 3}
@@ -19481,3 +19513,4 @@ SceneRoots:
   - {fileID: 1686242790}
   - {fileID: 1791456823}
   - {fileID: 1357794349}
+  - {fileID: 2053318242}

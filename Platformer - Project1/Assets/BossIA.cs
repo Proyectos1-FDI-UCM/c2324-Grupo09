@@ -104,6 +104,9 @@ public class BossIA : MonoBehaviour
     Transform _playerTransform;
 
     [Header("Lasers")]
+    GameObject _bossLancePreviewPrefab;
+    [SerializeField]
+    Transform _bossImagePosition;
     [SerializeField]
     Transform _limitL;
     [SerializeField]
@@ -111,6 +114,7 @@ public class BossIA : MonoBehaviour
     GameObject _laserPrefab;
     [SerializeField]
     float _laserSize = 6f;
+    GameObject bossImg;
 
     /*
     [Header("Jumpers")]
@@ -177,6 +181,10 @@ public class BossIA : MonoBehaviour
         Destroy(_sweepingHand);
         stompingHand = null;
 
+        if(bossImg!=null)
+            Destroy(bossImg);
+        bossImg = null;
+
         for (int i = 0; i < eS.Length; i++)
         {
             eS[i]?.DestroySpawnedEnemy();
@@ -219,6 +227,7 @@ public class BossIA : MonoBehaviour
         eSpawner = Resources.Load<GameObject>("Spawner");
         _laserPrefab = Resources.Load<GameObject>("Laser");
         _sweepingHandPrefab = Resources.Load<GameObject>("SweepingHand");
+        _bossLancePreviewPrefab = Resources.Load<GameObject>("BossLancePreviewImage");
         _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
@@ -232,18 +241,18 @@ public class BossIA : MonoBehaviour
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
-        _bossPatrons[3]();
+        //_bossPatrons[3]();
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
         
-        /*/------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
 
         
-        */
+        
         //_bossPatrons[0]((int)currentBS);
     }
 
@@ -368,6 +377,7 @@ public class BossIA : MonoBehaviour
         pinchosParedR.SetActive(true);
         pinchosSuelo.SetActive(false);
 
+        bossImg = Instantiate(_bossLancePreviewPrefab, _bossImagePosition.position, Quaternion.identity);
         for(int l = 3; l > 0; l--)
         {
             int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
@@ -385,6 +395,9 @@ public class BossIA : MonoBehaviour
 
             yield return new WaitForSeconds(3);
         }
+        Destroy(bossImg);
+        bossImg = null;
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
 
         UseNextPatron();
     }

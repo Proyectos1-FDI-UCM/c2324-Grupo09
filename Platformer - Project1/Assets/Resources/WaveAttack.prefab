@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6903853949857924727}
@@ -95,7 +95,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 09743d0317ef86b46ac09988a0e29288, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb3b3c1a66b72e1408b092295fe9d087, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,8 +116,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6903853949857924727}
   - component: {fileID: 745610576843427724}
-  - component: {fileID: 1156483035125873704}
   - component: {fileID: 7991856714837323145}
+  - component: {fileID: 5979657923989946450}
   m_Layer: 8
   m_Name: WaveAttack
   m_TagString: Untagged
@@ -193,8 +193,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1156483035125873704
-BoxCollider2D:
+--- !u!114 &7991856714837323145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020000553355779456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23bca83f08720f4c90e2d924abd805d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementSpeed: 50
+  _movementDirection: {x: 1, y: 0, z: 0}
+--- !u!60 &5979657923989946450
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -225,7 +239,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6053314, y: -1.2751179}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -235,20 +249,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 17.142303, y: 55.351437}
-  m_EdgeRadius: 0
---- !u!114 &7991856714837323145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5020000553355779456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f23bca83f08720f4c90e2d924abd805d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementSpeed: 50
-  _movementDirection: {x: 1, y: 0, z: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 8.551086, y: -1.5198975}
+      - {x: -1.6043091, y: -27.953041}
+      - {x: -0.097229004, y: -8.591194}
+      - {x: -4.600403, y: -22.65303}
+      - {x: -14.562897, y: -32.14598}
+      - {x: 12.809509, y: -31.388123}
+      - {x: 14.736237, y: 4.2969894}
+      - {x: 2.718689, y: 26.25287}
+  m_UseDelaunayMesh: 0
