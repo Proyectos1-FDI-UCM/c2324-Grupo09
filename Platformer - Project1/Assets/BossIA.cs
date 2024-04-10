@@ -241,18 +241,18 @@ public class BossIA : MonoBehaviour
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
-        //_bossPatrons[3]();
+        _bossPatrons[4]();
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
         
-        //------------------------------------------------------------------------------------------------------------------------------------------------------
+        /*/------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
 
         
-        
+        */
         //_bossPatrons[0]((int)currentBS);
     }
 
@@ -510,19 +510,20 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
+        
         //restrictingWall.SetActive(false);
         head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
         eS = new EnemySpawner[3];
         for(int i = 0; i < eS.Length-1; i++)
         {
-            eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
+            eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F / 3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
             eS[i].Spawn(EnemyType.RegularImp, Vector2.right, impSpeed);
             yield return new WaitForSeconds(timeBetweenImps);
         }
         pinchosSuelo.SetActive(true);
 
-        eS[2] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
+        eS[2] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F/3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
         eS[2].Spawn(EnemyType.BlueImp, Vector2.right, impSpeed);
 
         yield return new WaitForSeconds(3f);

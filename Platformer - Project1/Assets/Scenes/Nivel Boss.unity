@@ -7862,8 +7862,8 @@ MonoBehaviour:
   stompingHandSpawnOffset: {x: 80, y: 175, z: 0}
   timeBetweenImps: 1.2
   impSpeed: 70
-  yImpSpawnOffset: -20
-  HeadOffset: {x: -105, y: 112, z: 0}
+  yImpSpawnOffset: -10
+  HeadOffset: {x: -105, y: 105, z: 0}
   restrictingWall: {fileID: 1783167005}
   _yNagasSeparation: 0
   _yNagasSpawnOffset: 70
