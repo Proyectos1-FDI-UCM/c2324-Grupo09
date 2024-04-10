@@ -7874,6 +7874,7 @@ MonoBehaviour:
   _stompinhHandSizeMultiplier: 4
   _limitL: {fileID: 1686242790}
   _limitR: {fileID: 1791456823}
+  _laserSize: 6
 --- !u!4 &1413520898
 Transform:
   m_ObjectHideFlags: 0

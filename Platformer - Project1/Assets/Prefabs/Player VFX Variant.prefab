@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4467198854931333210, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_Size.x
-      value: 3.7069092
+      value: 6.1622925
       objectReference: {fileID: 0}
     - target: {fileID: 4467198854931333210, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_Size.y
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4467198854931333210, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_Offset.x
-      value: -0.020935059
+      value: 0.23602295
       objectReference: {fileID: 0}
     - target: {fileID: 4467198854931333210, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_Offset.y

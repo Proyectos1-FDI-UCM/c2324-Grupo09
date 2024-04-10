@@ -106,8 +106,6 @@ public class GameManager : MonoBehaviour
         {
         isEnabled= true;
         }
-       
-
     }                                         
     public void Check() 
     {

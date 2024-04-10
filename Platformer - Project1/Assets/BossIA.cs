@@ -109,8 +109,8 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     Transform _limitR;
     GameObject _laserPrefab;
-    //[SerializeField]
-    float _laserSize = 10f;
+    [SerializeField]
+    float _laserSize = 6f;
 
     /*
     [Header("Jumpers")]
@@ -232,18 +232,18 @@ public class BossIA : MonoBehaviour
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
-        //_bossPatrons[3]();
+        _bossPatrons[3]();
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
         
-        //------------------------------------------------------------------------------------------------------------------------------------------------------
+        /*/------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
 
         
-        
+        */
         //_bossPatrons[0]((int)currentBS);
     }
 
