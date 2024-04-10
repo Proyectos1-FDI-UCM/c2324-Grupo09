@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LaserComponent : MonoBehaviour
 {
-    float _delayInitTime = 1f;
+    [SerializeField]
+    float _delayInitTime = 2f;
     Transform _transform;
 
     void Start()

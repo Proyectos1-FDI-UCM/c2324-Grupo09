@@ -19,6 +19,12 @@ public class ScriptMenu : MonoBehaviour
     EventSystem _eventSystem;
     [SerializeField]
     GameObject _backButton;
+    [SerializeField]
+    private Slider masterSlider;
+    [SerializeField]
+    private Slider musicSlider;
+    [SerializeField]
+    private Slider sfxSlider;
     ParticleManager _particleManager;
      float soundLevel;
     // Start is called before the first frame update
@@ -28,6 +34,7 @@ public class ScriptMenu : MonoBehaviour
         _optionsMenu.SetActive(false);
         
         _eventSystem = FindObjectOfType<EventSystem>();
+        _vfxtoggle.isOn= _gameManager.IsToggleEnabled();
     }
 
     public void PressedLevel1()
@@ -48,6 +55,12 @@ public class ScriptMenu : MonoBehaviour
         _mainMenu.SetActive(false);
        
         _eventSystem.SetSelectedGameObject(_backButton);
+    }
+    public void ChangeSliderValue(float master, float music, float sfx)
+    {
+        masterSlider.value = master;
+        musicSlider.value = music;
+        sfxSlider.value = sfx;
     }
     public void PressedBack() 
     {

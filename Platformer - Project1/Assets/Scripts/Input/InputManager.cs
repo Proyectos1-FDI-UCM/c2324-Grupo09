@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
 
     [SerializeField]
     InputActionReference _closeMenuAction;
+    [SerializeField]
+    InputActionReference _openCloseMenuAion;
 
     GameObject _spawnMenuPrefab;
     GameObject _spawnMenu;
@@ -54,6 +56,7 @@ public class InputManager : MonoBehaviour
         _slideAction.action.canceled += SlideUp;
         _runAction.action.canceled += RunUp;
         _closeMenuAction.action.performed += CloseMenu;
+        _openCloseMenuAion.action.performed += OpenCloseMenu;
     }
     private void OnEnable()
     {
@@ -62,6 +65,7 @@ public class InputManager : MonoBehaviour
         _runAction.action.Enable();
         _wallRunAction.action.Enable();
         _closeMenuAction.action.Enable();
+        _openCloseMenuAion.action.Enable();
     }
     private void OnDisable()
     {
@@ -70,6 +74,7 @@ public class InputManager : MonoBehaviour
         _runAction.action.Disable();
         _wallRunAction.action.Disable();
         _closeMenuAction.action.Disable();
+        _openCloseMenuAion.action.Disable();
     }
     private void OnDestroy()
     {
@@ -82,6 +87,7 @@ public class InputManager : MonoBehaviour
         _wallRunAction.action.canceled -= WallrunUp;
         _runAction.action.canceled -= RunUp;
         _closeMenuAction.action.canceled -= CloseMenu;
+        _openCloseMenuAion.action.canceled -=OpenCloseMenu;
     }
 
     private void CloseMenu(InputAction.CallbackContext obj)
@@ -91,6 +97,12 @@ public class InputManager : MonoBehaviour
             _blockInput = false;
             Destroy(_spawnMenu);
         }
+    }
+    private void OpenCloseMenu(InputAction.CallbackContext obj)
+    {
+        _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+        if (_pauseMenu.activeSelf) Time.timeScale = 0f;
+        else Time.timeScale = 1f;
     }
     private void JumpDown(InputAction.CallbackContext obj) 
     {
@@ -136,15 +148,7 @@ public class InputManager : MonoBehaviour
             _characterController.WallRunUp();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
-            if(_pauseMenu.activeSelf) Time.timeScale = 0f;
-            else Time.timeScale = 1f;
-        }
-    }
+    
 
     public void SpawnUnlockMenu(int i)
     {

@@ -16,11 +16,11 @@ public class BossIA : MonoBehaviour
     /// <summary>
     /// Array con todo los patrones del Boss ordenados debidamente
     /// </summary>
-    private Action<int>[] _bossPatrons;
+    private Action[] _bossPatrons;
     /// <summary>
     /// Array con los patrones del boss en el orden en el que los va a ejecutar.
     /// </summary>
-    private Action<int>[] _currentBossPatronSeries;
+    private Action[] _currentBossPatronSeries;
     /// <summary>
     /// Valor del patron por el que se llega el boos, referido a la posicion de la array de arriba
     /// </summary>
@@ -109,13 +109,15 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     Transform _limitR;
     GameObject _laserPrefab;
+    //[SerializeField]
+    float _laserSize = 10f;
 
     /*
     [Header("Jumpers")]
     private GameObject jumperPrefab;
 
     */
-
+    /*
     IEnumerator SpawnLasers()
     {
         while (BossStates.Wraithed == currentBS)
@@ -125,6 +127,7 @@ public class BossIA : MonoBehaviour
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.6f, 2f));
         }
     }
+    */
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -152,7 +155,7 @@ public class BossIA : MonoBehaviour
         _patronIndex = 0;
         GetNewPatronSeries();
         UseNextPatron();
-        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
+        //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
     }
 
     /// <summary>
@@ -220,24 +223,26 @@ public class BossIA : MonoBehaviour
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
-        _bossPatrons = new Action<int>[5];
-        _bossPatrons[0] = HugeHandsSweep;   //Desbloqueado desde el principio
+        _bossPatrons = new Action[5];
+        _bossPatrons[0] = HandsSweep;//HugeHandsSweep;   //Desbloqueado desde el principio
         _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
         _bossPatrons[2] = EmergingWalls;     //Desbloqueado tras golpear 1 vez al boss
-        _bossPatrons[3] = HandsSweep;    //Desbloqueado tras golpear 2 veces al boss
+        _bossPatrons[3] = StartLasersPatron;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
-
+        //_bossPatrons[3]();
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
+        
         //------------------------------------------------------------------------------------------------------------------------------------------------------
-        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
+        //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
 
+        
         
         //_bossPatrons[0]((int)currentBS);
     }
@@ -251,8 +256,9 @@ public class BossIA : MonoBehaviour
         Debug.Log((int)currentBS + " " + (((int)currentBS)-1));
         currentBS = (BossStates)(((int)currentBS) - 1);
         Debug.Log(currentBS);
-        if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
-        else if (currentBS == BossStates.Dead) PlayerWins();
+        /*if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
+        else*/ 
+        if (currentBS == BossStates.Dead) PlayerWins();
         GetNewPatronSeries();
         UseNextPatron();
     }
@@ -274,7 +280,7 @@ public class BossIA : MonoBehaviour
             GetNewPatronSeries();
         }
         _patronIndex++;
-        _currentBossPatronSeries[_patronIndex]((int)currentBS);
+        _currentBossPatronSeries[_patronIndex]();
     }
 
     /// <summary>
@@ -284,7 +290,7 @@ public class BossIA : MonoBehaviour
     {
         _patronIndex = -1;
         int[] positionsShuffled = new int[5 - (int)currentBS];
-        _currentBossPatronSeries = new Action<int>[6 - (int)currentBS];
+        _currentBossPatronSeries = new Action[6 - (int)currentBS];
         for (int i = 0; i < positionsShuffled.Length; i++)
         {
             positionsShuffled[i] = i;
@@ -309,7 +315,7 @@ public class BossIA : MonoBehaviour
 
     #region BossPatronFunctions
 
-    private void EmergingWalls(int i)
+    private void EmergingWalls()
     {
         //if (i == 3)
         //{
@@ -317,17 +323,22 @@ public class BossIA : MonoBehaviour
         //}
     }
 
-    private void HandsSweep(int i)
+    private void HandsSweep()
     {
         StartCoroutine(HandSweepLVL1());
     }
 
-    private void HugeHandsSweep(int i)
+    private void HugeHandsSweep()
     {
         //if (i == 3)
         //{
             StartCoroutine(HugeHandSweepLVL1());
         //}
+    }
+
+    private void StartLasersPatron()
+    {
+        StartCoroutine(LasersPatron());
     }
 
     /*
@@ -340,7 +351,7 @@ public class BossIA : MonoBehaviour
     }
     */
 
-    private void BlueImpOne(int i)
+    private void BlueImpOne()
     {
         //if (i == 3)
         //{
@@ -349,6 +360,34 @@ public class BossIA : MonoBehaviour
     }
 
     #region auxiliarBossPatronFunctions
+
+    IEnumerator LasersPatron()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(true);
+        pinchosParedR.SetActive(true);
+        pinchosSuelo.SetActive(false);
+
+        for(int l = 3; l > 0; l--)
+        {
+            int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
+            Debug.Log(n + ", " + (int)((_limitL.position.x - _limitR.position.x) / _laserSize));
+            for (int i = 0; i < n + (l/2 - 1); i++)
+            {
+                Debug.Log("Pasan cosas 1");
+                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
+            }
+            for (int i = n + (-(l / 2) + 1); i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
+            {
+                Debug.Log("Pasan cosas 2");
+                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
+            }
+
+            yield return new WaitForSeconds(3);
+        }
+
+        UseNextPatron();
+    }
 
     #region Pillars
     /// <summary>
@@ -435,6 +474,10 @@ public class BossIA : MonoBehaviour
         //restrictingWall.SetActive(false);
         int rdNumber = (int)Mathf.Sign(UnityEngine.Random.Range(-1, 1));
         stompingHand = Instantiate(stompingHandPrefab, _pilarReferenceTransform.position + stompingHandSpawnOffset.y * Vector3.up + (stompingHandSpawnOffset.x * Vector3.right * rdNumber), Quaternion.identity, _pilarReferenceTransform).GetComponent<StompingHandIA>();
+        if(rdNumber == 1)
+        {
+            stompingHand.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = true;
+        }
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
         stompingHand.PrevisualizeStomp();
         yield return new WaitForSeconds(stompingPrevisualize);

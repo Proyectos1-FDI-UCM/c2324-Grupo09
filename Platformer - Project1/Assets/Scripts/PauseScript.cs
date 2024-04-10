@@ -27,7 +27,7 @@ public class PauseScript : MonoBehaviour
     {
         _gameManager= FindObjectOfType<GameManager>();
     _eventSystem=FindObjectOfType<EventSystem>();
-       Debug.Log( _gameManager.IsToggleEnabled());
+      
         particle.isOn=_gameManager.IsToggleEnabled();
     }
 
