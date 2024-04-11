@@ -121,6 +121,7 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     float _laserSize = 6f;
     GameObject bossImg;
+    GameObject[] lasers = new GameObject[0]; 
 
     /*
     [Header("Jumpers")]
@@ -196,6 +197,12 @@ public class BossIA : MonoBehaviour
             eS[i]?.DestroySpawnedEnemy();
             Destroy(eS[i]?.gameObject);
         }
+
+        for(int i = 0; i < lasers.Length; i++)
+        {
+            Destroy(lasers[i]?.gameObject);
+        }
+
         eS = new EnemySpawner[0];
         if(head != null) Destroy(head);
         head = null;
@@ -377,17 +384,22 @@ public class BossIA : MonoBehaviour
 
         bossImg = Instantiate(_bossLancePreviewPrefab, _bossImagePosition.position, Quaternion.identity);
         int l = 1;
+        int r = (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize));
         int[] n = new int[] { ((int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize))) / 2, 1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize)) - 1 }; 
         for(int m = 0; m < 3; m++)
         {
+            lasers = new GameObject[r+2];
+            r = 0;
             //int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
             for (int i = 0; i < n[m] - 3; i++)
             {
-                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                lasers[r] = Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                r++;
             }
             for (int i = n[m] + 3 ; i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
             {
-                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                lasers[r] = Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                r++;
             }
 
             yield return new WaitForSeconds(2);
