@@ -377,17 +377,17 @@ public class BossIA : MonoBehaviour
 
         bossImg = Instantiate(_bossLancePreviewPrefab, _bossImagePosition.position, Quaternion.identity);
         int l = 1;
-        int[] n = new int[] { ((int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize * (l + 1)))) / 2, 1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize * (l + 1))) - 1 }; 
+        int[] n = new int[] { ((int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize))) / 2, 1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize)) - 1 }; 
         for(int m = 0; m < 3; m++)
         {
             //int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
-            for (int i = 0; i < n[m] - 2; i++)
+            for (int i = 0; i < n[m] - 3; i++)
             {
-                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
             }
-            for (int i = n[m] + 2 ; i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
+            for (int i = n[m] + 3 ; i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
             {
-                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
+                Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize, _limitL.position.y, _limitL.position.z), Quaternion.identity);
             }
 
             yield return new WaitForSeconds(2);

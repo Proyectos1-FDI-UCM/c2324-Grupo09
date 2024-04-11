@@ -7878,7 +7878,7 @@ MonoBehaviour:
   _bossImagePosition: {fileID: 2053318242}
   _limitL: {fileID: 1686242790}
   _limitR: {fileID: 1791456823}
-  _laserSize: 6
+  _laserSize: 9
 --- !u!4 &1413520898
 Transform:
   m_ObjectHideFlags: 0
@@ -18738,7 +18738,7 @@ Transform:
   m_GameObject: {fileID: 1791456822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -179.8, y: 67.5, z: -7.876382}
+  m_LocalPosition: {x: -174.6, y: 67.5, z: -7.876382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

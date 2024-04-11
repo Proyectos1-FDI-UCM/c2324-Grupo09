@@ -7,7 +7,7 @@ public class HinIA : EnemyIA
     #region references
     private Transform _myTransform;
     private EnemyMovement _enemyMovement;
-    private RefactoredCharacterController _player;
+    private Transform _player;
     private BoxCollider2D _myCollider;
     private EnemyHit _hitControl;
     private EnemyAnimController _enemyAnimController;
@@ -15,21 +15,18 @@ public class HinIA : EnemyIA
     #region parameters
     [SerializeField]
     private float _hinVision = 1.0f;
-    [SerializeField]
-    private float _yMaxPosInFirstStage = 1.0f;
-    [SerializeField]
-    private float _firstStageCoolDown = 1.0f;
-    [SerializeField]
-    private float _alturaMax = 1.0f;
     #endregion
     #region properties
-    private bool _HinHasTeleported = false;
-    private bool _isFalling = false;
-    private float _yPreviousFrameValue;
-    private float _timeSinceSecondStage;
-    private bool _FinalStageControl = true;
-    private bool _playerIsInRange;
+    [SerializeField]
+    private float _timeMoving;
+    [SerializeField]
+    private float _totalTimeMoving;
+    [SerializeField]
+    private float _HinMaxSpeed;
+
+    State _currentState = State.waiting;
     #endregion
+    /*
     #region methods
     private void HinFirstStage()
     {
@@ -78,9 +75,12 @@ public class HinIA : EnemyIA
         }
     }
     #endregion
+
+    */
     public override void OnHit()
     {
-        Death();
+        _timeMoving += _totalTimeMoving / 2;
+        //Death();
     }
     public override void Death()
     {
@@ -90,8 +90,7 @@ public class HinIA : EnemyIA
     {
         _myTransform = transform;
         _enemyMovement = GetComponent<EnemyMovement>();
-        _player = FindObjectOfType<RefactoredCharacterController>();
-        _yPreviousFrameValue = _myTransform.position.y;
+        _player = FindObjectOfType<RefactoredCharacterController>().transform;
         _myCollider = GetComponent<BoxCollider2D>();
         _hitControl = GetComponent<EnemyHit>();
         _enemyAnimController = GetComponent<EnemyAnimController>();
@@ -100,26 +99,39 @@ public class HinIA : EnemyIA
 
     void Update()
     {
-        _playerIsInRange = _player.transform.position.x < (_myTransform.position.x + _hinVision) && _player.transform.position.x > (_myTransform.position.x - _hinVision);
-        _timeSinceSecondStage = Mathf.FloorToInt(Time.time) + _firstStageCoolDown - 1;
-
-        if (_playerIsInRange && !_HinHasTeleported)
+        if(_currentState == State.waiting)
         {
-            HinFirstStage();
-            _enemyAnimController.HinJump();
+            if (PlayerIsInRange())
+            {
+                _currentState = State.moving;
+                _timeMoving = Time.time;
+            }
         }
-        if ((_timeSinceSecondStage % _firstStageCoolDown == 0) && _HinHasTeleported && _FinalStageControl)
+        else
         {
-            _FinalStageControl = false;
+            _enemyMovement.Speed(Mathf.Lerp(_HinMaxSpeed,-_HinMaxSpeed,Mathf.Pow((Time.time - _timeMoving)/_totalTimeMoving, 1f)));
+            if (Time.time - _timeMoving > _totalTimeMoving)
+            {
+                _enemyMovement.Speed(0);
+                _currentState = State.waiting;
+            }
         }
-        if(!_FinalStageControl)
-        {
-            _myCollider.enabled = true;
-            _hitControl.enabled = true;
+    }
 
-            HinFinalStage();
-        }
+    bool PlayerIsInRange()
+    {
+        return _player.position.x < (_myTransform.position.x + _hinVision) && _player.position.x > (_myTransform.position.x - _hinVision);
+    }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(_myTransform.position, _hinVision * Vector3.one);
+    }
+
+    enum State
+    {
+        waiting,
+        moving
     }
 
 }
