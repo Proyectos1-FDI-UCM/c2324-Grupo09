@@ -7864,6 +7864,9 @@ MonoBehaviour:
   impSpeed: 70
   yImpSpawnOffset: -10
   HeadOffset: {x: -105, y: 105, z: 0}
+  timeTillSpikesGone: 5
+  _nahaSpeed: 35
+  _nahaOffset: -20
   restrictingWall: {fileID: 1783167005}
   _yNagasSeparation: 0
   _yNagasSpawnOffset: 70

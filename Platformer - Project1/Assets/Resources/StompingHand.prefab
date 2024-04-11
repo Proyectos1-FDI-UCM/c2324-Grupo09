@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5940740675413645745}
   - component: {fileID: 1100701549057694715}
   - component: {fileID: 6531272242272070861}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 7770889991545834430}
   - component: {fileID: 7865320989799626040}
   - component: {fileID: 7322294847539916688}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: StompingHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

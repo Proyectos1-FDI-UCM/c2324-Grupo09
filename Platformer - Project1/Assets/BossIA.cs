@@ -82,6 +82,12 @@ public class BossIA : MonoBehaviour
 
     [Header("OpposingNahas")]
     [SerializeField]
+    float timeTillSpikesGone = 5f;
+    [SerializeField]
+    float _nahaSpeed = 10f;
+    [SerializeField]
+    private float _nahaOffset = -20f;
+    [SerializeField]
     private GameObject restrictingWall;
     [SerializeField]
     float _yNagasSeparation = 20f;
@@ -218,7 +224,6 @@ public class BossIA : MonoBehaviour
     void Start()
     {
         //playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
-
         _bossHitbox = GetComponent<BoxCollider2D>();
         _bossHitbox.enabled = false;
         pilarPrefab = Resources.Load<GameObject>("Pilar");
@@ -234,25 +239,22 @@ public class BossIA : MonoBehaviour
         //https://stackoverflow.com/questions/7712137/array-containing-methods
         _bossPatrons = new Action[5];
         _bossPatrons[0] = HandsSweep;//HugeHandsSweep;   //Desbloqueado desde el principio
-        _bossPatrons[1] = HandsSweep;       //Desbloqueado desde el principio
+        _bossPatrons[1] = StartLasersPatron;       //Desbloqueado desde el principio
         _bossPatrons[2] = EmergingWalls;     //Desbloqueado tras golpear 1 vez al boss
-        _bossPatrons[3] = StartLasersPatron;    //Desbloqueado tras golpear 2 veces al boss
+        _bossPatrons[3] = OpossingNahas;    //Desbloqueado tras golpear 2 veces al boss
         _bossPatrons[4] = BlueImpOne;       //Patrón que le permite recibir daño y que siempre
                                             //se ejecutará al final de la serie de patrones generados.
 
         //StartCoroutine("OpposingNagasLVL1");
-        _bossPatrons[4]();
+        //_bossPatrons[3]();
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
         
-        /*/------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         GetNewPatronSeries();
         UseNextPatron();
-
-        
-        */
         //_bossPatrons[0]((int)currentBS);
     }
 
@@ -350,16 +352,12 @@ public class BossIA : MonoBehaviour
         StartCoroutine(LasersPatron());
     }
 
-    /*
-    private void OpossingNahas(int i)
+    
+    private void OpossingNahas()
     {
-        if (i == 3)
-        {
-            StartCoroutine("OpposingNagasLVL1");
-        }
+        StartCoroutine("NahaSimplePattern");
     }
-    */
-
+    
     private void BlueImpOne()
     {
         //if (i == 3)
@@ -378,27 +376,25 @@ public class BossIA : MonoBehaviour
         pinchosSuelo.SetActive(false);
 
         bossImg = Instantiate(_bossLancePreviewPrefab, _bossImagePosition.position, Quaternion.identity);
-        for(int l = 3; l > 0; l--)
+        int l = 1;
+        int[] n = new int[] { ((int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize * (l + 1)))) / 2, 1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize * (l + 1))) - 1 }; 
+        for(int m = 0; m < 3; m++)
         {
-            int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
-            Debug.Log(n + ", " + (int)((_limitL.position.x - _limitR.position.x) / _laserSize));
-            for (int i = 0; i < n + (l/2 - 1); i++)
+            //int n = UnityEngine.Random.Range(1, (int)Math.Abs((_limitL.position.x - _limitR.position.x) / (_laserSize*(l + 1))));
+            for (int i = 0; i < n[m] - 2; i++)
             {
-                Debug.Log("Pasan cosas 1");
                 Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
             }
-            for (int i = n + (-(l / 2) + 1); i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
+            for (int i = n[m] + 2 ; i < (int)Math.Abs((_limitL.position.x - _limitR.position.x) / _laserSize); i++)
             {
-                Debug.Log("Pasan cosas 2");
                 Instantiate(_laserPrefab, new Vector3(_limitL.position.x + i * _laserSize * (l+1), _limitL.position.y, _limitL.position.z), Quaternion.identity);
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
         }
         Destroy(bossImg);
         bossImg = null;
-        yield return new WaitForSeconds(timeTillPatronStartLVL1);
-
+        yield return new WaitForSeconds(0.5f);
         UseNextPatron();
     }
 
@@ -465,6 +461,8 @@ public class BossIA : MonoBehaviour
             i += 2;
         }
 
+        yield return new WaitForSeconds(timeTillPatronStartLVL1);
+
         //Patrón se ha terminado 
 
         UseNextPatron();
@@ -510,11 +508,11 @@ public class BossIA : MonoBehaviour
         pinchosParedL.SetActive(false);
         pinchosParedR.SetActive(false);
         pinchosSuelo.SetActive(false);
-        
+
         //restrictingWall.SetActive(false);
+        eS = new EnemySpawner[3];
         head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
-        eS = new EnemySpawner[3];
         for(int i = 0; i < eS.Length-1; i++)
         {
             eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F / 3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
@@ -540,6 +538,34 @@ public class BossIA : MonoBehaviour
         UseNextPatron();
     }
     #endregion
+
+    IEnumerator NahaSimplePattern()
+    {
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+        eS = new EnemySpawner[1];
+        head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
+        eS[0] = Instantiate(eSpawner, _bossImagePosition.position + Vector3.right * _nahaOffset, Quaternion.identity).GetComponent<EnemySpawner>();
+        eS[0].ChangeDirectionLooking(-1);
+        eS[0].Spawn(EnemyType.Naha, Vector2.right, _nahaSpeed, 8);
+        yield return new WaitForSeconds(2*timeTillPatronStartLVL1);
+        pinchosSuelo.SetActive(true);
+        yield return new WaitForSeconds(timeTillSpikesGone);
+        pinchosTecho.SetActive(false);
+        pinchosParedL.SetActive(false);
+        pinchosParedR.SetActive(false);
+        pinchosSuelo.SetActive(false);
+        eS[0].DestroySpawnedEnemy();
+        Destroy(eS[0].gameObject);
+
+
+
+        Destroy(head);
+        yield return new WaitForSeconds(timeTillPatronStartLVL1/2);
+        UseNextPatron();
+    }
 
     #region HugeHandSweep
     IEnumerator HugeHandSweepLVL1()
