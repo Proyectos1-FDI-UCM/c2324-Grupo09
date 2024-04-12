@@ -116,11 +116,11 @@ MonoBehaviour:
     Path: event:/FallingPlatform
   <MenuMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -355939373
+      Data2: 1233071125
+      Data3: 176396679
+      Data4: -2080823765
+    Path: event:/MenuMusic
 --- !u!1 &4655291061840927266
 GameObject:
   m_ObjectHideFlags: 0
