@@ -30,7 +30,7 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        InitializeMusic(FMODEvents.Instance.Music);
+        //InitializeMusic(FMODEvents.Instance.Music);
         
     }
     private void Update()
@@ -56,10 +56,14 @@ public class AudioManager : MonoBehaviour
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         return eventInstance;
     }
-    private void InitializeMusic(EventReference musicEventReference)
+    public void InitializeMusic(EventReference musicEventReference)
     {
         musicEventInstance = CreateInstance(musicEventReference);
         musicEventInstance.start();
+    }
+    public void StopMusic(EventReference musicEventReference)
+    {
+        musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
 
