@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: "Assets/Scenes/Men\xFA.unity"
     guid: 94d29b6dd07c14d45aeb1f29d1fc0025
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Nivel Prueba Build.unity
     guid: 76244176a2c93a440a08ba54659c2197
   - enabled: 0
