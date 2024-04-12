@@ -25,6 +25,14 @@ public class JumpPadComponent : MonoBehaviour
 
     private void Start()
     {
+        try
+        {
+            AudioManager.Instance.InitializeMusic(FMODEvents.Instance.Music);
+        }
+        catch
+        {
+            Debug.Log("Mete audiomanager porfaaa");
+        }
         AimArrow();
     }
 

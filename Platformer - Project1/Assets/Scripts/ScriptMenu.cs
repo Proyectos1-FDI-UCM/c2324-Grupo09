@@ -32,14 +32,30 @@ public class ScriptMenu : MonoBehaviour
     {
         _gameManager = FindObjectOfType<GameManager>();
         _optionsMenu.SetActive(false);
-        
+        try
+        {
+            AudioManager.Instance.InitializeMusic(FMODEvents.Instance.MenuMusic);
+        }
+        catch
+        {
+            Debug.Log("Mete AudioManager prefab UwU");
+        }
         _eventSystem = FindObjectOfType<EventSystem>();
         _vfxtoggle.isOn= _gameManager.IsToggleEnabled();
     }
 
     public void PressedLevel1()
     {
-        SceneManager.LoadScene(1);   
+        SceneManager.LoadScene(1);
+        try
+        {
+            AudioManager.Instance.StopMusic(FMODEvents.Instance.MenuMusic);
+        }
+        catch
+        {
+            Debug.Log("Mete AudioManager prefab UwU");
+        }
+
     }
     public void PressedLevel2()
     {

@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638477723344014018
+  lastModified: 638477703716997745
   FileSizes:
   - Name: Desktop
     Value: 129824
@@ -318,12 +318,13 @@ MonoBehaviour:
   - {fileID: -853120981610349392}
   - {fileID: 8403572273660023762}
   - {fileID: -2449320917859245900}
+  - {fileID: 2925120436583851040}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3900988852417737636}
   StringsBanks:
   - {fileID: 757989061321503002}
-  cacheTime: 638477723344014018
+  cacheTime: 638485198550823925
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -367,10 +368,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638477723343903964
+  lastModified: 638485198550823925
   FileSizes:
   - Name: Desktop
-    Value: 552896
+    Value: 1148512
   Exists: 1
 --- !u!114 &610976268339355186
 MonoBehaviour:
@@ -414,10 +415,10 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638477593387142595
+  lastModified: 638485198550349681
   FileSizes:
   - Name: Desktop
-    Value: 1298
+    Value: 1350
   Exists: 1
 --- !u!114 &896350325739195774
 MonoBehaviour:
@@ -466,6 +467,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 129824
   Exists: 1
+--- !u!114 &2925120436583851040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MenuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/MenuMusic
+  Guid:
+    Data1: -355939373
+    Data2: 1233071125
+    Data3: 176396679
+    Data4: -2080823765
+  Banks:
+  - {fileID: 519181383832477295}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 51226
 --- !u!114 &2992070377364911884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +536,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638477723343783945
+  lastModified: 638485198550324229
   FileSizes:
   - Name: Desktop
     Value: 63680
