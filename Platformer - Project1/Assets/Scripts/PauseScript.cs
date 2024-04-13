@@ -23,18 +23,32 @@ public class PauseScript : MonoBehaviour
     private Slider sfxSlider;
     [SerializeField]
     private Toggle particle;
+    private float master, music, sfx;
+    private bool enabled;
     private void Start() 
     {
+        
         _gameManager= FindObjectOfType<GameManager>();
     _eventSystem=FindObjectOfType<EventSystem>();
-      
-        particle.isOn=_gameManager.IsToggleEnabled();
+        _gameManager.Return();
+        _gameManager.ChangeValues(out master, out music, out sfx, out enabled);
+       
+        masterSlider.value = master;
+        musicSlider.value = music;
+        sfxSlider.value = sfx;
+        particle.isOn=enabled;
+        _optionsMenu.SetActive(false);
+        this.gameObject.SetActive(false);
+
     }
 
     public void OnPressedBackToMenu() 
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1.0f;
+        _gameManager.SaveValue();
+        SceneManager.LoadScene(0);
+       
+        
     }
     public void OnPressedOptions()
     {
@@ -47,11 +61,13 @@ public class PauseScript : MonoBehaviour
     {
        Time.timeScale = 1.0f;
         _gameManager.Check();
+        _gameManager.SaveValue();
        this.gameObject.SetActive(false);
     }
     public void OnPressedExitGame() 
     {
     Application.Quit();
+        _gameManager.SaveValue();
     }
     public void OnPressedBack()
     {
@@ -67,8 +83,8 @@ public class PauseScript : MonoBehaviour
     }
     public void ChangeToggleValue(bool booleano)
     {
-        Debug.Log(booleano);
-        particle.isOn=booleano;
+
+        _gameManager.EnableParticle(booleano);
       
     }
 }

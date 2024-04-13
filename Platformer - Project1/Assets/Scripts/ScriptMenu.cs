@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -27,9 +28,13 @@ public class ScriptMenu : MonoBehaviour
     private Slider sfxSlider;
     ParticleManager _particleManager;
      float soundLevel;
+    private float master, music, sfx;
+    private bool toggle;
     // Start is called before the first frame update
+   
     void Start()
     {
+        
         _gameManager = FindObjectOfType<GameManager>();
         _optionsMenu.SetActive(false);
         try
@@ -41,11 +46,20 @@ public class ScriptMenu : MonoBehaviour
             Debug.Log("Mete AudioManager prefab UwU");
         }
         _eventSystem = FindObjectOfType<EventSystem>();
-        _vfxtoggle.isOn= _gameManager.IsToggleEnabled();
+      
+        _gameManager.Return();
+        _gameManager.ChangeValues(out master, out music, out sfx, out toggle);
+        masterSlider.value = master;
+        sfxSlider.value = sfx;
+        musicSlider.value = music;
+        _vfxtoggle.isOn = toggle;
+        _optionsMenu.SetActive(false);
+
     }
 
     public void PressedLevel1()
     {
+        _gameManager.SaveValue();
         SceneManager.LoadScene(1);
         try
         {
@@ -55,15 +69,19 @@ public class ScriptMenu : MonoBehaviour
         {
             Debug.Log("Mete AudioManager prefab UwU");
         }
-
+        
     }
     public void PressedLevel2()
     {
+        _gameManager.SaveValue();
         SceneManager.LoadScene(2);
+       
     }
     public void PressedExit()
     {
+        _gameManager.SaveValue();
         Application.Quit();
+       
     }
     public void PressedOptions() 
     {
@@ -84,18 +102,9 @@ public class ScriptMenu : MonoBehaviour
         _optionsMenu.SetActive(false);
         _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
     }
-    public void PressedVFX() 
+    public void PressedVFX(bool enable) 
     {
-        if (_VFXEnabled == true) 
-        {
-        _VFXEnabled=false;
-        }
-        else 
-        {
-        _VFXEnabled=true;
-        }
-        
-        _gameManager.EnableParticle();
+        _gameManager.EnableParticle(enable);
         
     }
   

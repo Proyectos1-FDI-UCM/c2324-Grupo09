@@ -47,12 +47,15 @@ public class VolumeSlider : MonoBehaviour
         {
             case VolumeType.MASTER:
                 AudioManager.Instance.mastervolume = volumeSlider.value;
+                GameManager.Instance.SaveMasterVolume(volumeSlider.value);
                 break;
             case VolumeType.MUSIC:
                 AudioManager.Instance.Musicvolume = volumeSlider.value;
+                GameManager.Instance.SaveMusicVolume(volumeSlider.value);
                 break;
             case VolumeType.SFX:
                 AudioManager.Instance.SFXvolume = volumeSlider.value;
+                GameManager.Instance.SaveSFXVolume(volumeSlider.value);
                 break;
             default:
                 Debug.LogWarning("Volume Type not supported" + volumeType);

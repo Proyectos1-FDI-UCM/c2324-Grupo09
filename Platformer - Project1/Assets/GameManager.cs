@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private CameraController cameraController;
     private PauseScript _pause;
     static public GameManager Instance;
-    public bool isEnabled=true;
+    private bool isEnabled=true;
 
     private BossIA boss;
     
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     } 
         void Start()
     {
+        AfterLoad();
         FadeCanvas = FindObjectOfType<TeleportPlayer>()?.gameObject;
         Application.targetFrameRate = FPS;
         //FadeCanvas = FindObjectOfType<Canvas>().gameObject;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         cameraController = null;
         particleManager = FindObjectOfType<ParticleManager>();
         boss = FindObjectOfType<BossIA>();
-        _pause=FindObjectOfType<PauseScript>();
+      
 
 
         NumerateAllRooms();
@@ -96,16 +97,9 @@ public class GameManager : MonoBehaviour
         }
         //CharController.Dead = false;
     }
-    public void EnableParticle()
+    public void EnableParticle(bool toggle)
     {
-        if (isEnabled == true) 
-        {
-        isEnabled= false;
-        }
-        else
-        {
-        isEnabled= true;
-        }
+        isEnabled = toggle;
     }                                         
     public void Check() 
     {
@@ -133,10 +127,12 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.mastervolume = masterVolume;
         AudioManager.Instance.Musicvolume = musicVolume;
         AudioManager.Instance.SFXvolume = sfxVolume;
+        Return();
         _pause= FindObjectOfType<PauseScript>();
         
         _pause.ChangeSliderValue(masterVolume,musicVolume,sfxVolume);
         _pause.ChangeToggleValue(isEnabled);
+
         
         Check();
         
@@ -156,6 +152,33 @@ public class GameManager : MonoBehaviour
     public bool IsToggleEnabled() 
     {
         return isEnabled;
+    }
+    public void SaveValue() 
+    {
+        int i;
+        if (isEnabled) 
+        {
+            i = 1;
+        }
+        else 
+        {
+            i = 0;
+        }
+        SaveValues.instance.SavePrefs(masterVolume,musicVolume,sfxVolume, i);
+    }
+    public void Return() 
+    {
+        int i;
+    SaveValues.instance.ReturnPrefs(out masterVolume,out musicVolume,out sfxVolume,out i);
+        if (i == 0) { isEnabled = false; }
+        else{ isEnabled = true; }
+    }
+    public void ChangeValues(out float master, out float music,out float sfx,out  bool toggle) 
+    {
+        master = masterVolume;
+        music = musicVolume;
+        sfx = sfxVolume;
+        toggle = isEnabled;
     }
 
 
