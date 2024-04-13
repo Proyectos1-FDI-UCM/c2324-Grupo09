@@ -73,9 +73,11 @@ public class NahaIA : EnemyIA
         _myTransform = transform;
         _prefabCuloNaha = Resources.Load<GameObject>("NahaBody");
         _culosNaha = new GameObject[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n-1; i++)
         {
             _culosNaha[i] = Instantiate(_prefabCuloNaha, _initialOffsetCulosNaha.y * Vector3.up +_myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * (i+1) + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
         }
+        _culosNaha[n] = Instantiate(Resources.Load<GameObject>("NahaTail"), _initialOffsetCulosNaha.y * Vector3.up + _myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * n + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
+        //_culosNaha[n].transform.localScale = _culosNaha[n].transform.localScale * Mathf.Sign(_myTransform.localScale.x);
     }
 }
