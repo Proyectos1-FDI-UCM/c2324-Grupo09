@@ -4785,7 +4785,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FPS: 60
   particleManager: {fileID: 269303663}
-  isEnabled: 1
 --- !u!4 &584976922
 Transform:
   m_ObjectHideFlags: 0
@@ -5466,7 +5465,7 @@ Transform:
   m_GameObject: {fileID: 721639290}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -271.69998, y: 0.80000687, z: -10}
+  m_LocalPosition: {x: -271.7, y: 0.80000687, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47061,11 +47060,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -381.29895
+      value: -387
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 41.649796
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 4889583717634330409, guid: 357b9cda8d31b3c47909b325f6613a49, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48924,7 +48923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7843578776720831063, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8026868843036142902, guid: 963299925f7ff3644993538e49f4f5c8, type: 3}
       propertyPath: m_AnchorMax.x
