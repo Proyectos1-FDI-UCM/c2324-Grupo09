@@ -7930,9 +7930,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177860ce209efd442a2ec544badac8db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBS: 1
+  currentBS: 3
+  HeadDamagedOffset: -30
   timeTillPatronStartLVL1: 2
   _bossHitbox: {fileID: 0}
+  _bossDamagedTime: 2
   pinchosTecho: {fileID: 381899000}
   pinchosParedL: {fileID: 1381687690}
   pinchosParedR: {fileID: 1275706405}

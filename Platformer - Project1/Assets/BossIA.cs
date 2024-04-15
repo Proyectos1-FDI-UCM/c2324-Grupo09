@@ -27,10 +27,14 @@ public class BossIA : MonoBehaviour
     private int _patronIndex = 0;
 
     [SerializeField]
+    private float HeadDamagedOffset = -30;
+    [SerializeField]
     private float timeTillPatronStartLVL1 = 2f;
 
     [SerializeField]
     private BoxCollider2D _bossHitbox;
+    [SerializeField]
+    private float _bossDamagedTime = 2f;
 
     [Header("Pinchos")]
     [SerializeField]
@@ -225,6 +229,15 @@ public class BossIA : MonoBehaviour
         StopAllCoroutines();
         _bossHitbox.enabled = false;
         KillEverythingOnScreen();
+        GameObject toDestroy = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset + Vector3.up * HeadDamagedOffset, Quaternion.identity);
+        toDestroy.GetComponentInChildren<Animator>().SetBool("DamageReceived", true);
+        StartCoroutine(NextBossStateCountdown(toDestroy));
+    }
+
+    private IEnumerator NextBossStateCountdown(GameObject toDestroy)
+    {
+        yield return new WaitForSeconds(_bossDamagedTime);
+        Destroy(toDestroy);
         NextBossState();
     }
 
