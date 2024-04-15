@@ -14,8 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nivel Prueba Build.unity
     guid: 76244176a2c93a440a08ba54659c2197
-  - enabled: 0
-    path: Assets/Scenes/Nivel Boss.unity
+  - enabled: 1
+    path: Assets/Scenes/Nivel_Boss.unity
     guid: f63c72b0673ac534888f25ec073f8fad
   - enabled: 1
     path: "Assets/Scenes/_NivelPruebaNi\xF1os.unity"

@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
     public void Return() 
     {
         int i;
-    SaveValues.instance.ReturnPrefs(out masterVolume,out musicVolume,out sfxVolume,out i);
+        SaveValues.instance.ReturnPrefs(out masterVolume,out musicVolume,out sfxVolume,out i);
         if (i == 0) { isEnabled = false; }
         else{ isEnabled = true; }
     }

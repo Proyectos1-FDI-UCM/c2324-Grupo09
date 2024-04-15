@@ -25,6 +25,8 @@ public class BossIA : MonoBehaviour
     /// Valor del patron por el que se llega el boos, referido a la posicion de la array de arriba
     /// </summary>
     private int _patronIndex = 0;
+    [SerializeField]
+    private Transform _bossTPInitPos;
 
     [SerializeField]
     private float HeadDamagedOffset = -30;
@@ -125,7 +127,12 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     float _laserSize = 6f;
     GameObject bossImg;
-    GameObject[] lasers = new GameObject[0]; 
+    GameObject[] lasers = new GameObject[0];
+
+    GameObject _bossTPIN;
+
+    bool IdleSpawned = false;
+    GameObject idleBossSpawnedGO;
 
     /*
     [Header("Jumpers")]
@@ -143,6 +150,32 @@ public class BossIA : MonoBehaviour
         }
     }
     */
+
+    public void BossStartAnim()
+    {
+        Instantiate(_bossTPIN,_bossTPInitPos.position, Quaternion.identity);
+        StartCoroutine(WaitAndStart());
+    }
+    IEnumerator WaitAndStart()
+    {
+        yield return new WaitForSeconds(3);
+        Instantiate(_bossTPIN, _bossTPInitPos.position, Quaternion.identity);
+        yield return new WaitForSeconds(1.5f);
+        GetNewPatronSeries();
+        UseNextPatron();
+    }
+
+    public bool CheckSpawnBossIdle(ref GameObject spawnedBoss)
+    {
+        if (!IdleSpawned) idleBossSpawnedGO = spawnedBoss;
+        else
+        {
+            Destroy(spawnedBoss);
+            spawnedBoss = idleBossSpawnedGO;
+        }
+        IdleSpawned = !IdleSpawned;
+        return !IdleSpawned;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -254,6 +287,7 @@ public class BossIA : MonoBehaviour
         _sweepingHandPrefab = Resources.Load<GameObject>("SweepingHand");
         _bossLancePreviewPrefab = Resources.Load<GameObject>("BossLancePreviewImage");
         _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
+        _bossTPIN = Resources.Load<GameObject>("TPboosIN");
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
@@ -273,8 +307,8 @@ public class BossIA : MonoBehaviour
         
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
-        GetNewPatronSeries();
-        UseNextPatron();
+        //GetNewPatronSeries();
+        //UseNextPatron();
         //_bossPatrons[0]((int)currentBS);
     }
 
