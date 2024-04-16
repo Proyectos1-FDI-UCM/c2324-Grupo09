@@ -21,6 +21,8 @@ public class ScriptMenu : MonoBehaviour
     [SerializeField]
     GameObject _backButton;
     [SerializeField]
+    Button _bossButton;
+    [SerializeField]
     private Slider masterSlider;
     [SerializeField]
     private Slider musicSlider;
@@ -30,6 +32,7 @@ public class ScriptMenu : MonoBehaviour
      float soundLevel;
     private float master, music, sfx;
     private bool toggle;
+    private bool completed;
     // Start is called before the first frame update
    
     void Start()
@@ -49,18 +52,19 @@ public class ScriptMenu : MonoBehaviour
       
         _gameManager.Return();
         _gameManager.ChangeValues(out master, out music, out sfx, out toggle);
+        _gameManager.Level1Completed(out completed);
         masterSlider.value = master;
         sfxSlider.value = sfx;
         musicSlider.value = music;
         _vfxtoggle.isOn = toggle;
         _optionsMenu.SetActive(false);
+        _bossButton.interactable = completed;
 
     }
 
     public void PressedLevel1()
     {
         _gameManager.SaveValue();
-        SceneManager.LoadScene(4);
         try
         {
             AudioManager.Instance.StopMusic(FMODEvents.Instance.MenuMusic);
@@ -69,6 +73,8 @@ public class ScriptMenu : MonoBehaviour
         {
             Debug.Log("Mete AudioManager prefab UwU");
         }
+        SceneManager.LoadScene(4);
+        
         
     }
     public void PressedLevel2()

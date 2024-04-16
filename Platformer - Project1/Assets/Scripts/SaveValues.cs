@@ -36,4 +36,18 @@ public class SaveValues : MonoBehaviour
     sfx=    PlayerPrefs.GetFloat("SFX");
     toggle=   PlayerPrefs.GetInt("bool");
     }
+    public void Level1Completed() 
+    {
+        PlayerPrefs.SetInt("level1", 1);
+    }
+    public bool CheckLevel1() 
+    {
+        bool completed=false;
+       
+        if (PlayerPrefs.GetInt("Level1") == 1) 
+        {
+        completed= true;
+        }
+        return completed;
+    }
 }

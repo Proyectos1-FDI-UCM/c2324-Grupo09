@@ -161,6 +161,10 @@ public class GameManager : MonoBehaviour
         }
         SaveValues.instance.SavePrefs(masterVolume,musicVolume,sfxVolume, i);
     }
+     public void Level1Completed(out bool complete) 
+    {
+    complete= SaveValues.instance.CheckLevel1();
+    }
     public void Return() 
     {
         int i;
