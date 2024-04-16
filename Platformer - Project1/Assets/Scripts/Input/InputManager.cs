@@ -11,6 +11,10 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField]
     GameObject _pauseMenu;
+    [SerializeField]
+    GameObject _mainMenu;
+    [SerializeField]
+    GameObject _optionsMenu;
     RefactoredCharacterController _characterController;
     [SerializeField]
     InputActionReference _jumpAction;
@@ -25,28 +29,31 @@ public class InputManager : MonoBehaviour
     InputActionReference _closeMenuAction;
     [SerializeField]
     InputActionReference _openCloseMenuAion;
-
+    private PauseScript _pauseScript;
     GameObject _spawnMenuPrefab;
     GameObject _spawnMenu;
 
     bool _blockInput = false;
+    private bool _pauseactive = false;
 
     bool[] abilities;
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es pogo, tercero walljump y cuarto wallrun
     
     // Start is called before the first frame update
+     
     void Start()
     {
         //Debug.Log(FindObjectOfType<PauseScript>()?.gameObject);
         //_pauseMenu = FindObjectOfType<PauseScript>()?.gameObject;
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         abilities = new bool[5];
-
+        
         _spawnMenuPrefab = Resources.Load<GameObject>("_AbilityUnlockExplanationScreen");
     }
     void Awake()
     {
+       
         _jumpAction.action.performed += JumpDown;
         _wallRunAction.action.performed += WallRunDown;
         _slideAction.action.performed += SlideDown;
@@ -55,8 +62,9 @@ public class InputManager : MonoBehaviour
         _wallRunAction.action.canceled += WallrunUp;
         _slideAction.action.canceled += SlideUp;
         _runAction.action.canceled += RunUp;
-        _closeMenuAction.action.performed += CloseMenu;
         _openCloseMenuAion.action.performed += OpenCloseMenu;
+        _closeMenuAction.action.performed += CloseMenu;
+       
     }
     private void OnEnable()
     {
@@ -64,8 +72,9 @@ public class InputManager : MonoBehaviour
         _slideAction.action.Enable();
         _runAction.action.Enable();
         _wallRunAction.action.Enable();
-        _closeMenuAction.action.Enable();
         _openCloseMenuAion.action.Enable();
+        _closeMenuAction.action.Enable();
+       
     }
     private void OnDisable()
     {
@@ -73,8 +82,9 @@ public class InputManager : MonoBehaviour
         _slideAction.action.Disable();
         _runAction.action.Disable();
         _wallRunAction.action.Disable();
-        _closeMenuAction.action.Disable();
         _openCloseMenuAion.action.Disable();
+        _closeMenuAction.action.Disable();
+      
     }
     private void OnDestroy()
     {
@@ -86,8 +96,9 @@ public class InputManager : MonoBehaviour
         _slideAction.action.canceled -= SlideUp;
         _wallRunAction.action.canceled -= WallrunUp;
         _runAction.action.canceled -= RunUp;
+        _openCloseMenuAion.action.canceled -= OpenCloseMenu;
         _closeMenuAction.action.canceled -= CloseMenu;
-        _openCloseMenuAion.action.canceled -=OpenCloseMenu;
+      
     }
 
     private void CloseMenu(InputAction.CallbackContext obj)
@@ -100,9 +111,21 @@ public class InputManager : MonoBehaviour
     }
     private void OpenCloseMenu(InputAction.CallbackContext obj)
     {
-        _pauseMenu.SetActive(!_pauseMenu.activeSelf);
-        if (_pauseMenu.activeSelf) Time.timeScale = 0f;
-        else Time.timeScale = 1f;
+
+        if (_pauseactive == false) 
+        {
+            _pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+            _pauseactive = true;
+        } 
+        else 
+        {
+           _optionsMenu.SetActive(false);
+            _mainMenu.SetActive(true);
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            _pauseactive = false;
+        }
     }
     private void JumpDown(InputAction.CallbackContext obj) 
     {
