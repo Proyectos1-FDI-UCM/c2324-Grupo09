@@ -35,9 +35,17 @@ public class NahaIA : EnemyIA
         if(_isUsingPogo && !_alreadyHitWithPogo)
         {
             _anim.NahaShift();
-            for(int i= 0; i < _culosNaha.Length; i++)
+            for(int i= 0; i < _culosNaha.Length-1; i++)
             {
-                _culosNaha[i].GetComponent<EnemyAnimController>().NahaShift();
+                try
+                {
+                    _culosNaha[i].GetComponent<EnemyAnimController>().NahaShift();
+                }
+                catch
+                {
+                    Debug.Log("peta con el n:" + i);
+                }
+
             }
             GameObject newGameObject = Instantiate(_wallrunPrefab,_myTransform.position, Quaternion.identity);
             newGameObject.transform.position += (0.5f * (1 + _culosNaha.Length) * _sizeWR.x -  0.75f * xOffsetCuloNaha) * Vector3.right * _lookingTo + Vector3.up * _offsetWR.y;//((((_culosNaha.Length-1) * xOffsetCuloNaha * 15/20) + _offsetWR.x)) * Vector3.right  * _lookingTo + Vector3.up * _offsetWR.y;
@@ -77,7 +85,7 @@ public class NahaIA : EnemyIA
         {
             _culosNaha[i] = Instantiate(_prefabCuloNaha, _initialOffsetCulosNaha.y * Vector3.up +_myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * (i+1) + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
         }
-        _culosNaha[n] = Instantiate(Resources.Load<GameObject>("NahaTail"), _initialOffsetCulosNaha.y * Vector3.up + _myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * n + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
+        _culosNaha[n-1] = Instantiate(Resources.Load<GameObject>("NahaTail"), _initialOffsetCulosNaha.y * Vector3.up + _myTransform.position + (Mathf.Sign(Dir) * Vector3.right * (xOffsetCuloNaha * n + _initialOffsetCulosNaha.x)), Quaternion.identity, _myTransform);
         //_culosNaha[n].transform.localScale = _culosNaha[n].transform.localScale * Mathf.Sign(_myTransform.localScale.x);
     }
 }
