@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/_NivelPruebaNi\xF1os.unity"
     guid: 9bc5361c6263e5140848293299ed6c3a
+  - enabled: 1
+    path: Assets/Scenes/_PruebaPantallas.unity
+    guid: d151d846fcae25a4f996d61752ffe4e2
   m_configObjects: {}

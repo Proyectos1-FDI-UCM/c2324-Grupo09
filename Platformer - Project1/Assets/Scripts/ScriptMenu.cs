@@ -60,7 +60,7 @@ public class ScriptMenu : MonoBehaviour
     public void PressedLevel1()
     {
         _gameManager.SaveValue();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(4);
         try
         {
             AudioManager.Instance.StopMusic(FMODEvents.Instance.MenuMusic);
