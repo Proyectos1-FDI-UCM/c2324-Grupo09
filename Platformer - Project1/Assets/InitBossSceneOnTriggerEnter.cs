@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class InitBossSceneOnTriggerEnter : MonoBehaviour
@@ -15,6 +16,16 @@ public class InitBossSceneOnTriggerEnter : MonoBehaviour
         for (int i = 0; i < collidersToErase.Length; i++) Destroy(collidersToErase[i]);
 
         tileMapToActivate.SetActive(true);
+        try
+        {
+            AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
+            AudioManager.Instance.InitializeMusic(FMODEvents.Instance.BossMusic);
+
+        }
+        catch
+        {
+            Debug.Log("Añadir Audio Uwu");
+        }
 
         FindObjectOfType<BossIA>().BossStartAnim();
 

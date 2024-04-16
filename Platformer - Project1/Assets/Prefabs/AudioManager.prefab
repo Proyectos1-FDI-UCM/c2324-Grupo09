@@ -121,6 +121,13 @@ MonoBehaviour:
       Data3: 176396679
       Data4: -2080823765
     Path: event:/MenuMusic
+  <BossMusic>k__BackingField:
+    Guid:
+      Data1: -807796423
+      Data2: 1217769580
+      Data3: -1905323085
+      Data4: -1300027760
+    Path: event:/BossMusic
 --- !u!1 &4655291061840927266
 GameObject:
   m_ObjectHideFlags: 0

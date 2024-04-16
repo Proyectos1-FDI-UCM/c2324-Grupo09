@@ -17,6 +17,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference FallingPlatform { get; private set; }
 
     [field: SerializeField] public EventReference MenuMusic { get; private set; }
+    [field: SerializeField] public EventReference BossMusic { get; private set; }
 
     static public FMODEvents Instance;
 
