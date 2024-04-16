@@ -399,6 +399,7 @@ public class RefactoredCharacterController : MonoBehaviour
             #region changeGravity
             if (!_isWallRunning)
             {
+                /*
                 DestryAfterTime dat = CheckGrounded(true)?.GetComponent<DestryAfterTime>();
 
                 if (!_isJumping && dat != null)
@@ -406,7 +407,7 @@ public class RefactoredCharacterController : MonoBehaviour
                     _chMovement.ChangeGravityScale(0);
                     transform.position += dat.CurrentGravity * Vector3.up * Time.fixedDeltaTime * dat.FallDirectionValue;
                 }
-                else if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
+                else */if ((_isJumping || _isJumpFalling) && Mathf.Abs(_chMovement.RBVel.y) < _md.jumpHangTimeThreshold)
                 {
                     _chMovement.ChangeGravityScale(_md.gravityScale * _md.jumpHangGravityMultiplier);
                 }
@@ -502,6 +503,17 @@ public class RefactoredCharacterController : MonoBehaviour
         _animComp.SetDeath(_dead);
         UpdateSound();
         #endregion
+    }
+
+    private void Update()
+    {
+        DestryAfterTime dat = CheckGrounded(true)?.GetComponent<DestryAfterTime>();
+
+        if (!_isJumping && dat != null)
+        {
+            _chMovement.ChangeGravityScale(0);
+            transform.position += dat.CurrentGravity * Vector3.up * Time.deltaTime * dat.FallDirectionValue;
+        }
     }
 
     public void Unlock(int i)

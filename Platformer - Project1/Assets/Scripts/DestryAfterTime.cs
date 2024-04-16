@@ -72,12 +72,12 @@ public class DestryAfterTime : MonoBehaviour
         _originalPos = _myTransform.position;
     }
 
-    void FixedUpdate()
+    private void LateUpdate()
     {
         if (falling && !frozen)
         {
             currentGravity = Mathf.Min(currentGravity + fallGravity, maxFallSpeed);
-            _myTransform.position += Vector3.up * Time.fixedDeltaTime * (int)fDirection * currentGravity;
+            _myTransform.position += Vector3.up * Time.deltaTime * (int)fDirection * currentGravity;
         }
     }
 
