@@ -342,6 +342,14 @@ public class BossIA : MonoBehaviour
 
     IEnumerator PlayerWins()
     {
+        try
+        {
+            AudioManager.Instance.StopMusic(FMODEvents.Instance.BossMusic);
+        }
+        catch
+        {
+            Debug.Log("Falta el audio :(");
+        }
         GameObject obj = Instantiate(Resources.Load<GameObject>("BossExplosion"), _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(1);
         Destroy(obj);
