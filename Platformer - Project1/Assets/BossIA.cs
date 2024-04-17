@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using NaughtyAttributes;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class BossIA : MonoBehaviour
 {
@@ -127,6 +128,8 @@ public class BossIA : MonoBehaviour
     [SerializeField]
     float _laserSize = 6f;
     GameObject bossImg;
+    GameObject _spikeWarning;
+    GameObject _spikeWarningInstance;
     GameObject[] lasers = new GameObject[0];
 
     GameObject _bossTPIN;
@@ -190,11 +193,11 @@ public class BossIA : MonoBehaviour
     /// </summary>
     public void PlayerDied()
     {
+
         KillEverythingOnScreen();
         //-------------------------------------------------------provisional
         StartCoroutine(Restart());
-        
-        //------------------------------------------------------------------
+        //--------------------------------------------------------------
     }
 
     IEnumerator Restart()
@@ -231,8 +234,13 @@ public class BossIA : MonoBehaviour
 
         for (int i = 0; i < eS.Length; i++)
         {
-            eS[i]?.DestroySpawnedEnemy();
-            Destroy(eS[i]?.gameObject);
+            try { 
+                eS[i]?.DestroySpawnedEnemy();
+                Destroy(eS[i]?.gameObject);
+            }
+            catch
+            { 
+            }
         }
 
         for(int i = 0; i < lasers.Length; i++)
@@ -258,7 +266,6 @@ public class BossIA : MonoBehaviour
     /// </summary>
     private void ReceiveDamage()
     {
-        Debug.Log("hit");
         StopAllCoroutines();
         _bossHitbox.enabled = false;
         KillEverythingOnScreen();
@@ -288,6 +295,7 @@ public class BossIA : MonoBehaviour
         _bossLancePreviewPrefab = Resources.Load<GameObject>("BossLancePreviewImage");
         _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
         _bossTPIN = Resources.Load<GameObject>("TPboosIN");
+        _spikeWarning = Resources.Load<GameObject>("SpikeWarning");
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
@@ -322,17 +330,29 @@ public class BossIA : MonoBehaviour
         currentBS = (BossStates)(((int)currentBS) - 1);
         Debug.Log(currentBS);
         /*if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
-        else*/ 
-        if (currentBS == BossStates.Dead) PlayerWins();
+        else*/
+        if (currentBS == BossStates.Dead)
+        {
+            StartCoroutine(PlayerWins());
+            return;
+        }
         GetNewPatronSeries();
         UseNextPatron();
     }
 
-    //------------------------------------------------------------------------------------------------------------To be Implemented 
-    void PlayerWins()
+    IEnumerator PlayerWins()
     {
+        GameObject obj = Instantiate(Resources.Load<GameObject>("BossExplosion"), _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
+        yield return new WaitForSeconds(1);
+        Destroy(obj);
+        DontDestroyOnLoad(this.gameObject);
+        SceneManager.LoadSceneAsync(0);
 
+        yield return new WaitForSeconds(0.05f);
+        FindObjectOfType<Canvas>().GetComponent<ScriptMenu>().Credits();
+        Destroy(this.gameObject);
     }
+
 
     /// <summary>
     ///Llama al siguiente patrón. En caso de haber llegado al último vuelve a shufflear
@@ -572,12 +592,14 @@ public class BossIA : MonoBehaviour
         eS = new EnemySpawner[3];
         head = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset, Quaternion.identity, _pilarReferenceTransform);
         yield return new WaitForSeconds(timeTillPatronStartLVL1);
+        _spikeWarningInstance = Instantiate(_spikeWarning, new Vector3(-272, -65, -3.02301717f), Quaternion.identity);
         for(int i = 0; i < eS.Length-1; i++)
         {
             eS[i] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F / 3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
             eS[i].Spawn(EnemyType.RegularImp, Vector2.right, impSpeed);
             yield return new WaitForSeconds(timeBetweenImps);
         }
+        Destroy(_spikeWarningInstance);
         pinchosSuelo.SetActive(true);
 
         eS[2] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F/3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
@@ -609,7 +631,9 @@ public class BossIA : MonoBehaviour
         eS[0] = Instantiate(eSpawner, _bossImagePosition.position + Vector3.right * _nahaOffset, Quaternion.identity).GetComponent<EnemySpawner>();
         eS[0].ChangeDirectionLooking(-1);
         eS[0].Spawn(EnemyType.Naha, Vector2.right, _nahaSpeed, 8);
+        _spikeWarningInstance = Instantiate(_spikeWarning, new Vector3(-272, -65, -3.02301717f), Quaternion.identity);
         yield return new WaitForSeconds(2*timeTillPatronStartLVL1);
+        Destroy(_spikeWarningInstance);
         pinchosSuelo.SetActive(true);
         yield return new WaitForSeconds(timeTillSpikesGone);
         pinchosTecho.SetActive(false);
