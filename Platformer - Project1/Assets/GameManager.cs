@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,10 +12,13 @@ public class GameManager : MonoBehaviour
     private ParticleManager particleManager;
     private GameObject FadeCanvas;
     private Transform Circle;
+    private Transform DeathImage;
     private Animator CameraAnimator;
+    private TextMeshProUGUI _deathCountText;
     private float masterVolume = 1f;
     private float musicVolume = 1f;
     private float sfxVolume = 1f;
+    private int _deathCount = 0;
     
     private RefactoredCharacterController charController;
     private CameraController cameraController;
@@ -40,6 +44,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = FPS;
         //FadeCanvas = FindObjectOfType<Canvas>().gameObject;
         Circle = FadeCanvas.transform.GetChild(0);
+        DeathImage = FadeCanvas.transform.GetChild(1);
+        _deathCountText = FadeCanvas.GetComponentInChildren<TextMeshProUGUI>();
         CameraAnimator = FadeCanvas.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
         cameraController = null;
@@ -77,14 +83,24 @@ public class GameManager : MonoBehaviour
       
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
+        _deathCount++;
+        SetDeathCountPosition();
         CameraAnimator.SetTrigger("FadeOut");
         cameraController.DespawnEnemiesOnRoomExit();
         boss?.PlayerDied();
+
     }
 
     public void SetCirclePosition(Vector3 position)
     {
         Circle.transform.position = position;
+    }
+
+    public void SetDeathCountPosition()
+    {
+        DeathImage.transform.position = new Vector3(charController.transform.position.x, cameraController.transform.position.y + 60,0) ;
+        _deathCountText.text = _deathCount.ToString();
+        _deathCountText.transform.position = new Vector3(DeathImage.transform.position.x + 20, DeathImage.transform.position.y, 0);
     }
     public void PlayerTeleport()
     {
