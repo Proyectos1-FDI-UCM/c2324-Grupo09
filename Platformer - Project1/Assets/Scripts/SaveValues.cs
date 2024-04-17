@@ -31,23 +31,25 @@ public class SaveValues : MonoBehaviour
     }
     public void ReturnPrefs(out float master,out float music,out float sfx,out int toggle)
     {
-    master=    PlayerPrefs.GetFloat("Master");
-    music=    PlayerPrefs.GetFloat("Music");
-    sfx=    PlayerPrefs.GetFloat("SFX");
-    toggle=   PlayerPrefs.GetInt("bool");
+        master=   PlayerPrefs.GetFloat("Master");
+        music=    PlayerPrefs.GetFloat("Music");
+        sfx=      PlayerPrefs.GetFloat("SFX");
+        toggle=   PlayerPrefs.GetInt("bool");
     }
     public void Level1Completed() 
     {
         PlayerPrefs.SetInt("level1", 1);
+        Debug.Log("hm");
     }
     public bool CheckLevel1() 
     {
         bool completed=false;
        
-        if (PlayerPrefs.GetInt("Level1") == 1) 
+        if (PlayerPrefs.GetInt("level1") == 1) 
         {
         completed= true;
         }
+        Debug.Log("a");
         return completed;
     }
 }

@@ -9,8 +9,8 @@ using static Unity.Collections.Unicode;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField]
-    GameObject _pauseMenu;
+   
+  private  GameObject _pauseMenu;
    
     RefactoredCharacterController _characterController;
     [SerializeField]
@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         //Debug.Log(FindObjectOfType<PauseScript>()?.gameObject);
-        //_pauseMenu = FindObjectOfType<PauseScript>()?.gameObject;
+        _pauseMenu = FindObjectOfType<PauseScript>()?.gameObject;
         _characterController = FindObjectOfType<RefactoredCharacterController>();
         abilities = new bool[5];
         
@@ -109,21 +109,7 @@ public class InputManager : MonoBehaviour
     }
     private void OpenCloseMenu(InputAction.CallbackContext obj)
     {
-
-        if (_pauseactive == false) 
-        {
-            Debug.Log("ay");
-            _pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
-            _pauseactive = true;
-        } 
-        else 
-        {
-           
-            _pauseMenu.SetActive(false);
-            Time.timeScale = 1f;
-            _pauseactive = false;
-        }
+        PauseEnable();
     }
     private void JumpDown(InputAction.CallbackContext obj) 
     {
@@ -181,5 +167,22 @@ public class InputManager : MonoBehaviour
         _blockInput = true;
         _spawnMenu = Instantiate(_spawnMenuPrefab);
         _spawnMenu.GetComponent<SpawnMenuComponent>().SetMenu(i);
+    }
+    public void PauseEnable() 
+    {
+    if (_pauseactive == false) 
+        {
+            Debug.Log("ay");
+            _pauseMenu?.SetActive(true);
+            Time.timeScale = 0f;
+            _pauseactive = true;
+        } 
+        else 
+        {
+           
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            _pauseactive = false;
+        }
     }
 }

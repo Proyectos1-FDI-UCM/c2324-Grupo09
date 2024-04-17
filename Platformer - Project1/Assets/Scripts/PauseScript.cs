@@ -23,6 +23,7 @@ public class PauseScript : MonoBehaviour
     private Slider sfxSlider;
     [SerializeField]
     private Toggle particle;
+    InputManager _inputManager;
     private float master, music, sfx;
     private bool enabled;
     private void Start() 
@@ -32,7 +33,7 @@ public class PauseScript : MonoBehaviour
     _eventSystem=FindObjectOfType<EventSystem>();
         _gameManager.Return();
         _gameManager.ChangeValues(out master, out music, out sfx, out enabled);
-       
+       _inputManager = FindObjectOfType<InputManager>();
         masterSlider.value = master;
         musicSlider.value = music;
         sfxSlider.value = sfx;
@@ -59,10 +60,7 @@ public class PauseScript : MonoBehaviour
     }
     public void OnPressedResume()
     {
-       Time.timeScale = 1.0f;
-        _gameManager.Check();
-        _gameManager.SaveValue();
-       this.gameObject.SetActive(false);
+        _inputManager.PauseEnable();
     }
     public void OnPressedExitGame() 
     {
