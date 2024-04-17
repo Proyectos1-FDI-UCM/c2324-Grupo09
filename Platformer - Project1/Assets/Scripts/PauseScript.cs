@@ -38,7 +38,7 @@ public class PauseScript : MonoBehaviour
         sfxSlider.value = sfx;
         particle.isOn=enabled;
         _optionsMenu.SetActive(false);
-        this.gameObject.SetActive(false);
+       
 
     }
 
@@ -86,5 +86,9 @@ public class PauseScript : MonoBehaviour
 
         _gameManager.EnableParticle(booleano);
       
+    }
+    private void OnDisable()
+    {
+        OnPressedBack();
     }
 }

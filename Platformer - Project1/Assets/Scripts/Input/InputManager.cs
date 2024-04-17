@@ -11,10 +11,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField]
     GameObject _pauseMenu;
-    [SerializeField]
-    GameObject _mainMenu;
-    [SerializeField]
-    GameObject _optionsMenu;
+   
     RefactoredCharacterController _characterController;
     [SerializeField]
     InputActionReference _jumpAction;
@@ -50,6 +47,7 @@ public class InputManager : MonoBehaviour
         abilities = new bool[5];
         
         _spawnMenuPrefab = Resources.Load<GameObject>("_AbilityUnlockExplanationScreen");
+        _pauseMenu.SetActive(false);
     }
     void Awake()
     {
@@ -114,14 +112,14 @@ public class InputManager : MonoBehaviour
 
         if (_pauseactive == false) 
         {
+            Debug.Log("ay");
             _pauseMenu.SetActive(true);
             Time.timeScale = 0f;
             _pauseactive = true;
         } 
         else 
         {
-           _optionsMenu.SetActive(false);
-            _mainMenu.SetActive(true);
+           
             _pauseMenu.SetActive(false);
             Time.timeScale = 1f;
             _pauseactive = false;
