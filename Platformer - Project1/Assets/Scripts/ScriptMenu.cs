@@ -13,6 +13,8 @@ public class ScriptMenu : MonoBehaviour
     GameObject _optionsMenu;
     [SerializeField]
     GameObject _mainMenu;
+    [SerializeField]
+    GameObject _creditsMenu;
     public bool _VFXEnabled = true;
     [SerializeField]
     Toggle _vfxtoggle;
@@ -20,6 +22,8 @@ public class ScriptMenu : MonoBehaviour
     EventSystem _eventSystem;
     [SerializeField]
     GameObject _backButton;
+    [SerializeField]
+    GameObject _backCreditsButton;
     [SerializeField]
     Button _bossButton;
     [SerializeField]
@@ -106,12 +110,19 @@ public class ScriptMenu : MonoBehaviour
     {
         _mainMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+        _creditsMenu.SetActive(false);
         _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
     }
     public void PressedVFX(bool enable) 
     {
         _gameManager.EnableParticle(enable);
         
+    }
+    public void Credits() 
+    {
+        _creditsMenu.SetActive(true);
+        _eventSystem.SetSelectedGameObject(_backCreditsButton);
+        _mainMenu.SetActive(false);
     }
   
 }
