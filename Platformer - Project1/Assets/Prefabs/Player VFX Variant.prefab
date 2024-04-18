@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6285887730836987866, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -377
+      value: 7246.7
       objectReference: {fileID: 0}
     - target: {fileID: 6285887730836987866, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -59
       objectReference: {fileID: 0}
     - target: {fileID: 6285887730836987866, guid: 2541d215256994342a42ff349c8e8478, type: 3}
       propertyPath: m_LocalPosition.z
@@ -92,8 +92,42 @@ PrefabInstance:
       propertyPath: _xMaxVelocity
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 8813775441187990256, guid: 2541d215256994342a42ff349c8e8478, type: 3}
+      propertyPath: _closeMenuAction
+      value: 
+      objectReference: {fileID: 1356029625106349507, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
+    - target: {fileID: 8813775441187990256, guid: 2541d215256994342a42ff349c8e8478, type: 3}
+      propertyPath: _openCloseMenuAion
+      value: 
+      objectReference: {fileID: -8345801715195494057, guid: 8beb9086ea537c74fa10cece4800139b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 23881477869695050, guid: 2541d215256994342a42ff349c8e8478, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3882178025023839008}
   m_SourcePrefab: {fileID: 100100000, guid: 2541d215256994342a42ff349c8e8478, type: 3}
+--- !u!1 &1491931698907373753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 23881477869695050, guid: 2541d215256994342a42ff349c8e8478, type: 3}
+  m_PrefabInstance: {fileID: 1504413288956858611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3882178025023839008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491931698907373753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c2dbdbae9a71040b67b102ee6e80c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionParticlePrefab: {fileID: 3521627536799371752, guid: a665ff52d3e2f6d47955bda0747b90d9, type: 3}
+  _initialJumpParticlePrefab: {fileID: 537178064453585757, guid: e234cb81eba34d0458a4638aa2e83a29, type: 3}
+  _endJumpParticlePrefab: {fileID: 8388867581096634922, guid: 0664b6836739a1044ae0e186dc83e165, type: 3}
+  _xdistanceParam: 1
+  _ydistanceParam: 1
+  _xMaxVelocity: 70

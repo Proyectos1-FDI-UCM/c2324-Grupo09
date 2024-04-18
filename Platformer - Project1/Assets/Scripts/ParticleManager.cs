@@ -108,6 +108,10 @@ public class ParticleManager : MonoBehaviour
             _runParticle.Stop();
             _isRunning = false;
         }
+        if (_characterAnim.GetBool("Dead"))
+        {
+            _runParticle.Stop();
+        }
     }
     private void WallJumpCheck()
     {
@@ -187,7 +191,7 @@ public class ParticleManager : MonoBehaviour
     {
         _myTransform = transform;
         _runParticle = GetComponentInChildren<ParticleSystem>();
-        _characterAnim = GetComponent<Animator>();
+        _characterAnim = GetComponentInChildren<Animator>();
         _checkLastDir = FindObjectOfType<RefactoredCharacterMovement>();
         _myTrail = GetComponentInChildren<TrailRenderer>();
         _gameManager=FindObjectOfType<GameManager>();
