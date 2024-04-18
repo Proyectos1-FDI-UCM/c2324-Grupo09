@@ -42,8 +42,8 @@ MonoBehaviour:
   jumpHangTimeThreshold: 0.3
   jumpHangGravityMultiplier: 0.7
   wjHitboxDuration: 0.8
-  wallJumpSize: {x: 14, y: 12}
-  wallJumpPosition: {x: 5, y: 6}
+  wallJumpSize: {x: 14, y: 10}
+  wallJumpPosition: {x: 5, y: 4.4}
   xSeparationFromWallOnWallJump: 0
   wallJump2ndJumpForceY: 120
   wallJump2ndJumpForceX: 30
@@ -61,7 +61,7 @@ MonoBehaviour:
   fallGravityMultiplier: 1.5
   maxFallSpeed: 250
   yGroundCheckOffSet: -1
-  groundCheckSize: {x: 3.5, y: 1}
+  groundCheckSize: {x: 6.6, y: 1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

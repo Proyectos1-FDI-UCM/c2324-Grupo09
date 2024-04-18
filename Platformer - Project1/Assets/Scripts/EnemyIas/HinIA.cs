@@ -10,7 +10,7 @@ public class HinIA : EnemyIA
     private Transform _player;
     private BoxCollider2D _myCollider;
     private EnemyHit _hitControl;
-    private EnemyAnimController _enemyAnimController;
+    private Animator _anim;
     #endregion
     #region parameters
     [SerializeField]
@@ -93,7 +93,9 @@ public class HinIA : EnemyIA
         _player = FindObjectOfType<RefactoredCharacterController>().transform;
         _myCollider = GetComponent<BoxCollider2D>();
         _hitControl = GetComponent<EnemyHit>();
-        _enemyAnimController = GetComponent<EnemyAnimController>();
+        _anim = GetComponent<Animator>();
+        _anim.SetInteger("HinState", 0);
+        
     }
 
 
@@ -110,10 +112,12 @@ public class HinIA : EnemyIA
         else
         {
             _enemyMovement.Speed(Mathf.Lerp(_HinMaxSpeed,-_HinMaxSpeed,Mathf.Pow((Time.time - _timeMoving)/_totalTimeMoving, 1f)));
+            _anim.SetInteger("HinState", (int)Mathf.Sign(_enemyMovement.GetSpeed));
             if (Time.time - _timeMoving > _totalTimeMoving)
             {
                 _enemyMovement.Speed(0);
                 _currentState = State.waiting;
+                _anim.SetInteger("HinState", 0);
             }
         }
     }
@@ -123,10 +127,12 @@ public class HinIA : EnemyIA
         return _player.position.x < (_myTransform.position.x + _hinVision) && _player.position.x > (_myTransform.position.x - _hinVision);
     }
 
-    private void OnDrawGizmos()
+    /*
+     * private void OnDrawGizmos()
     {
         Gizmos.DrawCube(_myTransform.position, _hinVision * Vector3.one);
     }
+    */
 
     enum State
     {
