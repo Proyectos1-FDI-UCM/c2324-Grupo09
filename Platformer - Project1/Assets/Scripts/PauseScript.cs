@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -30,7 +31,7 @@ public class PauseScript : MonoBehaviour
     {
         
         _gameManager= FindObjectOfType<GameManager>();
-    _eventSystem=FindObjectOfType<EventSystem>();
+        _eventSystem=FindObjectOfType<EventSystem>();
         _gameManager.Return();
         _gameManager.ChangeValues(out master, out music, out sfx, out enabled);
        _inputManager = FindObjectOfType<InputManager>();
@@ -71,7 +72,13 @@ public class PauseScript : MonoBehaviour
     {
         _mainMenu.SetActive(true);
         _optionsMenu.SetActive(false);
-        _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
+        try
+        {
+            _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
+        }
+        catch{
+
+        }
     }
     public void ChangeSliderValue(float master, float music ,float sfx) 
     {

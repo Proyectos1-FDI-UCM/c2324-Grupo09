@@ -73,12 +73,9 @@ public class GameManager : MonoBehaviour
       
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
-        if (!_blockDeadCount)
-        {
-            _deathCount++;
-            _blockDeadCount = true;
-            StartCoroutine(blockDeadCount());
-        }
+        _deathCount++;
+        _blockDeadCount = true;
+        
 
         SetDeathCountPosition();
         CameraAnimator.SetTrigger("FadeOut");
@@ -86,11 +83,13 @@ public class GameManager : MonoBehaviour
         boss?.PlayerDied();
 
     }
-
-    IEnumerator blockDeadCount()
+    private void OnDestroy()
     {
-        yield return new WaitForSeconds(1.5f);
-        _blockDeadCount = false;
+        StopAllCoroutines();
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     public void SetCirclePosition(Vector3 position)
