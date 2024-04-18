@@ -227,7 +227,7 @@ public class BossIA : MonoBehaviour
         if (startingAnim != null)
         {
             Destroy(startingAnim?.transform.gameObject);
-            startingAnim = null;
+                startingAnim = null;
         }
 
         IdleSpawned = false;
@@ -240,6 +240,12 @@ public class BossIA : MonoBehaviour
         stompingHand?.ProjectileDestroy();
         stompingHand?.DestroySelf();
         Destroy(_sweepingHand);
+        if(_spikeWarningInstance != null)
+        {
+            Destroy(_spikeWarningInstance);
+            _spikeWarningInstance = null;
+        }
+
         stompingHand = null;
 
         if(bossImg!=null)
@@ -372,7 +378,7 @@ public class BossIA : MonoBehaviour
         yield return new WaitForSeconds(1);
         Destroy(obj);
         DontDestroyOnLoad(this.gameObject);
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync("Menu");
 
         yield return new WaitForSeconds(0.05f);
         FindObjectOfType<Canvas>().GetComponent<ScriptMenu>().Credits();
@@ -626,6 +632,7 @@ public class BossIA : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenImps);
         }
         Destroy(_spikeWarningInstance);
+        _spikeWarningInstance = null;
         pinchosSuelo.SetActive(true);
 
         eS[2] = Instantiate(eSpawner, head.transform.position + Math.Abs(head.transform.localScale.x)*(2F/3) * Vector3.right + yImpSpawnOffset * Vector3.up, Quaternion.identity, _pilarReferenceTransform).GetComponent<EnemySpawner>();
@@ -660,6 +667,7 @@ public class BossIA : MonoBehaviour
         _spikeWarningInstance = Instantiate(_spikeWarning, new Vector3(-272, -65, -3.02301717f), Quaternion.identity);
         yield return new WaitForSeconds(2*timeTillPatronStartLVL1);
         Destroy(_spikeWarningInstance);
+        _spikeWarningInstance = null;
         pinchosSuelo.SetActive(true);
         yield return new WaitForSeconds(timeTillSpikesGone);
         pinchosTecho.SetActive(false);
