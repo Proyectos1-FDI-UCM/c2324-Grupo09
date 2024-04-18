@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 
@@ -37,25 +38,13 @@ public class GameManager : MonoBehaviour
         }
         else Destroy(gameObject);
     } 
-        void Start()
+    void Start()
     {
-        AfterLoad();
-        FadeCanvas = FindObjectOfType<TeleportPlayer>()?.gameObject;
         Application.targetFrameRate = FPS;
         //FadeCanvas = FindObjectOfType<Canvas>().gameObject;
-        Circle = FadeCanvas.transform.GetChild(0);
-        DeathImage = FadeCanvas.transform.GetChild(1);
-        _deathCountText = FadeCanvas.GetComponentInChildren<TextMeshProUGUI>();
-        CameraAnimator = FadeCanvas.GetComponent<Animator>();
-        charController = FindObjectOfType<RefactoredCharacterController>();
-        cameraController = null;
-        particleManager = FindObjectOfType<ParticleManager>();
-        boss = FindObjectOfType<BossIA>();
-      
+        AfterLoad();
 
-
-        NumerateAllRooms();
-        
+        NumerateAllRooms(); 
     }
 
     void NumerateAllRooms()
@@ -98,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void SetDeathCountPosition()
     {
-        DeathImage.transform.position = new Vector3(charController.transform.position.x, cameraController.transform.position.y + 60,0) ;
+        DeathImage.transform.position = new Vector3(charController.transform.position.x, cameraController.transform.position.y + 60,0);
         _deathCountText.text = _deathCount.ToString();
         _deathCountText.transform.position = new Vector3(DeathImage.transform.position.x + 20, DeathImage.transform.position.y, 0);
     }
@@ -120,21 +109,18 @@ public class GameManager : MonoBehaviour
     public void Check() 
     {
         particleManager= FindObjectOfType<ParticleManager>();
-        if (isEnabled == true) 
-        {
-            particleManager.enabled = true;
-        }
-        else  
-        {
-            particleManager.enabled = false;
-        }
+        if(particleManager != null)
+            particleManager.enabled = (isEnabled);
+
     }
     public void AfterLoad() 
     {
         Application.targetFrameRate = FPS;
-        FadeCanvas = FindObjectOfType<Canvas>().gameObject;
-        Circle = FadeCanvas.transform.GetChild(0);
-        CameraAnimator = FadeCanvas.GetComponent<Animator>();
+        FadeCanvas = FindObjectOfType<TeleportPlayer>()?.gameObject; 
+        Circle = FadeCanvas?.transform.GetChild(0);
+        DeathImage = FadeCanvas?.transform.GetChild(1);
+        _deathCountText = FadeCanvas?.GetComponentInChildren<TextMeshProUGUI>();
+        CameraAnimator = FadeCanvas?.GetComponent<Animator>();
         charController = FindObjectOfType<RefactoredCharacterController>();
         cameraController = null;
         particleManager = FindObjectOfType<ParticleManager>();
@@ -177,16 +163,24 @@ public class GameManager : MonoBehaviour
         }
         SaveValues.instance.SavePrefs(masterVolume,musicVolume,sfxVolume, i);
     }
-     public void Level1Completed(out bool complete) 
+    public void Level1Completed(out bool complete) 
     {
-    complete= SaveValues.instance.CheckLevel1();
+        complete= SaveValues.instance.CheckLevel1();
     }
     public void Return() 
     {
-        int i;
-        SaveValues.instance.ReturnPrefs(out masterVolume,out musicVolume,out sfxVolume,out i);
-        if (i == 0) { isEnabled = false; }
-        else{ isEnabled = true; }
+
+        try
+        {
+            int i;
+            SaveValues.instance.ReturnPrefs(out masterVolume, out musicVolume, out sfxVolume, out i);
+            if (i == 0) { isEnabled = false; }
+            else { isEnabled = true; }
+        }
+        catch
+        {
+            Debug.Log("SaveValues peta");
+        }
     }
     public void ChangeValues(out float master, out float music,out float sfx,out  bool toggle) 
     {

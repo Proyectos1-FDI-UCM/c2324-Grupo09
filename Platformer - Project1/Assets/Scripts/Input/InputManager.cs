@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour
         abilities = new bool[5];
         
         _spawnMenuPrefab = Resources.Load<GameObject>("_AbilityUnlockExplanationScreen");
-        _pauseMenu.SetActive(false);
+        _pauseMenu?.SetActive(false);
     }
     void Awake()
     {

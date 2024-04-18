@@ -326,7 +326,7 @@ public class BossIA : MonoBehaviour
     void NextBossState()
     {
 
-        Debug.Log((int)currentBS + " " + (((int)currentBS)-1));
+        //Debug.Log((int)currentBS + " " + (((int)currentBS)-1));
         currentBS = (BossStates)(((int)currentBS) - 1);
         Debug.Log(currentBS);
         /*if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
