@@ -158,7 +158,7 @@ public class BossIA : MonoBehaviour
 
     public void BossStartAnim()
     {
-        startingAnim = Instantiate(_bossTPIN,_bossTPInitPos.position, Quaternion.identity);
+        Instantiate(_bossTPIN,_bossTPInitPos.position, Quaternion.identity);
         StartCoroutine(WaitAndStart());
     }
     IEnumerator WaitAndStart()
@@ -175,6 +175,7 @@ public class BossIA : MonoBehaviour
         if (!IdleSpawned) idleBossSpawnedGO = spawnedBoss;
         else
         {
+            startingAnim = null;
             Destroy(spawnedBoss);
             spawnedBoss = idleBossSpawnedGO;
         }
@@ -210,6 +211,11 @@ public class BossIA : MonoBehaviour
         UseNextPatron();
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
     }
+    
+    public void GetSpawnedBoss(GameObject obj)
+    {
+        startingAnim = obj;
+    }
 
     /// <summary>
     /// Mata todo lo que haya en pantalla
@@ -218,7 +224,13 @@ public class BossIA : MonoBehaviour
     {
 
         StopAllCoroutines();
+        if (startingAnim != null)
+        {
+            Destroy(startingAnim?.transform.gameObject);
+            startingAnim = null;
+        }
 
+        IdleSpawned = false;
         for (int i = 0; i < pilarReferences.Length; i++)
         {
             pilarReferences[i]?.NegateBeginToFallInstead();
