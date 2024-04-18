@@ -131,6 +131,7 @@ public class BossIA : MonoBehaviour
     GameObject _spikeWarning;
     GameObject _spikeWarningInstance;
     GameObject[] lasers = new GameObject[0];
+    BossHealth _bossHealth;
 
     GameObject _bossTPIN;
 
@@ -269,6 +270,7 @@ public class BossIA : MonoBehaviour
         StopAllCoroutines();
         _bossHitbox.enabled = false;
         KillEverythingOnScreen();
+        _bossHealth.ChangeHealth(((int)currentBS)-1);
         GameObject toDestroy = Instantiate(bossHead, _pilarReferenceTransform.position + HeadOffset + Vector3.up * HeadDamagedOffset, Quaternion.identity);
         toDestroy.GetComponentInChildren<Animator>().SetBool("DamageReceived", true);
         StartCoroutine(NextBossStateCountdown(toDestroy));
@@ -296,6 +298,7 @@ public class BossIA : MonoBehaviour
         _playerTransform = FindObjectOfType<RefactoredCharacterController>().transform;
         _bossTPIN = Resources.Load<GameObject>("TPboosIN");
         _spikeWarning = Resources.Load<GameObject>("SpikeWarning");
+        _bossHealth = FindObjectOfType<BossHealth>();
         //jumperPrefab = Resources.Load<GameObject>("JumpPad");
 
         //https://stackoverflow.com/questions/7712137/array-containing-methods
@@ -328,6 +331,8 @@ public class BossIA : MonoBehaviour
 
         //Debug.Log((int)currentBS + " " + (((int)currentBS)-1));
         currentBS = (BossStates)(((int)currentBS) - 1);
+        
+       
         Debug.Log(currentBS);
         /*if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         else*/
