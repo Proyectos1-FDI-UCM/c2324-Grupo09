@@ -16,7 +16,7 @@ public class UnlockAbilities : MonoBehaviour
         if(_characterController != null) 
         {
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.CollectAbility, this.transform.position);
-            _characterController.Unlock(value);
+            if (value < 4)_characterController.Unlock(value);
             _characterController.gameObject.GetComponent<InputManager>().SpawnUnlockMenu(value);
             Destroy(this.gameObject);
         }
