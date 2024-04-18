@@ -35,7 +35,7 @@ public class NahaIA : EnemyIA
         if(_isUsingPogo && !_alreadyHitWithPogo)
         {
             _anim.NahaShift();
-            for(int i= 0; i < _culosNaha.Length-1; i++)
+            for(int i= 0; i < _culosNaha.Length; i++)
             {
                 try
                 {
