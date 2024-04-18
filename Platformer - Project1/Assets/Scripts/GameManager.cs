@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private PauseScript _pause;
     static public GameManager Instance;
     private bool isEnabled=true;
+    private bool _blockDeadCount = false;
 
     private BossIA boss;
     
@@ -72,12 +73,24 @@ public class GameManager : MonoBehaviour
       
         FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
-        _deathCount++;
+        if (!_blockDeadCount)
+        {
+            _deathCount++;
+            _blockDeadCount = true;
+            StartCoroutine(blockDeadCount());
+        }
+
         SetDeathCountPosition();
         CameraAnimator.SetTrigger("FadeOut");
         cameraController.DespawnEnemiesOnRoomExit();
         boss?.PlayerDied();
 
+    }
+
+    IEnumerator blockDeadCount()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _blockDeadCount = false;
     }
 
     public void SetCirclePosition(Vector3 position)
