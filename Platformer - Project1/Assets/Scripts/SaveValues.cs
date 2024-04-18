@@ -39,7 +39,6 @@ public class SaveValues : MonoBehaviour
     public void Level1Completed() 
     {
         PlayerPrefs.SetInt("level1", 1);
-        Debug.Log("hm");
     }
     public bool CheckLevel1() 
     {

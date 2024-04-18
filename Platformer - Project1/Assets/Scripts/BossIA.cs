@@ -137,6 +137,7 @@ public class BossIA : MonoBehaviour
 
     bool IdleSpawned = false;
     GameObject idleBossSpawnedGO;
+    GameObject startingAnim;
 
     /*
     [Header("Jumpers")]
@@ -157,7 +158,7 @@ public class BossIA : MonoBehaviour
 
     public void BossStartAnim()
     {
-        Instantiate(_bossTPIN,_bossTPInitPos.position, Quaternion.identity);
+        startingAnim = Instantiate(_bossTPIN,_bossTPInitPos.position, Quaternion.identity);
         StartCoroutine(WaitAndStart());
     }
     IEnumerator WaitAndStart()
