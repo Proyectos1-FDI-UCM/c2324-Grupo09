@@ -77,14 +77,14 @@ public class ScriptMenu : MonoBehaviour
         {
             Debug.Log("Mete AudioManager prefab UwU");
         }
-        SceneManager.LoadScene(4);
+        SceneManager.LoadSceneAsync("_PruebaPantallas");
         
         
     }
     public void PressedLevel2()
     {
         _gameManager.SaveValue();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Nivel_Boss");
        
     }
     public void PressedExit()

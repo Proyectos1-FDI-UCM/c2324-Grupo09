@@ -48,7 +48,6 @@ public class SaveValues : MonoBehaviour
         {
         completed= true;
         }
-        Debug.Log("a");
         return completed;
     }
 }
