@@ -47,18 +47,31 @@ public class RefactoredCharacterController : MonoBehaviour
     #region hiddenVariables
     [SerializeField]
     bool[] abilities = new bool[4];
+    [SerializeField]
     public static bool _isGrounded = false;
+    [SerializeField]
     bool _isJumping = false;
+    [SerializeField]
     bool _isSliding = false;
+    [SerializeField]
     bool _isJumpFalling = false;
+    [SerializeField]
     bool _isWallJumping = false;
+    [SerializeField]
     bool _isUsingPogo = false;
+    [SerializeField]
     bool _pogoAnimationCompleted = false;
+    [SerializeField]
     bool _canPogoJump = false;
+    [SerializeField]
     bool _canWallRun = false;
+    [SerializeField]
     bool _isWallRunning = false;
+    [SerializeField]
     bool _wallRunHeld = false;
+    [SerializeField]
     bool _hasWallRun = false;
+    [SerializeField]
     bool _isNowPogoJumping = false;
     //float _xVelocityPreviousToWallJump = 0;
     int _remainingWallJumpNumber;
@@ -66,25 +79,34 @@ public class RefactoredCharacterController : MonoBehaviour
     Vector3 _pogoStartVelocity = Vector3.zero;
     //Usamos esto para el desbloqueo de habilidades. El primero es slide
     //El segundo es walljump, tercero pogo y cuarto wallrun
-    [SerializeField]
+    //[SerializeField]
     bool _dead = false; //booleano para confirmar el estado del jugador
     private EventInstance playerFootsteps;
 
     #region Timers
+    [SerializeField]
     float _lastGroundedTime = 0f;
+    [SerializeField]
     //jump buffer
     float _lastJumpTimeInput = 0f;
+    [SerializeField]
     //timer for slide cooldown
     float _lastSlideTime = -10f;
+    [SerializeField]
     //slide buffer
     float _lastTimeSlideInput = 0f;
+    [SerializeField]
     //stores time mark when the pogo button is pressed
     float _pogoStartTime = 0f;
+    [SerializeField]
     //stores time mark when you touch ground and _isUsingPogo == true
     float _pogoTouchedGround = 0f;
+    [SerializeField]
     float _lastWallJumpImpulse = -2f;
+    [SerializeField]
     //float _redirTiming = 0f;
     float _hitboxTimer = 0f;
+    [SerializeField]
     float _wallRunStart = 0f;
     #endregion
 
