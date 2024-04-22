@@ -93,6 +93,7 @@ public class MovementData : ScriptableObject
     public float maxFallSpeed = 10f;
 
     [Header("CollisionChecks")]
+    public float xGroundCheckOffSet = 0;
     public float yGroundCheckOffSet = -0.51f;
     public Vector2 groundCheckSize = new Vector2(0.45f, 0.05f);
     public LayerMask groundLayer;

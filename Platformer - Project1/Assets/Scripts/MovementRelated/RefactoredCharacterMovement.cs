@@ -35,7 +35,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-  
+
     /// <summary>
     /// Applies a force in direction to the player input.
     /// If moving to a superior velocity to the grounded max speed and character is not touching ground character can conserve momentum

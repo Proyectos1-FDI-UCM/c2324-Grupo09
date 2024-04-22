@@ -374,6 +374,10 @@ public class RefactoredCharacterController : MonoBehaviour
                 _isNowPogoJumping = false;
                 //no wall jumping
                 _isJumpFalling = true;
+            }else if (_isGrounded)
+            {
+                _isJumping=false;
+                _isJumpFalling = false;
             }
             else
             {
@@ -590,12 +594,12 @@ public class RefactoredCharacterController : MonoBehaviour
     /// <returns>if player ground hitbox is touching ground</returns>
     private bool CheckGrounded()
     {
-        return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer);
+        return Physics2D.OverlapBox((Vector2)transform.position + _md.xGroundCheckOffSet * Vector2.right + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer);
     }
 
     private GameObject CheckGrounded(bool meow)
     {
-        return Physics2D.OverlapBox((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer)?.gameObject;
+        return Physics2D.OverlapBox((Vector2)transform.position + _md.xGroundCheckOffSet*Vector2.right + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize, 0, _md.groundLayer)?.gameObject;
     }
 
     #region EDITOR METHODS
@@ -606,7 +610,7 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         if (!Application.isPlaying) return;
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube((Vector2)transform.position + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize);
+        Gizmos.DrawWireCube((Vector2)transform.position + _md.xGroundCheckOffSet * Vector2.right + _md.yGroundCheckOffSet * Vector2.up, _md.groundCheckSize);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight));
