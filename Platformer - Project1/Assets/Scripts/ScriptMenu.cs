@@ -43,6 +43,7 @@ public class ScriptMenu : MonoBehaviour
         try
         {
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.MenuMusic);
+            Debug.Log("LLamado =0");
         }
         catch
         {
@@ -79,6 +80,14 @@ public class ScriptMenu : MonoBehaviour
     }
     public void PressedLevel2()
     {
+        try
+        {
+            AudioManager.Instance.StopMusic(FMODEvents.Instance.MenuMusic);
+        }
+        catch
+        {
+            Debug.Log("Mete AudioManager prefab UwU");
+        }
         _gameManager.SaveValue();
         SceneManager.LoadScene("Nivel_Boss");
        

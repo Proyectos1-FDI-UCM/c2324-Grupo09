@@ -1393,32 +1393,32 @@ MonoBehaviour:
     Path: event:/Music
   <Pogo>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1428765869
+      Data2: 1298976194
+      Data3: 519761812
+      Data4: -2030647439
+    Path: event:/Pogo
   <FallingPlatform>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1007313837
+      Data2: 1101153773
+      Data3: 572711086
+      Data4: 1184885509
+    Path: event:/FallingPlatform
   <MenuMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -355939373
+      Data2: 1233071125
+      Data3: 176396679
+      Data4: -2080823765
+    Path: event:/MenuMusic
   <BossMusic>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -807796423
+      Data2: 1217769580
+      Data3: -1905323085
+      Data4: -1300027760
+    Path: event:/BossMusic
 --- !u!1 &1591056977
 GameObject:
   m_ObjectHideFlags: 0
