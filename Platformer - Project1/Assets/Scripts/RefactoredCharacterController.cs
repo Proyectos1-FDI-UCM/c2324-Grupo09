@@ -9,7 +9,8 @@ public class RefactoredCharacterController : MonoBehaviour
     #region references
     [SerializeField]
     private LayerMask _killsMeLayer;
-
+    [SerializeField]
+    float _jumpMargin = 0.1f;
     ChangeCollider _changeCollider;
     private HitboxComponent _hitbox;
     private RefactoredCharacterMovement _chMovement;
@@ -120,12 +121,12 @@ public class RefactoredCharacterController : MonoBehaviour
     {
         _lastJumpTimeInput = _md.jumpBufferTime;
     }
-
+    /*
     public void JumpDown(float totalSlideValue)
     {
         //llama a una corroutina pa hacer el JumpCut
     }
-
+    */
     //Triggers on pressing the slide/pogo key
     public void SlideDown()
     {
@@ -153,7 +154,7 @@ public class RefactoredCharacterController : MonoBehaviour
     //Triggers on releasing jump button
     public void JumpUp()
     {
-        if (_isJumping && !_isNowPogoJumping)
+        if (/*_isJumping &&*/ !_isNowPogoJumping)
         {
             _chMovement.JumpCut();
         }
@@ -228,6 +229,8 @@ public class RefactoredCharacterController : MonoBehaviour
     }
 
     //Runs 50 times per second
+
+
     void FixedUpdate()
     {
         if (!_dead)
@@ -286,7 +289,7 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else if (!_isUsingPogo)
                 {
-                    if (abilities[2] && (_chMovement.RBVel.y > 0 && !_isGrounded))
+                    if (abilities[2] && (_chMovement.RBVel.y > 0.3f || !_isGrounded))
                     {
                         _hitbox.DisableHitbox();
                         _animComp.SetPogoTr();
@@ -376,11 +379,12 @@ public class RefactoredCharacterController : MonoBehaviour
                 _isNowPogoJumping = false;
                 //no wall jumping
                 _isJumpFalling = true;
-            }else if (_isGrounded)
+            }/*
+            else if (_isGrounded)
             {
                 _isJumping=false;
                 _isJumpFalling = false;
-            }
+            }*/
             else
             {
                 _isJumpFalling = false;
