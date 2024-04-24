@@ -30,6 +30,7 @@ public class AnimationComponent : MonoBehaviour
     public void SetPogoTr()
     {
         _animator.SetTrigger("PogoTr");
+
     }
     public void SetPogo(bool val)
     {

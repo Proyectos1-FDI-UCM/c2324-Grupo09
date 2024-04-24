@@ -276,7 +276,7 @@ public class RefactoredCharacterController : MonoBehaviour
 
                     _chMovement.Slide();
                     _changeCollider.StartSlide();
-                    AudioManager.Instance?.PlayOneShot(FMODEvents.Instance.Slide, this.transform.position);
+
 
                     _lastSlideTime = Time.time;
                     _isSliding = true;
@@ -286,13 +286,15 @@ public class RefactoredCharacterController : MonoBehaviour
                 }
                 else if (!_isUsingPogo)
                 {
-                    if (abilities[2] && (_chMovement.RBVel.y > 0 || !Physics2D.OverlapBox((Vector2)transform.position + (_md.yGroundCheckOffSet - _md.minPogoHeight / 2) * Vector2.up, new Vector2(_md.groundCheckSize.x, _md.minPogoHeight), 0, _md.groundLayer)))
+                    if (abilities[2] && (_chMovement.RBVel.y > 0 && !_isGrounded))
                     {
                         _hitbox.DisableHitbox();
                         _animComp.SetPogoTr();
+                        Debug.Log(_chMovement.RBVel.y);
                         try { AudioManager.Instance?.PlayOneShot(FMODEvents.Instance.Pogo, this.transform.position); }
                         catch { Debug.Log("Falta el audio"); }
- 
+
+
                         _isUsingPogo = true;
                         _isWallJumping = false;
                         _pogoStartTime = Time.time;
@@ -486,6 +488,7 @@ public class RefactoredCharacterController : MonoBehaviour
                         }
                     }
                 }
+
             }
             #endregion
 
