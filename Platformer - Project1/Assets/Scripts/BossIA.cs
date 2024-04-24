@@ -334,12 +334,13 @@ public class BossIA : MonoBehaviour
         //StartCoroutine(HugeHandSweepLVL1());
         //_bossPatrons[4](3);
 
-        
+
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         //if (currentBS == BossStates.Wraithed) StartCoroutine(SpawnLasers());
         //GetNewPatronSeries();
         //UseNextPatron();
         //_bossPatrons[0]((int)currentBS);
+        AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
     }
 
     /// <summary>

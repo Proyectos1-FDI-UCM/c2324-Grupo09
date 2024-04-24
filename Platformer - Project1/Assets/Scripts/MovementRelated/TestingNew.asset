@@ -62,7 +62,7 @@ MonoBehaviour:
   maxFallSpeed: 250
   xGroundCheckOffSet: 0.23
   yGroundCheckOffSet: -1
-  groundCheckSize: {x: 6.1, y: 1}
+  groundCheckSize: {x: 6.1, y: 0.5}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

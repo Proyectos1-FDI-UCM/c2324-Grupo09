@@ -105,6 +105,7 @@ public class RefactoredCharacterMovement : MonoBehaviour
 
     public void PogoJump()
     {
+
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _md.jumpForce * _md.empoweredJumpForceMultiplier, ForceMode2D.Impulse);
     }
@@ -154,8 +155,14 @@ public class RefactoredCharacterMovement : MonoBehaviour
         {
             _rb.velocity = new Vector2(0, _rb.velocity.y);
             sameDirectionFactor = 1;
+
         }
         _rb.AddForce(sameDirectionFactor * Vector2.right * _lastDirection * _md.slideHorizontalForce, ForceMode2D.Impulse);
+        try
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Slide, this.transform.position);
+        }
+        catch { Debug.Log("Falta el audio"); }
     }
 
     public void ApplyForce(Vector2 direction, float force)
