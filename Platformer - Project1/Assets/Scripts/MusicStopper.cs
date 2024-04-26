@@ -6,6 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MusicStopper : MonoBehaviour
 {
+    private void Start()
+    {
+        try
+        {
+
+            AudioManager.Instance.InitializeMusic(FMODEvents.Instance.Music);
+        }
+        catch
+        {
+            Debug.Log("Mete audiomanager porfaaa");
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<RefactoredCharacterController>() != null)

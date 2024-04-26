@@ -11,7 +11,7 @@ public class LoadBossSceneOnTouh : MonoBehaviour
         try
         {
             
-            Debug.Log("ME cago en tus muertos");
+            Debug.Log("AAAAAA");
             AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
 
         }
