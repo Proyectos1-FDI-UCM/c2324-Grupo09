@@ -18,7 +18,6 @@ public class InitBossSceneOnTriggerEnter : MonoBehaviour
         tileMapToActivate.SetActive(true);
         try
         {
-            AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.BossMusic);
 
         }

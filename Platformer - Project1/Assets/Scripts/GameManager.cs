@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private int FPS;
+    private int FPS = 60;
     
     [SerializeField]
     private ParticleManager particleManager;

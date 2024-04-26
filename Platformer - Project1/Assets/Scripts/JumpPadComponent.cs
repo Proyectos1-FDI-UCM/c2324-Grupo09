@@ -26,9 +26,9 @@ public class JumpPadComponent : MonoBehaviour
     private void Start()
     {
         try
-        {
+        { 
+
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.Music);
-            Debug.Log("Se llama");
         }
         catch
         {

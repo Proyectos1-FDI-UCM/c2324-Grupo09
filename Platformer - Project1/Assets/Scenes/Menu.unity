@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292f131f47c48ae4d8e14039e672e3b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FPS: 0
+  FPS: 60
   particleManager: {fileID: 1663511607}
 --- !u!4 &1891969765
 Transform:
