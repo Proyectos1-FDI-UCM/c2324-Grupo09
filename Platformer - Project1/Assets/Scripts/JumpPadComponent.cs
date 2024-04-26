@@ -25,7 +25,7 @@ public class JumpPadComponent : MonoBehaviour
 
     private void Start()
     {
-        
+
         AimArrow();
     }
 
@@ -47,3 +47,4 @@ public class JumpPadComponent : MonoBehaviour
         }
     }
 }
+

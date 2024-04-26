@@ -10,7 +10,6 @@ public class MusicStopper : MonoBehaviour
     {
         try
         {
-
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.Music);
         }
         catch
@@ -18,6 +17,7 @@ public class MusicStopper : MonoBehaviour
             Debug.Log("Mete audiomanager porfaaa");
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<RefactoredCharacterController>() != null)
@@ -25,7 +25,6 @@ public class MusicStopper : MonoBehaviour
             try
             {
 
-                Debug.Log("ME cago en tus muertos");
                 AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
 
             }
@@ -37,5 +36,6 @@ public class MusicStopper : MonoBehaviour
         }
 
     }
+    
 }
 
