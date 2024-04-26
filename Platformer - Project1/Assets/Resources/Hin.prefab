@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hinVision: 35
   _timeMoving: 0
-  _totalTimeMoving: 5
+  _totalTimeMoving: 3
   _HinMaxSpeed: 80
 --- !u!114 &3157777918776290402
 MonoBehaviour:
