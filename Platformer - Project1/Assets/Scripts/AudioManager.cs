@@ -60,6 +60,10 @@ public class AudioManager : MonoBehaviour
     {
         musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
+    public void StopAllMusic()
+    {
+        musicBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
 
 
 }

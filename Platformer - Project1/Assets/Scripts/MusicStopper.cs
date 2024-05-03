@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class MusicStopper : MonoBehaviour
 {
     private void Start()
     {
+        /*
         try
         {
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.Music);
@@ -16,6 +16,7 @@ public class MusicStopper : MonoBehaviour
         {
             Debug.Log("Mete audiomanager porfaaa");
         }
+        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +26,7 @@ public class MusicStopper : MonoBehaviour
             try
             {
 
-                AudioManager.Instance.StopMusic(FMODEvents.Instance.Music);
+                AudioManager.Instance.StopAllMusic();
 
             }
             catch
