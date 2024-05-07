@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638496682345467062
+  lastModified: 638495534781158614
   FileSizes:
   - Name: Desktop
     Value: 129824
@@ -325,7 +325,7 @@ MonoBehaviour:
   - {fileID: 3900988852417737636}
   StringsBanks:
   - {fileID: 757989061321503002}
-  cacheTime: 638496682345467062
+  cacheTime: 638495534781158614
   cacheVersion: 131616
 --- !u!114 &357961940318716017
 MonoBehaviour:
@@ -369,7 +369,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638488889465382700
+  lastModified: 638488893060072610
   FileSizes:
   - Name: Desktop
     Value: 1715328
@@ -416,7 +416,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638488889465292692
+  lastModified: 638488893059892652
   FileSizes:
   - Name: Desktop
     Value: 1390
@@ -539,7 +539,7 @@ MonoBehaviour:
   Path: Assets/SFXIgnominy/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638496682345452014
+  lastModified: 638495534781128622
   FileSizes:
   - Name: Desktop
     Value: 63680
