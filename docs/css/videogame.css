@@ -1,5 +1,12 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
+
+#grad1 {
+  height: 200px;
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(red, yellow);
+}
+
 /* Padding below the footer and lighter body text */
 
 html,body {
