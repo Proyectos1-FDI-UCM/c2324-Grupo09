@@ -11,6 +11,10 @@
 
 html,body {
   font-size: 18px;
+  padding-bottom: 1rem;
+color: #5a5a5a;
+background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
+background: linear-gradient(red /*rgba(0,0,0,0)*/,orange /*rgba(0,0,0,0)*/ );
 }
 body {
   padding-bottom: 1rem;
