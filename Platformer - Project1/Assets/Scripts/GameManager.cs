@@ -69,19 +69,22 @@ public class GameManager : MonoBehaviour
     }
     public void OnDie(Vector3 playerPosition)
     {
-       
-      
-        FadeCanvas.SetActive(true);
+        if (_blockDeadCount == false)
+        {
+
+            FadeCanvas.SetActive(true);
         SetCirclePosition(playerPosition);
-        _deathCount++;
-        _blockDeadCount = true;
         
+            _deathCount++;
+            _blockDeadCount = true;
 
-        SetDeathCountPosition();
-        CameraAnimator.SetTrigger("FadeOut");
-        cameraController.DespawnEnemiesOnRoomExit();
-        boss?.PlayerDied();
 
+
+            SetDeathCountPosition();
+            CameraAnimator.SetTrigger("FadeOut");
+            cameraController.DespawnEnemiesOnRoomExit();
+            boss?.PlayerDied();
+        }
     }
     private void OnDestroy()
     {
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour
     public void PlayerTeleport()
     {
         charController.TeleportPlayer();
+        _blockDeadCount = false;
         cameraController.SpawnEnemiesOnRoomEnter();
         DestryAfterTime[] _obj = FindObjectsOfType<DestryAfterTime>();
         foreach (DestryAfterTime block in _obj)
