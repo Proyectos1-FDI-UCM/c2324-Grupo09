@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 
 #grad1 {
-  height: 200px;
+  height: 1200px;
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(red, yellow);
 }
