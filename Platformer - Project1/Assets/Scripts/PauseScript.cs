@@ -48,6 +48,7 @@ public class PauseScript : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         _gameManager.SaveValue();
+        AudioManager.Instance.StopAllMusic();
         SceneManager.LoadScene(0);
        
         
