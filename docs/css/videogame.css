@@ -15,6 +15,7 @@ html,body {
   color: #dcdfe3;
   background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
   background: linear-gradient(rgba(205,56,76,1),rgba(91,60,85,1));
+  text-align: center;
 }
 body {
   padding-bottom: 1rem;
