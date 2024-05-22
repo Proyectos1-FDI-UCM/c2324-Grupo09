@@ -6,7 +6,7 @@ main {
 #grad1 {
   height: 1200px;
   background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(red, yellow);
+  background-image: linear-gradient(rgba(205,56,76,1), rgba(91,60,85,1));
 }
 
 /* Padding below the footer and lighter body text */
@@ -32,7 +32,11 @@ body {
 }
 .column2 {
   float: left;
-  width: 20%;
+  width: 33%;
+}
+.column3 {
+  float: left;
+  width: 50%;
 }
 
 .topImage img{
