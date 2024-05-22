@@ -29,7 +29,6 @@ body {
 .column {
   float: left;
   width: 25%;
-  padding: 40px;
 }
 .column2 {
     float: left;
@@ -39,7 +38,6 @@ body {
 .column3 {
     float: left;
     width: 50%;
-    padding: 40px;
 }
 
 .topImage img{
