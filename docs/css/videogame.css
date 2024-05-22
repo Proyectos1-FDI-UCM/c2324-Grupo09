@@ -9,13 +9,16 @@
 
 /* Padding below the footer and lighter body text */
 
-html,body {
-  font-size: 18px;
-  padding-bottom: 1rem;
-  color: #dcdfe3;
-  background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
-  background: linear-gradient(rgba(205,56,76,1),rgba(91,60,85,1));
-  text-align: center;
+html, body {
+    font-size: 18px;
+    padding-bottom: 1rem;
+    color: #dcdfe3;
+    background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
+    background: linear-gradient(rgba(205,56,76,1),rgba(91,60,85,1));
+    text-align: center;
+}
+ul {
+    list-style-type: none;
 }
 body {
   padding-bottom: 1rem;
@@ -30,6 +33,11 @@ body {
 
 img.img-header {
   max-height: 500px;
+}
+.wrapper {
+    display: inline-grid;
+    grid-template-columns: repeat(2, [col-start] 1fr);
+    column-gap: 20px;
 }
 
 
@@ -99,6 +107,11 @@ footer p {
   .featurette-heading {
     margin-top: 7rem;
   }
+}
+
+.skills img{
+    width: 20%;
+    height: auto;
 }
 
 /* FONTS
