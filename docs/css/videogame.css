@@ -24,7 +24,14 @@ body {
   padding-bottom: 1rem;
   color: #dcdfe3;
 }
-
+.column {
+  float: left;
+  width: 25%;
+}
+.column2 {
+  float: left;
+  width: 20%;
+}
 
 
 
@@ -110,10 +117,9 @@ footer p {
 }
 
 .skills img{
-    width: 20%;
+    width: 50%;
     height: auto;
 }
-
 /* FONTS
 -------------------------------------------------------------*/
 
