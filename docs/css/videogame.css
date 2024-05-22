@@ -1,6 +1,8 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
-
+main {
+    background-size: 100% 100%;
+}
 #grad1 {
   height: 1200px;
   background-color: red; /* For browsers that do not support gradients */
@@ -33,13 +35,16 @@ body {
   width: 20%;
 }
 
-
-
+.topImage img{
+    background-color:transparent;
+    align-self: center;
+    width: 87.6%;
+    height:85%;
+}
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
-
 img.img-header {
-  max-height: 500px;
+    max-height: 500px;
 }
 .wrapper {
     display: inline-grid;
