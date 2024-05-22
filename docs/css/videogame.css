@@ -29,21 +29,24 @@ body {
 .column {
   float: left;
   width: 25%;
+  padding: 40px;
 }
 .column2 {
-  float: left;
-  width: 33%;
+    float: left;
+    width: 33%;
+    /*padding: 0px;*/
 }
 .column3 {
-  float: left;
-  width: 50%;
+    float: left;
+    width: 50%;
+    padding: 40px;
 }
 
 .topImage img{
     background-color:transparent;
     align-self: center;
-    width: 87.6%;
-    height:85%;
+    width: 75%;
+    height: auto;
 }
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
