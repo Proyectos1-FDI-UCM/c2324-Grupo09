@@ -8,11 +8,15 @@ main {
   background-color: red; /* For browsers that do not support gradients */
   background-image: linear-gradient(rgba(205,56,76,1), rgba(91,60,85,1));
 }
+li{
+    position: relative;
+    left:-1.1rem;
+}
 
 /* Padding below the footer and lighter body text */
 
 html, body {
-    font-size: 18px;
+    font-size: 1.1rem;
     padding-bottom: 1rem;
     color: #dcdfe3;
     background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
@@ -54,7 +58,7 @@ img.img-header {
 .wrapper {
     display: inline-grid;
     grid-template-columns: repeat(2, [col-start] 1fr);
-    column-gap: 20px;
+    column-gap: 1.2rem;
 }
 
 
@@ -116,7 +120,7 @@ footer p {
   }
 
   .featurette-heading {
-    font-size: 50px;
+    font-size: 12rem;
   }
 }
 
