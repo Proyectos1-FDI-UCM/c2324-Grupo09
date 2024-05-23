@@ -39,7 +39,7 @@ public class ScriptMenu : MonoBehaviour
     {
         
         _gameManager = FindObjectOfType<GameManager>();
-        _optionsMenu.SetActive(false);
+        
         try
         {
             AudioManager.Instance.InitializeMusic(FMODEvents.Instance.MenuMusic);
@@ -54,10 +54,12 @@ public class ScriptMenu : MonoBehaviour
         _gameManager.Return();
         _gameManager.ChangeValues(out master, out music, out sfx, out toggle);
         _gameManager.Level1Completed(out completed);
+        
         masterSlider.value = master;
         sfxSlider.value = sfx;
         musicSlider.value = music;
         _vfxtoggle.isOn = toggle;
+        Debug.Log("porfi");
         _optionsMenu.SetActive(false);
         _bossButton.interactable = completed;
 
