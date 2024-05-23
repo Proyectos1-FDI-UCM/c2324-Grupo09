@@ -52,9 +52,6 @@ body {
 }
 /* CUSTOMIZE THE HEADER
 -------------------------------------------------- */
-img.img-header {
-    max-height: 500px;
-}
 .wrapper {
     display: inline-grid;
     grid-template-columns: repeat(2, [col-start] 1fr);
