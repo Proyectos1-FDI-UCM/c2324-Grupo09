@@ -14,14 +14,18 @@ li{
 }
 
 .skills {
-    background-color: #8E2AAF;
     width: 100%;
 }
-
-.enemies {
-    /*max-height= 2em;*/
-    background-color: #90173A;
-    width: 100%;
+/*.enemies {
+  max-height= 2em;
+  background-color: #90173A;
+  width: 100%;
+}*/
+.title{
+  width: 50%;
+  margin-left: 25%;
+  background-color: #012F3D;
+  color: #dcdfe3;
 }
 
 .DeadBread{
