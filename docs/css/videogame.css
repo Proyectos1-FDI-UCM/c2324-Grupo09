@@ -13,6 +13,22 @@ li{
     left:-1.1rem;
 }
 
+.skills {
+    background-color: #8E2AAF;
+    width: 100%;
+}
+
+.enemies {
+    /*max-height= 2em;*/
+    background-color: #90173A;
+    width: 100%;
+}
+
+.DeadBread{
+    align-content:center;
+    margin-left:33%;
+}
+
 /* Padding below the footer and lighter body text */
 
 html, body {
@@ -22,6 +38,7 @@ html, body {
     background-color: red; /*------------------------------------------------------------------------Escoger los colores del gradiente*/
     background: linear-gradient(rgba(205,56,76,1),rgba(91,60,85,1));
     text-align: center;
+
 }
 ul {
     list-style-type: none;
@@ -77,7 +94,6 @@ body {
 .media-item {
   margin: 1rem;
 }
-
 
 /* Featurettes
 ------------------------- */
@@ -152,7 +168,7 @@ p{
   font-style: normal;
 }
 
-h2,h3,h4,ul{
+h1,h2,h3,h4,ul{
   font-family: "Rufina", serif;
   font-weight: 700;
   font-style: normal;
