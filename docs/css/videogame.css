@@ -24,7 +24,7 @@ li{
 .title{
   width: 50%;
   margin-left: 25%;
-  background-color: #012F3D;
+  /*background-color: #012F3D;*/
   color: #dcdfe3;
 }
 
@@ -155,25 +155,25 @@ footer p {
 -------------------------------------------------------------*/
 
 .rufina-regular {
-  font-family: "Rufina", serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .rufina-bold {
-  font-family: "Rufina", serif;
-  font-weight: 700;
-  font-style: normal;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
-p{
-  font-family: "Rufina", serif;
-  font-weight: 400;
-  font-style: normal;
+p {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 h1,h2,h3,h4,ul{
-  font-family: "Rufina", serif;
+  font-family: Georgia, serif;
   font-weight: 700;
   font-style: normal;
 }
